@@ -1,0 +1,84 @@
+**Canvas Parte A: Fondamenti di immagini raster in Wolfram Language**
+
+**1. Cos'è un'immagine raster**
+In Wolfram Language, un'immagine raster è un oggetto di tipo `Image` o `Image3D` che rappresenta una griglia 
+di pixel. Ogni pixel è codificato come valore numerico (nel caso di immagini in scala di grigi) o come vettore
+ di tre componenti per immagini RGB. L'accesso ai dati è possibile con `ImageData[img]`, che restituisce una
+  matrice.
+
+**2. Differenza tra immagini in scala di grigi e RGB**
+- **Scala di grigi:** `Image[mat, "Byte"]` dove `mat` è una matrice di valori tra 0 e 1. 
+    Ogni valore rappresenta un'intensità luminosa.
+
+- **RGB:** `Image[{r, g, b}]` con una lista tridimensionale o array 3D, dove ogni livello corrisponde a
+     un canale colore.
+
+**3. Visualizzazione delle immagini con intensità e colore**
+Si possono utilizzare:
+- `MatrixPlot[ImageData[img]]` per visualizzare la struttura della matrice.
+- `ImageAdjust`, `ColorConvert`, `ImageMeasurements` per interazioni dinamiche.
+- `Manipulate` con slider per esplorare le variazioni nei canali.
+
+**Canvas Parte B: Trasformazioni Lineari su Immagini**
+
+**1. Introduzione alle trasformazioni lineari**
+In Wolfram, possiamo trattare le immagini come insiemi di vettori nello spazio. 
+    Le trasformazioni lineari sono descritte da matrici applicate ai vettori posizione dei pixel (coordinate).
+
+**2. Matrice identità e trasformazioni principali**
+- `IdentityMatrix[2]`: applicata, non modifica l'immagine.
+- `{{a, b}, {c, d}}`: può produrre scaling, rotazione, riflessione, shearing.
+- Le trasformazioni possono essere applicate con `ImageTransformation` o `GeometricTransformation`.
+
+**3. Introduzione al determinante**
+Il **determinante** della matrice trasformante è indicatore di scala e orientamento:
+- `Det[m] > 0`: trasformazione preserva orientamento.
+- `Det[m] < 0`: inverte l'orientamento (riflessione).
+- `Det[m] = 0`: perdita d'informazione (collasso di dimensione).
+
+**4. Attività didattiche suggerite**
+- Visualizza l'effetto delle trasformazioni su una griglia (`GraphicsGrid`, `Rasterize`).
+- Applica trasformazioni interattive a un'immagine (`Manipulate`, `ImageTransformation`).
+- Analisi del determinante di matrici 2x2 associate alla trasformazione dell'immagine.
+
+**Canvas Parte C: Convoluzioni e Filtri**
+
+**1. Cos'è una convoluzione**
+In Wolfram, l'operazione `ImageConvolve[img, kernel]` applica una maschera (o kernel) su ogni pixel. È fondamentale per comprendere i processi di filtraggio delle immagini.
+
+**2. Kernel comuni**
+- **Blur:** `Kernel -> GaussianMatrix[3]`
+- **Edge detection:** kernel di Sobel, Laplaciano.
+- **Sharpen:** kernel centrato positivo con negativi circostanti.
+
+**3. Didattica interattiva**
+- Visualizzazione del kernel con `MatrixPlot`.
+- Comparazione prima/dopo (`ImageCompose`, `ImageDifference`).
+- Slider per modificare il kernel e vedere in tempo reale il cambiamento.
+
+**4. Rappresentazione matriciale**
+Mostrare come il kernel attraversa la matrice immagine e genera una nuova matrice risultato. 
+Utilizzare `ArrayPlot`, `ImageData`, `ListConvolve` per illustrare il processo.
+
+**Sezione Test - Esercizi didattici**
+
+**Obiettivo:** Consolidare la comprensione delle immagini come matrici e degli effetti di operazioni 
+algebriche e convoluzioni.
+
+**Tipologia 1: Riconoscimento dell'effetto**
+- Viene mostrata un'immagine trasformata.
+- L'utente deve riconoscere il tipo di trasformazione o filtro applicato.
+
+**Tipologia 2: Reverse Engineering**
+- Mostrare un'immagine modificata e l'originale.
+- L'utente deve selezionare (tramite bottoni o griglia) il kernel o la matrice che può riportare 
+l'immagine allo stato originale.
+- Variante: solo visualizzazione dei valori, nessuna scrittura di codice.
+
+**Tipologia 3: Applicazione logica**
+- Data una matrice immagine parziale e il risultato di una convoluzione, dedurre i valori mancanti del kernel.
+- Semplice per iniziare, con possibilità di passaggi più complessi.
+
+**Nota didattica finale:**
+Tutti i test e le dimostrazioni devono sfruttare l'interattività del notebook Wolfram (`Dynamic`, `Manipulate`, `Button`, `LabeledSlider`) e devono evitare ogni input testuale o codice da parte dell'utente. Ogni esercizio può essere generato in modo casuale usando `SeedRandom[AbsoluteTime[]]` per assicurare variabilità ad ogni apertura.
+
