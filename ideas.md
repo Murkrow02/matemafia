@@ -10,7 +10,7 @@ Il progetto è strutturato in tre parti principali:
 
 - **Parte C**: approfondisce il concetto di convoluzione, una tecnica chiave per il filtraggio e la trasformazione delle immagini. Viene spiegato cosa sono i kernel e come agiscono sui pixel per generare effetti visivi.
 
-A completamento del percorso, è presente una **sezione di esercizi** progettata per stimolare la riflessione e il ragionamento visivo, permettendo all'utente di interagire con immagini ed effetti senza scrivere codice, ma solo attraverso interfacce intuitive.
+A completamento del percorso, è presente una **sezione di esercizi** progettata per stimolare la riflessione e il ragionamento visivo, permettendo all'utente di interagire con immagini ed effetti.
 
 ---
 
@@ -27,13 +27,13 @@ Un'immagine raster è una rappresentazione visiva composta da una griglia rettan
 **3. Visualizzazione delle immagini con intensità e colore**
 Le immagini in scala di grigi possono essere viste come una semplice matrice di numeri: ogni numero rappresenta quanto chiaro o scuro è un determinato punto. Le immagini a colori, invece, sono costituite da tre matrici sovrapposte (una per ogni colore) che lavorano insieme per produrre la percezione visiva del colore.
 
-Per aiutare la comprensione, si possono utilizzare esempi visivi come una scacchiera (bianco e nero) per simulare una matrice di pixel. In questo modo diventa evidente come ogni cella corrisponde a un numero e come la variazione dei numeri modifica l'aspetto dell'immagine.
+Si possono utilizzare esempi visivi come una scacchiera (bianco e nero) per simulare una matrice di pixel. In questo modo diventa evidente come ogni cella corrisponde a un numero e come la variazione dei numeri modifica l'aspetto dell'immagine.
 
 
 **Canvas Parte B: Trasformazioni Lineari su Immagini**
 
 **1. Introduzione alle trasformazioni lineari**
-Le trasformazioni lineari permettono di modificare la posizione e l'aspetto dei punti all'interno di una matrice. Ogni trasformazione può essere rappresentata da una matrice 2x2 applicata alle coordinate dei punti dell'immagine. Le trasformazioni lineari comprendono rotazioni, riflessioni, dilatazioni (scaling) e deformazioni (shearing).
+Le trasformazioni lineari permettono di modificare la posizione e l'aspetto dei punti all'interno di una matrice. Ogni trasformazione può essere rappresentata da una matrice  applicata alle coordinate dei punti dell'immagine. Le trasformazioni lineari comprendono rotazioni, riflessioni, dilatazioni (scaling) e deformazioni (shearing).
 
 **2. Matrice identità e trasformazioni principali**
 - La **matrice identità** è una matrice speciale che, quando applicata, non modifica nulla: lascia l'immagine invariata.
