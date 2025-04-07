@@ -1,0 +1,211 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      8073,        203]
+NotebookOptionsPosition[      7276,        181]
+NotebookOutlinePosition[      7676,        197]
+CellTagsIndexPosition[      7633,        194]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Tutorial", ".", "nb"}], "*)"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "1.", " ", "Imposta", " ", "la", " ", "directory", " ", "corrente", " ", 
+    "come", " ", "quella", " ", "del", " ", "notebook"}], "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}], "\n", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\n"}]}]], "Input",
+ CellChangeTimes->{{3.952745699409548*^9, 3.952745710570202*^9}, 
+   3.952745952639303*^9, {3.952746078962372*^9, 3.9527460978947487`*^9}, {
+   3.9527461487763844`*^9, 3.9527461687407856`*^9}, 3.952746288894665*^9, {
+   3.9527465146368504`*^9, 3.952746514794716*^9}, {3.9527471025594273`*^9, 
+   3.9527471035393677`*^9}, {3.952747153118515*^9, 3.9527471781166153`*^9}, {
+   3.9527476625473785`*^9, 3.952747677295967*^9}, {3.952748354531*^9, 
+   3.952748355309431*^9}, {3.9527485213354435`*^9, 3.952748530329529*^9}, {
+   3.952748610383648*^9, 3.9527486105739155`*^9}, {3.9527487449342937`*^9, 
+   3.9527487464275265`*^9}, 3.952748990411949*^9, {3.953001158113386*^9, 
+   3.953001176199812*^9}, {3.953001321441963*^9, 3.95300132178294*^9}, {
+   3.9530020274903812`*^9, 3.9530020525688*^9}},
+ CellLabel->"In[77]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
+
+Cell[CellGroupData[{
+
+Cell["Introduzione alle immagini matriciali", "Title",
+ CellChangeTimes->{{3.953002054557562*^9, 
+  3.953002084596472*^9}},ExpressionUUID->"a05b6ce8-b1cc-614f-aa76-\
+4df6857225b3"],
+
+Cell[CellGroupData[{
+
+Cell["bla bla blaaaaaa", "Section",
+ CellChangeTimes->{{3.9530020954378605`*^9, 
+  3.9530020977370167`*^9}},ExpressionUUID->"a10ea3b2-9119-6e4e-afca-\
+48b65e6a9b90"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"startUI", "[", "]"}]}]], "Input",
+ CellChangeTimes->{{3.9530021001614056`*^9, 3.9530021011001015`*^9}},
+ CellLabel->"In[79]:=",ExpressionUUID->"e1d98aeb-69a9-6d4a-accc-615d56871e02"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     StyleBox["\"\<Cos'\[EGrave] un'immagine raster\>\"",
+      StripOnInput->False,
+      FontSize->18,
+      FontWeight->Bold]},
+    {
+     StyleBox["\"\<Un'immagine raster \[EGrave] una griglia di celle (pixel), \
+ciascuna con un valore che rappresenta il colore o l'intensit\[AGrave] \
+luminosa.\\nNel caso delle immagini in scala di grigi, ogni cella ha un \
+valore da 0 (nero) a 1 (bianco).\>\"",
+      StripOnInput->False,
+      FontSize->14]},
+    {
+     StyleBox["\"\<Esempio semplificato: scacchiera 5\[Times]5\>\"",
+      StripOnInput->False,
+      FontSize->14,
+      FontSlant->Italic]},
+    {
+     TemplateBox[{
+       GraphicsBox[{
+         RasterBox[
+         SparseArray[
+          Automatic, {5, 5}, 0., {
+           1, {{0, 3, 5, 8, 10, 13}, {{1}, {3}, {5}, {2}, {4}, {1}, {3}, {
+             5}, {2}, {4}, {1}, {3}, {5}}}, {1., 1., 1., 1., 1., 1., 1., 1., 
+            1., 1., 1., 1., 1.}}], {{0, 0}, {5, 5}}, {0, 1}], {{
+          Antialiasing -> False, 
+           GrayLevel[
+            NCache[-1 + GoldenRatio, 0.6180339887498949]], 
+           
+           LineBox[{{{0, 5}, {5, 5}}, {{0, 4}, {5, 4}}, {{0, 3}, {5, 3}}, {{0,
+             2}, {5, 2}}, {{0, 1}, {5, 1}}, {{0, 0}, {5, 0}}}]}, {
+          Antialiasing -> False, 
+           GrayLevel[
+            NCache[-1 + GoldenRatio, 0.6180339887498949]], 
+           
+           LineBox[{{{0, 0}, {0, 5}}, {{1, 0}, {1, 5}}, {{2, 0}, {2, 5}}, {{3,
+             0}, {3, 5}}, {{4, 0}, {4, 5}}, {{5, 0}, {5, 5}}}]}}}, Frame -> 
+        True, FrameLabel -> {None, None}, 
+        FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> 
+        Directive[
+          GrayLevel[0.5, 0.4]], ImageSize -> Medium, 
+        Method -> {
+         "GridLinesInFront" -> True, "DefaultBoundaryStyle" -> Automatic, 
+          "DefaultGraphicsInteraction" -> {
+           "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+            "Effects" -> {
+             "Highlight" -> {"ratio" -> 2}, 
+              "HighlightPoint" -> {"ratio" -> 2}, 
+              "Droplines" -> {
+               "freeformCursorMode" -> True, 
+                "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+          "DefaultPlotStyle" -> Automatic}, PlotLabel -> 
+        FormBox["\"Visualizzazione rasterizzata (bianco = 1, nero = 0)\"", 
+          TraditionalForm]], 
+       TemplateBox[{30}, "Spacer1"], 
+       TagBox[
+        GridBox[{{
+           StyleBox[
+           "\"Matrice corrispondente\"", StripOnInput -> False, FontSize -> 
+            12, FontSlant -> Italic]}, {
+           TagBox[
+            RowBox[{"(", "\[NoBreak]", 
+              
+              GridBox[{{"1", "0", "1", "\[Placeholder]", "1"}, {
+                "0", "1", "0", "1", "0"}, {"1", "0", "1", "0", "1"}, {
+                "0", "1", "0", "1", "0"}, {"1", "0", "1", "0", "1"}}, 
+               GridBoxAlignment -> {
+                "Columns" -> {{Center}}, "Rows" -> {{Baseline}}}, 
+               GridBoxSpacings -> {"Columns" -> {
+                   Offset[0.27999999999999997`], {
+                    Offset[0.7]}, 
+                   Offset[0.27999999999999997`]}, "Rows" -> {
+                   Offset[0.2], {
+                    Offset[0.4]}, 
+                   Offset[0.2]}}], "\[NoBreak]", ")"}], 
+            Function[BoxForm`e$, 
+             MatrixForm[BoxForm`e$]]]}}, DefaultBaseStyle -> "Column", 
+         GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]},
+      "RowDefault"]},
+    {
+     TemplateBox[{20},
+      "Spacer1"]},
+    {
+     StyleBox["\"\<Questa rappresentazione mostra come i valori numerici \
+possono essere 'tradotti' in immagine.\>\"",
+      StripOnInput->False,
+      LineColor->GrayLevel[0.5],
+      FrontFaceColor->GrayLevel[0.5],
+      BackFaceColor->GrayLevel[0.5],
+      GraphicsColor->GrayLevel[0.5],
+      FontSize->12,
+      FontColor->GrayLevel[0.5]]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{2}}}],
+  "Column"]], "Input",
+ CellChangeTimes->{{3.9530023098308105`*^9, 3.9530023123681507`*^9}},
+ CellLabel->"",ExpressionUUID->"db727fa5-e66b-0141-8239-5e1d2cd71fdc"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{949, 497},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (December 26, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"ade0dd46-19cc-9646-88a0-87a5414730c0"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 1668, 31, 256, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
+Cell[CellGroupData[{
+Cell[2247, 55, 180, 3, 96, "Title",ExpressionUUID->"a05b6ce8-b1cc-614f-aa76-4df6857225b3"],
+Cell[CellGroupData[{
+Cell[2452, 62, 165, 3, 66, "Section",ExpressionUUID->"a10ea3b2-9119-6e4e-afca-48b65e6a9b90"],
+Cell[2620, 67, 263, 4, 66, "Input",ExpressionUUID->"e1d98aeb-69a9-6d4a-accc-615d56871e02"],
+Cell[2886, 73, 4362, 104, 625, "Input",ExpressionUUID->"db727fa5-e66b-0141-8239-5e1d2cd71fdc"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

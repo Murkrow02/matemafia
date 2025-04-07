@@ -1,84 +1,109 @@
-**Canvas Parte A: Fondamenti di immagini raster in Wolfram Language**
+**Canvas Parte A: Fondamenti di immagini raster**
 
 **1. Cos'è un'immagine raster**
-In Wolfram Language, un'immagine raster è un oggetto di tipo `Image` o `Image3D` che rappresenta una griglia 
-di pixel. Ogni pixel è codificato come valore numerico (nel caso di immagini in scala di grigi) o come vettore
- di tre componenti per immagini RGB. L'accesso ai dati è possibile con `ImageData[img]`, che restituisce una
-  matrice.
+Un'immagine raster è una rappresentazione visiva composta da una griglia rettangolare di elementi
+ chiamati pixel. Ogni pixel è una cella della griglia che contiene informazioni visive, 
+ come l'intensità luminosa o il colore. L'intera immagine è quindi una matrice di valori numerici,
+  dove ogni valore corrisponde a un pixel. Le immagini raster sono usate comunemente nei computer 
+  e nei dispositivi digitali per rappresentare fotografie e grafiche. Le dimensioni della matrice 
+  (altezza x larghezza) definiscono la risoluzione dell'immagine.
 
 **2. Differenza tra immagini in scala di grigi e RGB**
-- **Scala di grigi:** `Image[mat, "Byte"]` dove `mat` è una matrice di valori tra 0 e 1. 
-    Ogni valore rappresenta un'intensità luminosa.
+- **Scala di grigi:** ogni pixel è rappresentato da un solo valore numerico, che indica la sua 
+intensità luminosa. Tipicamente questi valori vanno da 0 (nero) a 1 (bianco), oppure da 0 a 255 
+in rappresentazioni intere. Questa modalità è utilizzata per immagini monocromatiche.
 
-- **RGB:** `Image[{r, g, b}]` con una lista tridimensionale o array 3D, dove ogni livello corrisponde a
-     un canale colore.
+- **RGB:** ogni pixel è descritto da un vettore di tre valori, che rappresentano l'intensità dei 
+tre colori fondamentali: Rosso (Red), Verde (Green), e Blu (Blue). Combinando questi tre valori si
+ ottiene il colore finale del pixel. Anche in questo caso, i valori possono variare da 0 a 1 o da 0 a 255.
 
 **3. Visualizzazione delle immagini con intensità e colore**
-Si possono utilizzare:
-- `MatrixPlot[ImageData[img]]` per visualizzare la struttura della matrice.
-- `ImageAdjust`, `ColorConvert`, `ImageMeasurements` per interazioni dinamiche.
-- `Manipulate` con slider per esplorare le variazioni nei canali.
+Le immagini in scala di grigi possono essere viste come una semplice matrice di numeri: ogni numero
+ rappresenta quanto chiaro o scuro è un determinato punto. Le immagini a colori, invece, sono costituite 
+ da tre matrici sovrapposte (una per ogni colore) che lavorano insieme per produrre la percezione visiva 
+ del colore.
+
+Per aiutare la comprensione, si possono utilizzare esempi visivi come una scacchiera (bianco e nero) 
+per simulare una matrice di pixel. In questo modo diventa evidente come ogni cella corrisponde a un numero 
+e come la variazione dei numeri modifica l'aspetto dell'immagine.
+
 
 **Canvas Parte B: Trasformazioni Lineari su Immagini**
 
 **1. Introduzione alle trasformazioni lineari**
-In Wolfram, possiamo trattare le immagini come insiemi di vettori nello spazio. 
-    Le trasformazioni lineari sono descritte da matrici applicate ai vettori posizione dei pixel (coordinate).
+Le trasformazioni lineari permettono di modificare la posizione e l'aspetto dei punti 
+all'interno di una matrice. Ogni trasformazione può essere rappresentata da una matrice 2x2 
+applicata alle coordinate dei punti dell'immagine. Le trasformazioni lineari comprendono rotazioni,
+ riflessioni, dilatazioni (scaling) e deformazioni (shearing).
 
 **2. Matrice identità e trasformazioni principali**
-- `IdentityMatrix[2]`: applicata, non modifica l'immagine.
-- `{{a, b}, {c, d}}`: può produrre scaling, rotazione, riflessione, shearing.
-- Le trasformazioni possono essere applicate con `ImageTransformation` o `GeometricTransformation`.
+- La **matrice identità** è una matrice speciale che, quando applicata, non modifica nulla: lascia 
+l'immagine invariata.
+
+- Altre matrici possono modificare l'immagine in vari modi:
+  - **Scaling**: ingrandisce o riduce l'immagine.
+  - **Rotazione**: ruota l'immagine attorno a un punto.
+  - **Riflessione**: crea una copia speculare.
+  - **Shearing**: distorce l'immagine spingendo i punti in una direzione.
 
 **3. Introduzione al determinante**
-Il **determinante** della matrice trasformante è indicatore di scala e orientamento:
-- `Det[m] > 0`: trasformazione preserva orientamento.
-- `Det[m] < 0`: inverte l'orientamento (riflessione).
-- `Det[m] = 0`: perdita d'informazione (collasso di dimensione).
+Il determinante di una matrice di trasformazione è un numero che descrive alcune proprietà 
+geometriche della trasformazione:
+- Se il determinante è positivo, la trasformazione preserva l'orientamento dell'immagine.
+- Se è negativo, l'immagine viene riflessa.
+- Se il determinante è zero, la trasformazione riduce l'immagine a una dimensione inferiore, 
+perdendo informazioni (es. collasso su una linea).
 
 **4. Attività didattiche suggerite**
-- Visualizza l'effetto delle trasformazioni su una griglia (`GraphicsGrid`, `Rasterize`).
-- Applica trasformazioni interattive a un'immagine (`Manipulate`, `ImageTransformation`).
-- Analisi del determinante di matrici 2x2 associate alla trasformazione dell'immagine.
+- Rappresentare visivamente una griglia e mostrare l'effetto di ciascuna trasformazione.
+- Confrontare una matrice trasformata con la sua versione originale.
+- Collegare i concetti astratti (come il determinante) a effetti visivi concreti.
+
 
 **Canvas Parte C: Convoluzioni e Filtri**
 
 **1. Cos'è una convoluzione**
-In Wolfram, l'operazione `ImageConvolve[img, kernel]` applica una maschera (o kernel) su ogni pixel. È fondamentale per comprendere i processi di filtraggio delle immagini.
+La convoluzione è un processo matematico che si applica a una matrice (in questo caso l'immagine) 
+mediante un'altra matrice più piccola, chiamata **kernel** o **filtro**. Si usa per modificare o 
+estrarre informazioni da un'immagine, come rendere sfocati i bordi o evidenziarli.
 
 **2. Kernel comuni**
-- **Blur:** `Kernel -> GaussianMatrix[3]`
-- **Edge detection:** kernel di Sobel, Laplaciano.
-- **Sharpen:** kernel centrato positivo con negativi circostanti.
+- **Sfocatura (Blur):** distribuisce l'intensità dei pixel vicini, rendendo l'immagine più morbida.
+- **Rilevamento dei bordi:** evidenzia le transizioni nette tra aree di colore o intensità.
+- **Nitidezza (Sharpen):** aumenta il contrasto tra pixel vicini per rendere l'immagine più definita.
 
 **3. Didattica interattiva**
-- Visualizzazione del kernel con `MatrixPlot`.
-- Comparazione prima/dopo (`ImageCompose`, `ImageDifference`).
-- Slider per modificare il kernel e vedere in tempo reale il cambiamento.
+- Mostrare passo per passo come un filtro si sposta sull'immagine e ne modifica i valori.
+- Visualizzare la matrice del kernel e l'effetto prodotto.
+- Usare esempi semplificati per facilitare la comprensione del meccanismo.
 
 **4. Rappresentazione matriciale**
-Mostrare come il kernel attraversa la matrice immagine e genera una nuova matrice risultato. 
-Utilizzare `ArrayPlot`, `ImageData`, `ListConvolve` per illustrare il processo.
+Ogni convoluzione può essere vista come il risultato di una moltiplicazione tra porzioni 
+dell'immagine e il kernel. Sommando i risultati si ottiene un nuovo valore per ciascun pixel. 
+Questo procedimento si ripete su tutta l'immagine per produrre l'effetto desiderato.
+
 
 **Sezione Test - Esercizi didattici**
 
-**Obiettivo:** Consolidare la comprensione delle immagini come matrici e degli effetti di operazioni 
-algebriche e convoluzioni.
+**Obiettivo:** Sviluppare la comprensione pratica delle immagini come matrici e dei principali 
+effetti delle trasformazioni lineari e convoluzioni.
 
 **Tipologia 1: Riconoscimento dell'effetto**
-- Viene mostrata un'immagine trasformata.
-- L'utente deve riconoscere il tipo di trasformazione o filtro applicato.
+- Mostrare un'immagine modificata.
+- Chiedere all'utente di identificare quale tipo di trasformazione o filtro è stato applicato.
 
 **Tipologia 2: Reverse Engineering**
-- Mostrare un'immagine modificata e l'originale.
-- L'utente deve selezionare (tramite bottoni o griglia) il kernel o la matrice che può riportare 
-l'immagine allo stato originale.
-- Variante: solo visualizzazione dei valori, nessuna scrittura di codice.
+- Fornire una coppia di immagini (originale e modificata).
+- Chiedere all'utente di dedurre quale kernel, filtro o trasformazione è stato applicato.
+- Variante: fornire più opzioni visive tra cui scegliere.
 
 **Tipologia 3: Applicazione logica**
-- Data una matrice immagine parziale e il risultato di una convoluzione, dedurre i valori mancanti del kernel.
-- Semplice per iniziare, con possibilità di passaggi più complessi.
+- Mostrare una parte della matrice immagine e il risultato parziale di una convoluzione.
+- Chiedere all'utente di completare la matrice del kernel, basandosi sui risultati.
 
 **Nota didattica finale:**
-Tutti i test e le dimostrazioni devono sfruttare l'interattività del notebook Wolfram (`Dynamic`, `Manipulate`, `Button`, `LabeledSlider`) e devono evitare ogni input testuale o codice da parte dell'utente. Ogni esercizio può essere generato in modo casuale usando `SeedRandom[AbsoluteTime[]]` per assicurare variabilità ad ogni apertura.
+Tutte le attività devono essere guidate da un'interfaccia interattiva e visiva, 
+in cui l'utente può osservare e riflettere, senza necessità di scrivere codice. 
+La varietà degli esercizi può essere aumentata generando casi diversi a ogni avvio del notebook, 
+ùutilizzando metodi casuali controllati per la riproducibilità.
 
