@@ -1,4 +1,4 @@
-@ -0,0 +1,230 @@
+
 
 SetOptions[$FrontEnd, IgnoreSpellCheck -> True]
 
@@ -32,7 +32,7 @@ Le immagini digitali piu' comuni – come fotografie, screenshot o illustrazioni
 - **Se l'immagine e' in bianco e nero (scala di grigi)**, ogni pixel e' un singolo valore che esprime la luminosita'.
 - **Se l'immagine e' a colori (RGB)**, ogni pixel contiene piu' valori, uno per ciascun canale di colore (Rosso, Verde e Blu).
 
-In termini matematici, potete pensare a un'immagine come a una **matrice** (o, in caso di immagini a colori, a una "matrice di matrici") le cui dimensioni corrispondono alla **risoluzione** dell'immagine. Ad esempio, un'immagine di 800 × 600 pixel puo' essere vista come una tabella di 600 righe e 800 colonne; ogni cella della tabella corrisponde a un singolo pixel.
+In termini matematici, potete pensare a un'immagine come a una **matrice** (o, in caso di immagini a colori, a una "matrice di matrici") le cui dimensioni corrispondono alla **risoluzione** dell'immagine. Ad esempio, un'immagine di 800 x 600 pixel puo' essere vista come una tabella di 600 righe e 800 colonne; ogni cella della tabella corrisponde a un singolo pixel.
 
 ### Esempio intuitivo
 Immaginate una **scacchiera**: ogni casella e' nera o bianca. Se rappresentiamo il nero con il valore 0 e il bianco con il valore 1, otteniamo una matrice di 0 e 1 che costruisce lo schema della scacchiera. Questa e', a tutti gli effetti, un'immagine raster semplificata in scala di grigi!
@@ -70,18 +70,18 @@ Combinando questi tre canali in proporzioni diverse, possiamo ottenere qualsiasi
 
 ### 3.1 Come si passa dalla matrice all'immagine?
 
-Quando aprite un'immagine al computer, un software legge la **matrice dei pixel** e traduce i valori numerici in colori visualizzati sullo schermo. Per un'immagine in scala di grigi, se un pixel ha valore 50 (su un intervallo 0-255), appare come un punto di grigio scuro; se vale 200, appare grigio chiaro, e così via.
+Quando aprite un'immagine al computer, un software legge la **matrice dei pixel** e traduce i valori numerici in colori visualizzati sullo schermo. Per un'immagine in scala di grigi, se un pixel ha valore 50 (su un intervallo 0-255), appare come un punto di grigio scuro; se vale 200, appare grigio chiaro, e cosi' via.
 
 Per un'immagine a colori, il software legge i tre valori *(R, G, B)* di ogni pixel e produce il colore corrispondente. Piu' e' alta la componente R rispetto a G e B, piu' il colore tende al rosso; se invece sono uguali, il colore si trova in qualche punto vicino al grigio o al bianco (se i valori sono alti).
 
 ### 3.2 Esempio pratico (mini-scacchiera)
 
-Immaginate una **mini-scacchiera** di 4 × 4 pixel, dove le caselle bianche valgono 1 e quelle nere valgono 0. Possiamo scrivere la matrice così:
+Immaginate una **mini-scacchiera** di 4 x 4 pixel, dove le caselle bianche valgono 1 e quelle nere valgono 0. Possiamo scrivere la matrice cosi':
 
 **mettere immagine scacchiera** 
 
 
-Visualizzando questa matrice come un'immagine in scala di grigi (con 1 = bianco e 0 = nero), otterrete un pattern a scacchi di 4 × 4. Se fosse a colori, avreste una matrice per il canale rosso, una per il canale verde e una per quello blu.
+Visualizzando questa matrice come un'immagine in scala di grigi (con 1 = bianco e 0 = nero), otterrete un pattern a scacchi di 4 x 4. Se fosse a colori, avreste una matrice per il canale rosso, una per il canale verde e una per quello blu.
 
 ---
 
@@ -111,7 +111,7 @@ In algebra lineare, una **trasformazione lineare** T su uno spazio vettoriale e'
 1. **Additivita'**: T(x + z) = T(x) + T(z).  
 2. **Omonogeneita'**: T(a·x) = a·T(x).
 
-Se consideriamo un'immagine come un insieme (griglia) di coordinate (x, y) per i pixel, allora una matrice di trasformazione (ad esempio 2×2 in caso bidimensionale) puo' essere applicata a ciascun punto dell'immagine per trasformarlo in una nuova posizione nello spazio.
+Se consideriamo un'immagine come un insieme (griglia) di coordinate (x, y) per i pixel, allora una matrice di trasformazione (ad esempio 2x2 in caso bidimensionale) puo' essere applicata a ciascun punto dell'immagine per trasformarlo in una nuova posizione nello spazio.
 
 **In pratica**: la trasformazione lineare definisce **come** i punti (e quindi i pixel) dell'immagine si spostano, ruotano, ingrandiscono o si riflettono.
 
@@ -138,7 +138,7 @@ In algebra lineare, una **trasformazione lineare** T su uno spazio vettoriale e'
 1. **Additivita'**: T(x + z) = T(x) + T(z).  
 2. **Omonogeneita'**: T(a·x) = a·T(x).
 
-Se consideriamo un'immagine come un insieme (griglia) di coordinate (x, y) per i pixel, allora una matrice di trasformazione (ad esempio 2×2 in caso bidimensionale) puo' essere applicata a ciascun punto dell'immagine per trasformarlo in una nuova posizione nello spazio.
+Se consideriamo un'immagine come un insieme (griglia) di coordinate (x, y) per i pixel, allora una matrice di trasformazione (ad esempio 2x2 in caso bidimensionale) puo' essere applicata a ciascun punto dell'immagine per trasformarlo in una nuova posizione nello spazio.
 
 **In pratica**: la trasformazione lineare definisce **come** i punti (e quindi i pixel) dell'immagine si spostano, ruotano, ingrandiscono o si riflettono.
 
@@ -210,7 +210,7 @@ Dove k e' il coefficiente di shear. Questo effetto "inclina" l'immagine, mantene
 
 ## 5. Il ruolo del Determinante
 
-Nel caso bidimensionale, il **determinante** di una matrice di trasformazione (2×2) ci dice come varia l'area (e, in termini di immagine, quanto viene ingrandita o ridotta la porzione visiva):
+Nel caso bidimensionale, il **determinante** di una matrice di trasformazione (2x2) ci dice come varia l'area (e, in termini di immagine, quanto viene ingrandita o ridotta la porzione visiva):
 
 - Determinante > 1: la trasformazione ingrandisce l'immagine (area aumentata).
 - Determinante = 1: la trasformazione conserva l'area (come nel caso di una pura rotazione o riflessione).
@@ -227,5 +227,105 @@ Nel caso bidimensionale, il **determinante** di una matrice di trasformazione (2
 - **Rotazioni**, **riflessioni**, **scalature** e **deformazioni** sono tutte variazioni sul tema della trasformazione lineare.
 - Il **determinante** della matrice di trasformazione fornisce una misura di come varia l'area (o la "dimensione") dell'immagine.
 - Comprendere questi concetti di base e' essenziale per capire come i software di grafica gestiscano operazioni di "trasformazione", permettendoci di effettuare modifiche precise e consapevoli alle nostre immagini.
+
+---
+
+
+# Parte C: Convoluzioni e Filtri
+
+## 1. Introduzione alla convoluzione
+
+Quando vogliamo applicare **filtri** o **effetti** a un'immagine, spesso ci affidiamo a una tecnica chiamata **convoluzione**. Il principio e' semplice: applichiamo una piccola **matrice chiamata kernel** a ciascun pixel dell'immagine e ai suoi vicini per calcolare un nuovo valore.
+
+Questa tecnica permette di ottenere **sfocature**, **miglioramenti di contrasto**, **rilevamento dei bordi**, e tanti altri effetti, senza modificare direttamente i pixel originali ma creando una **nuova immagine filtrata**.
+
+---
+
+## 2. Cos'e' un kernel
+
+Un **kernel** (detto anche "filtro" o "maschera") e' una piccola **matrice quadrata** di dimensioni pari a 3x3, 5x5, ecc. Ogni elemento del kernel viene **moltiplicato** per il valore corrispondente di pixel nella zona su cui agisce, e poi **tutti i risultati vengono sommati** per ottenere il nuovo valore del pixel centrale.
+
+Ecco un esempio di kernel 3x3 per la sfocatura (blur):
+
+```
+[ 1 1 1 ]
+[ 1 1 1 ]
+[ 1 1 1 ]
+```
+
+In realta' questo kernel verrebbe **normalizzato**, cioe' diviso per 9, in modo che i valori risultanti non crescano troppo. Quindi diventa:
+
+```
+[ 1/9 1/9 1/9 ]
+[ 1/9 1/9 1/9 ]
+[ 1/9 1/9 1/9 ]
+```
+
+---
+
+## 3. Come funziona la convoluzione
+
+Per applicare un kernel a un'immagine, si procede cosi':
+
+1. Si **posiziona il centro del kernel** sopra un pixel dell'immagine.
+2. Si moltiplicano i valori del kernel per i pixel corrispondenti (cioe', il pixel centrale e i suoi vicini).
+3. Si somma il risultato e si assegna quel valore al pixel nella nuova immagine.
+
+Questo processo si **ripete per ogni pixel**, spostando il kernel uno alla volta su tutta l'immagine.
+
+> *Nota*: ai bordi dell'immagine, il kernel potrebbe "uscire" fuori. In questi casi si puo' usare **padding**, cioe' aggiungere righe/colonne fittizie (di zeri o altri valori).
+
+---
+
+## 4. Esempi di kernel comuni
+
+### 4.1 Sfocatura (Blur)
+
+Per ottenere un'immagine piu' morbida:
+
+```
+[ 1/9 1/9 1/9 ]
+[ 1/9 1/9 1/9 ]
+[ 1/9 1/9 1/9 ]
+```
+
+### 4.2 Nitidezza (Sharpen)
+
+Per evidenziare i dettagli:
+
+```
+[  0 -1  0 ]
+[ -1  5 -1 ]
+[  0 -1  0 ]
+```
+
+### 4.3 Rilevamento bordi (Edge detection)
+
+Per evidenziare i contorni:
+
+```
+[ -1 -1 -1 ]
+[ -1  8 -1 ]
+[ -1 -1 -1 ]
+```
+
+---
+
+## 5. Perche' funziona?
+
+La **convoluzione** permette di "leggere" il contesto attorno a ciascun pixel. Il kernel agisce come una lente che filtra le informazioni locali: somma, media, differenze, pesi diversi... tutto questo e' utile per:
+
+- **Modificare i contrasti**
+- **Mettere in evidenza le forme**
+- **Applicare effetti estetici** o funzionali
+
+---
+
+## Conclusioni Parte C
+
+- I filtri basati su kernel sono strumenti matematici semplici ma molto potenti.
+- Ogni filtro e' una **matrice piccola** che lavora su **blocchi locali** dell'immagine.
+- Comprendere la logica della convoluzione aiuta a capire **come i software di fotoritocco realizzano effetti complessi** in modo automatico.
+- Imparare a progettare o combinare kernel apre la strada a infinite possibilita' creative.
 
 ---
