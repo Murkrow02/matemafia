@@ -10,16 +10,14 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[      6264,        153]
-NotebookOptionsPosition[      5777,        136]
-NotebookOutlinePosition[      6177,        152]
-CellTagsIndexPosition[      6134,        149]
+NotebookDataLength[      2727,         71]
+NotebookOptionsPosition[      2340,         56]
+NotebookOutlinePosition[      2770,         73]
+CellTagsIndexPosition[      2727,         70]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
-
-Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", 
@@ -32,15 +30,15 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{"SetDirectory", "[", 
-     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
-   "\[IndentingNewLine]", "\n", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{"(*", 
     RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}], "\n", "\[IndentingNewLine]", 
+    RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}], 
+   "\[IndentingNewLine]", "\n", 
    RowBox[{"aUI", "[", "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   "\[IndentingNewLine]", "\n", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   "\[IndentingNewLine]"}]}]], "Input",
+   "\n"}]}]], "Input",
  CellChangeTimes->{{3.952745699409548*^9, 3.952745710570202*^9}, 
    3.952745952639303*^9, {3.952746078962372*^9, 3.9527460978947487`*^9}, {
    3.9527461487763844`*^9, 3.9527461687407856`*^9}, 3.952746288894665*^9, {
@@ -52,90 +50,13 @@ Cell[BoxData[
    3.9527487464275265`*^9}, 3.952748990411949*^9, {3.953001158113386*^9, 
    3.953001176199812*^9}, {3.953001321441963*^9, 3.95300132178294*^9}, {
    3.9530020274903812`*^9, 3.9530020525688*^9}, {3.9533536924035625`*^9, 
-   3.9533536959645176`*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
-
-Cell[BoxData[
- DynamicModuleBox[{ScacchieraInterattiva`Private`matrice$$ = {{127, 127, 127, 
-  127, 127, 127, 127, 127}, {127, 127, 127, 127, 127, 127, 127, 127}, {127, 
-  127, 127, 127, 127, 127, 127, 127}, {127, 127, 127, 127, 127, 127, 127, 
-  127}, {127, 127, 127, 127, 127, 127, 127, 127}, {127, 127, 127, 127, 127, 
-  127, 127, 127}, {127, 127, 127, 127, 127, 127, 127, 127}, {127, 127, 127, 
-  127, 127, 127, 127, 127}}}, 
-  TagBox[GridBox[{
-     {
-      StyleBox["\<\"Modifica la matrice cliccando sulle celle:\"\>",
-       StripOnInput->False,
-       FontSize->14,
-       FontWeight->Bold]},
-     {
-      DynamicBox[ToBoxes[
-        Grid[
-         Table[
-          
-          With[{ScacchieraInterattiva`Private`i$ = 
-            ScacchieraInterattiva`Private`i, ScacchieraInterattiva`Private`j$ = 
-            ScacchieraInterattiva`Private`j}, 
-           Button[
-            Dynamic[
-             Part[
-             ScacchieraInterattiva`Private`matrice$$, 
-              ScacchieraInterattiva`Private`i$, 
-              ScacchieraInterattiva`Private`j$]], 
-            
-            Module[{ScacchieraInterattiva`Private`nuovoValore$}, 
-             ScacchieraInterattiva`Private`nuovoValore$ = Quiet[
-                Input[
-                "Inserisci un valore intero per la cella (" <> 
-                 ToString[ScacchieraInterattiva`Private`i$] <> ", " <> 
-                 ToString[ScacchieraInterattiva`Private`j$] <> "):", 
-                 Part[
-                 ScacchieraInterattiva`Private`matrice$$, 
-                  ScacchieraInterattiva`Private`i$, 
-                  ScacchieraInterattiva`Private`j$]]]; If[
-               And[
-                IntegerQ[ScacchieraInterattiva`Private`nuovoValore$], 0 <= 
-                ScacchieraInterattiva`Private`nuovoValore$ <= 255], 
-               Part[ScacchieraInterattiva`Private`matrice$$, 
-                 ScacchieraInterattiva`Private`i$, 
-                 ScacchieraInterattiva`Private`j$] = 
-               ScacchieraInterattiva`Private`nuovoValore$]], 
-            ImageSize -> {40, 40}, Background -> Dynamic[
-              GrayLevel[
-              Part[ScacchieraInterattiva`Private`matrice$$, 
-                 ScacchieraInterattiva`Private`i$, 
-                 ScacchieraInterattiva`Private`j$]/255]], FrameMargins -> 2, 
-            FrameStyle -> Gray]], {ScacchieraInterattiva`Private`i, 8}, {
-          ScacchieraInterattiva`Private`j, 8}], Alignment -> Center, 
-         Spacings -> {2, 2}], StandardForm],
-       ImageSizeCache->{502., {248.134033203125, 253.865966796875}}]},
-     {
-      TemplateBox[{15},
-       "Spacer1"]},
-     {
-      StyleBox["\<\"Immagine generata dalla matrice:\"\>",
-       StripOnInput->False,
-       FontSize->14,
-       FontWeight->Bold]},
-     {
-      DynamicBox[ToBoxes[
-        Image[
-        ScacchieraInterattiva`Private`matrice$$, "Byte", ImageSize -> 300], 
-        StandardForm],
-       ImageSizeCache->{300., {147.134033203125, 152.865966796875}}]}
-    },
-    DefaultBaseStyle->"Column",
-    GridBoxAlignment->{"Columns" -> {{Center}}},
-    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
-    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{10}}}],
-   "Column"],
-  DynamicModuleValues:>{}]], "Output",
- CellChangeTimes->{3.9533543801965847`*^9},
- CellLabel->"Out[3]=",ExpressionUUID->"e1d800d3-f1a4-4e4e-a478-56ab6b47ae07"]
-}, Open  ]]
+   3.9533536959645176`*^9}, {3.9533562751556606`*^9, 3.9533562820105705`*^9}, 
+   3.953356346218157*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
 },
 WindowSize->{949, 497},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>0.8 Inherited,
 FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (December 26, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"ade0dd46-19cc-9646-88a0-87a5414730c0"
@@ -151,10 +72,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[CellGroupData[{
-Cell[576, 22, 1798, 33, 294, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
-Cell[2377, 57, 3384, 76, 1376, "Output",ExpressionUUID->"e1d800d3-f1a4-4e4e-a478-56ab6b47ae07"]
-}, Open  ]]
+Cell[554, 20, 1782, 34, 174, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
 }
 ]
 *)

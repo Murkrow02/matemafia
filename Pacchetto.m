@@ -1,58 +1,62 @@
-BeginPackage["ScacchieraInterattiva`"]
+BeginPackage["Pacchetto`"]
 
-aUI::usage = 
-  "ScacchieraInterattiva[] lancia un'interfaccia interattiva in cui l'utente può modificare una matrice 8×8 con valori in [0, 255]. \
-La cella cliccata permette l'inserimento di un nuovo valore (se valido) e la parte inferiore mostra l'immagine corrispondente."
+(* USAGE MESSAGE *)
+aUI::usage = "aUI[] mostra un'interfaccia interattiva composta da:
+- una scacchiera 8x8 (ArrayPlot) che rappresenta visivamente una matrice con valori 0 (nero) e 255 (bianco);
+- una griglia di bottoni cliccabili che permettono di modificare ogni cella, passando da 0 a 255 e viceversa.";
 
 Begin["`Private`"]
 
-aUI[] := DynamicModule[{matrice},
-  (* Inizializza la matrice con un valore medio, ad esempio 127 *)
-  matrice = ConstantArray[127, {8, 8}];
-  
-  Column[{
-    Style["Modifica la matrice cliccando sulle celle:", Bold, 14],
-    Dynamic@
+aUI[] := DynamicModule[
+  {
+   (* Matrice inizializzata con 255 (bianco) *)
+   mat = ConstantArray[255, {8, 8}]
+  },
+
+  Row[{
+
+    (* Funzione per cambiare il valore della cella *)Column[{
+      Text["Clicca su una cella per passare da 0 a 255 e viceversa:"],
       Grid[
         Table[
           With[{i = i, j = j},
             Button[
-              Dynamic[matrice[[i, j]]],
-              Module[{nuovoValore},
-                nuovoValore = Quiet[
-                  Input["Inserisci un valore intero per la cella (" <> ToString[i] <> ", " <> ToString[j] <> "):", 
-                    matrice[[i, j]]]
-                ];
-                (* Controlla se il valore inserito è un intero e rientra nel range [0,255] *)
-                If[IntegerQ[nuovoValore] && 0 <= nuovoValore <= 255,
-                  matrice[[i, j]] = nuovoValore
-                ]
-              ],
-              ImageSize -> {40, 40},
-              (* Imposta lo sfondo in scala di grigi *)
-              Background -> Dynamic[GrayLevel[matrice[[i, j]]/255]],
-              (* Un bordo per enfatizzare la cella *)
-              FrameMargins -> 2,
-              FrameStyle -> Gray
+              Dynamic[mat[[i, j]]],
+              mat[[i, j]] = If[mat[[i, j]] == 0, 255, 0],
+              Appearance -> None,
+              BaseStyle -> {FontSize -> 14, FontWeight -> Bold},
+              Background -> Dynamic[
+                If[mat[[i, j]] == 0, Gray, LightGray]
+              ]
             ]
           ],
           {i, 8}, {j, 8}
         ],
-        Alignment -> Center,
-        Spacings -> {2, 2}
-      ],
-    Spacer[15],
-    Style["Immagine generata dalla matrice:", Bold, 14],
+        Frame -> All
+      ]
+    }],
+    Spacer[20],
+
+
+
+    (* Scacchiera a sinistra *)
     Dynamic[
-      (* Usa Image con il formato "Byte" che interpreta i valori da 0 a 255 *)
-      Image[matrice, "Byte", ImageSize -> 300]
+      ArrayPlot[
+        mat,
+        ColorFunction -> (If[# == 0, Black, White] &),
+        PlotRange -> {0, 255},
+        PlotRangePadding -> None,
+        Mesh -> All,
+        MeshStyle -> Black,
+        Frame -> True,
+        FrameTicks -> None,
+        AspectRatio -> 1,
+        ImageSize -> 240
+      ]
     ]
-  },
-  Alignment -> Center,
-  Spacings -> 10]
+  }]
 ]
 
 End[]
 
 EndPackage[]
-
