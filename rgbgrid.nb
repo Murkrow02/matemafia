@@ -1,0 +1,463 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     17957,        453]
+NotebookOptionsPosition[     17470,        436]
+NotebookOutlinePosition[     17867,        452]
+CellTagsIndexPosition[     17824,        449]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"DynamicModule", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"r", ",", "g", ",", "b"}], "}"}], ",", 
+   RowBox[{
+    RowBox[{"r", "=", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "4"}], "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"g", "=", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "4"}], "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"b", "=", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "4"}], "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Grid", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<Canale Rosso\>\"", ",", "\"\<Canale Verde\>\"", 
+         ",", "\"\<Canale Blu\>\"", ",", "\"\<Immagine Combinata\>\""}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"With", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"i", "=", "i"}], ",", 
+                 RowBox[{"j", "=", "j"}]}], "}"}], ",", 
+               RowBox[{"InputField", "[", 
+                RowBox[{
+                 RowBox[{"Dynamic", "[", 
+                  RowBox[{
+                   RowBox[{"r", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"r", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                    RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "255"}], "}"}]}], "]"}]}], ")"}], 
+                    "&"}]}], "]"}], ",", "Number", ",", 
+                 RowBox[{"FieldSize", "->", "3"}]}], "]"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "4"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "4"}], "}"}]}], "]"}], ",", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"With", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"i", "=", "i"}], ",", 
+                 RowBox[{"j", "=", "j"}]}], "}"}], ",", 
+               RowBox[{"InputField", "[", 
+                RowBox[{
+                 RowBox[{"Dynamic", "[", 
+                  RowBox[{
+                   RowBox[{"g", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"g", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                    RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "255"}], "}"}]}], "]"}]}], ")"}], 
+                    "&"}]}], "]"}], ",", "Number", ",", 
+                 RowBox[{"FieldSize", "->", "3"}]}], "]"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "4"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "4"}], "}"}]}], "]"}], ",", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"With", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"i", "=", "i"}], ",", 
+                 RowBox[{"j", "=", "j"}]}], "}"}], ",", 
+               RowBox[{"InputField", "[", 
+                RowBox[{
+                 RowBox[{"Dynamic", "[", 
+                  RowBox[{
+                   RowBox[{"b", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"b", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                    RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "255"}], "}"}]}], "]"}]}], ")"}], 
+                    "&"}]}], "]"}], ",", "Number", ",", 
+                 RowBox[{"FieldSize", "->", "3"}]}], "]"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "4"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "4"}], "}"}]}], "]"}], ",", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         RowBox[{"Dynamic", "[", 
+          RowBox[{"Image", "[", 
+           RowBox[{
+            RowBox[{"Table", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"r", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "j"}], "]"}], "]"}], "/", "255"}], ",", 
+                RowBox[{
+                 RowBox[{"g", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "j"}], "]"}], "]"}], "/", "255"}], ",", 
+                RowBox[{
+                 RowBox[{"b", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "j"}], "]"}], "]"}], "/", "255"}]}], 
+               "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"i", ",", "4"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"j", ",", "4"}], "}"}]}], "]"}], ",", 
+            RowBox[{"ColorSpace", "->", "\"\<RGB\>\""}], ",", 
+            RowBox[{"ImageSize", "->", "200"}]}], "]"}], "]"}]}], "}"}]}], 
+      "}"}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.953612388308796*^9, 3.95361238831138*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"39a19dfb-ebdc-4f8a-a325-ccf8d95ec7c0"],
+
+Cell[BoxData[
+ DynamicModuleBox[{$CellContext`r$$ = {{255, 0, 0, 255}, {0, 0, 0, 0}, {0, 0, 
+  255, 0}, {255, 0, 0, 0}}, $CellContext`g$$ = {{255, 0, 0, 255}, {0, 255, 0, 
+  0}, {0, 0, 0, 0}, {0, 255, 0, 0}}, $CellContext`b$$ = {{0, 0, 0, 255}, {0, 
+  255, 0, 0}, {0, 0, 255, 0}, {0, 0, 255, 0}}}, 
+  TagBox[GridBox[{
+     {"\<\"Canale Rosso\"\>", "\<\"Canale Verde\"\>", "\<\"Canale Blu\"\>", "\
+\<\"Immagine Combinata\"\>"},
+     {
+      TagBox[GridBox[{
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 1, 1], (Part[$CellContext`r$$, 1, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 1, 2], (Part[$CellContext`r$$, 1, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 1, 3], (Part[$CellContext`r$$, 1, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 1, 4], (Part[$CellContext`r$$, 1, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 2, 1], (Part[$CellContext`r$$, 2, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 2, 2], (Part[$CellContext`r$$, 2, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 2, 3], (Part[$CellContext`r$$, 2, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 2, 4], (Part[$CellContext`r$$, 2, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 3, 1], (Part[$CellContext`r$$, 3, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 3, 2], (Part[$CellContext`r$$, 3, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 3, 3], (Part[$CellContext`r$$, 3, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 3, 4], (Part[$CellContext`r$$, 3, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 4, 1], (Part[$CellContext`r$$, 4, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 4, 2], (Part[$CellContext`r$$, 4, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 4, 3], (Part[$CellContext`r$$, 4, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`r$$, 4, 4], (Part[$CellContext`r$$, 4, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]}
+        },
+        AutoDelete->False,
+        GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], 
+      TagBox[GridBox[{
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 1, 1], (Part[$CellContext`g$$, 1, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 1, 2], (Part[$CellContext`g$$, 1, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 1, 3], (Part[$CellContext`g$$, 1, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 1, 4], (Part[$CellContext`g$$, 1, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 2, 1], (Part[$CellContext`g$$, 2, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 2, 2], (Part[$CellContext`g$$, 2, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 2, 3], (Part[$CellContext`g$$, 2, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 2, 4], (Part[$CellContext`g$$, 2, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 3, 1], (Part[$CellContext`g$$, 3, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 3, 2], (Part[$CellContext`g$$, 3, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 3, 3], (Part[$CellContext`g$$, 3, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 3, 4], (Part[$CellContext`g$$, 3, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 4, 1], (Part[$CellContext`g$$, 4, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 4, 2], (Part[$CellContext`g$$, 4, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 4, 3], (Part[$CellContext`g$$, 4, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`g$$, 4, 4], (Part[$CellContext`g$$, 4, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]}
+        },
+        AutoDelete->False,
+        GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], 
+      TagBox[GridBox[{
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 1, 1], (Part[$CellContext`b$$, 1, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 1, 2], (Part[$CellContext`b$$, 1, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 1, 3], (Part[$CellContext`b$$, 1, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 1, 4], (Part[$CellContext`b$$, 1, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 2, 1], (Part[$CellContext`b$$, 2, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 2, 2], (Part[$CellContext`b$$, 2, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 2, 3], (Part[$CellContext`b$$, 2, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 2, 4], (Part[$CellContext`b$$, 2, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 3, 1], (Part[$CellContext`b$$, 3, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 3, 2], (Part[$CellContext`b$$, 3, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 3, 3], (Part[$CellContext`b$$, 3, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 3, 4], (Part[$CellContext`b$$, 3, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]},
+         {
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 4, 1], (Part[$CellContext`b$$, 4, 1] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 4, 2], (Part[$CellContext`b$$, 4, 2] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 4, 3], (Part[$CellContext`b$$, 4, 3] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3], 
+          InputFieldBox[Dynamic[
+            Part[$CellContext`b$$, 4, 4], (Part[$CellContext`b$$, 4, 4] = 
+            Clip[#, {0, 255}])& ], Number,
+           FieldSize->3]}
+        },
+        AutoDelete->False,
+        GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], 
+      DynamicBox[ToBoxes[
+        Image[
+         Table[{
+          Part[$CellContext`r$$, $CellContext`i, $CellContext`j]/255, 
+           Part[$CellContext`g$$, $CellContext`i, $CellContext`j]/255, 
+           Part[$CellContext`b$$, $CellContext`i, $CellContext`j]/
+           255}, {$CellContext`i, 4}, {$CellContext`j, 4}], ColorSpace -> 
+         "RGB", ImageSize -> 200], StandardForm],
+       ImageSizeCache->{250., {121.41754150390625`, 128.58245849609375`}}]}
+    },
+    AutoDelete->False,
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"],
+  DynamicModuleValues:>{}]], "Output",
+ CellChangeTimes->{3.953612389383152*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"852fe276-416c-49c0-ba0f-4b9064d4e2b0"]
+}, Open  ]]
+},
+WindowSize->{Full, Full},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (December 26, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"15bb5702-04b8-49f2-90c5-a8eb1603d5ac"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 6314, 160, 240, "Input",ExpressionUUID->"39a19dfb-ebdc-4f8a-a325-ccf8d95ec7c0"],
+Cell[6893, 184, 10561, 249, 292, "Output",ExpressionUUID->"852fe276-416c-49c0-ba0f-4b9064d4e2b0"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
