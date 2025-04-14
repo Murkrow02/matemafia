@@ -161,22 +161,61 @@ aUI[] := DynamicModule[
 ]
 
 rotazione[] := Module[{},
-
- Manipulate[
-  Module[{img, rotata, matrice},
-   img = ExampleData[{"TestImage", "House"}];
-   rotata = ImageRotate[img, angolo Degree];
-   matrice = N[{
-      {Cos[angolo Degree], -Sin[angolo Degree]},
-      {Sin[angolo Degree], Cos[angolo Degree]}
-      }];
-   Grid[{
-     {rotata, MatrixForm[NumberForm[#, {4, 2}] & /@ matrice]}
-     }, Spacings -> {2, 2}]
-   ],
-  {{angolo, 0, "Angolo (gradi)"}, 0, 360, 1, Appearance -> "Labeled"}
-  ]
+  Manipulate[
+   Module[{img, rotata, matrice, grafico},
+    
+    img = ExampleData[{"TestImage", "House"}];
+    rotata = ImageRotate[img, angolo Degree, Background -> White];
+    
+    (* Matrice di rotazione *)
+    matrice = N[{
+       {Cos[angolo Degree], -Sin[angolo Degree]},
+       {Sin[angolo Degree], Cos[angolo Degree]}
+       }];
+    
+    grafico = Plot[
+      Sin[x Degree],
+      {x, 0, 360},
+      PlotStyle -> Red,
+      Epilog -> {
+        Red, PointSize[Large],
+        Point[{angolo, Sin[angolo Degree]}]
+        },
+      AxesLabel -> {"Angolo (°)", "sin(angolo)"},
+      PlotRange -> {{0, 360}, {-1.1, 1.1}},
+      ImageSize -> 300
+      ];
+    
+    Grid[{
+      {
+       rotata,
+       Column[{
+        MatrixForm[matrice],
+         grafico
+         }, Spacings -> 2]
+       }
+      }, Spacings -> {2, 2}]
+    ],
+   
+   {{angolo, 0, "Angolo (gradi)"}, 
+    0, 360, 1, 
+    Appearance -> "Labeled"},
+   
+   Delimiter,
+   Row[{
+     Button["0°", angolo = 0],
+     Button["30°", angolo = 30],
+     Button["45°", angolo = 45],
+     Button["60°", angolo = 60],
+     Button["90°", angolo = 90],
+     Button["180°", angolo = 180],
+     Button["270°", angolo = 270],
+     Button["360°", angolo = 360]
+     }, Spacer[5]]
+   ]
  ]
+
+
 
 riflessione[] := Module[{},
 
@@ -195,52 +234,87 @@ riflessione[] := Module[{},
   {{asse, "X", "Asse di riflessione"}, {"X", "Y"}}
   ]
  ]
-
 scala[] := Module[{},
-
- Manipulate[
-  Module[{img, scalata, matrice},
-   img = ExampleData[{"TestImage", "House"}];
-   scalata = ImageResize[img, Scaled[{sx, sy}]];
-   matrice = {
-     {sx, 0},
-     {0, sy}
-     };
-   Grid[{
-     {scalata, MatrixForm[NumberForm[matrice, {4, 2}]]}
-     }, Spacings -> {2, 2}]
+  Manipulate[
+   Module[{img, scalata, matrice, det, unitSquare, transformedSquare, 
+     warning, plotRange},
+    
+    (* Original image with dynamic padding to prevent clipping *)
+    img = ExampleData[{"TestImage", "House"}];
+    
+    (* Apply scaling *)
+    scalata = ImageResize[img, Scaled[{sx, sy}]];
+    
+    (* Transformation matrix and determinant *)
+    matrice = {{sx, 0}, {0, sy}};
+    det = sx * sy;
+    
+    (* Visualize the transformation on a unit square *)
+    unitSquare = Polygon[{{0, 0}, {1, 0}, {1, 1}, {0, 1}}];
+    transformedSquare = GeometricTransformation[unitSquare, ScalingTransform[{sx, sy}]];
+    
+    (* Determine plot range based on scaling *)
+    plotRange = {{-0.5, Max[1.5, sx + 0.5]}, {-0.5, Max[1.5, sy + 0.5]}};
+    
+    (* Warnings *)
+    warning = Which[
+      det == 0, Style["⚠️ Determinant is ZERO (collapsed to a line/point)!", Red, Bold],
+      det < 0.1, Style["⚠️ Near-zero determinant (severe distortion)!", Orange, Bold],
+      True, ""
+    ];
+    
+    (* Grid layout *)
+    Grid[{
+      {scalata, 
+       Column[{
+         Style["Scaling Matrix", Bold, 14],
+         MatrixForm[matrice],
+         Spacer[10],
+         Style["Determinant: " <> ToString[det], Bold, Darker[Green]],
+         warning,
+         Spacer[10],
+         Graphics[{
+           {EdgeForm[Black], LightBlue, unitSquare},
+          {EdgeForm[{Thick, Red}], Opacity[0.5], Red, transformedSquare},
+           (* Add dimension labels *)
+           Text[Style["1", 12], {0.5, -0.1}],
+           Text[Style["1", 12], {-0.1, 0.5}],
+           Text[Style[ToString[sx], 12, Red], {sx/2, -0.1}],
+           Text[Style[ToString[sy], 12, Red], {-0.1, sy/2}],
+           (* Add axis labels *)
+           Text[Style["X", 14], {plotRange[[1, 2]] - 0.2, -0.3}],
+           Text[Style["Y", 14], {-0.3, plotRange[[2, 2]] - 0.2}],
+           (* Add grid lines *)
+           Gray, Dashed,
+           Line[{{0, sy}, {sx, sy}}], 
+           Line[{{sx, 0}, {sx, sy}}],
+           Axes -> True,
+           AxesStyle -> Thick,
+           PlotLabel -> Style["Unit Square → Transformed", 14],
+           ImageSize -> 300,
+           PlotRange -> plotRange
+         }]
+       }, Alignment -> Center]}
+    }, Spacings -> 3, Alignment -> Center]
    ],
-  {{sx, 1, "Scala X"}, 0.1, 3, 0.1, Appearance -> "Labeled"},
-  {{sy, 1, "Scala Y"}, 0.1, 3, 0.1, Appearance -> "Labeled"}
-  ]
- ]
-
-shear[] := Module[{},
-
- Manipulate[
-  Module[{img, trasformata, matrice, t},
-   img = ExampleData[{"TestImage", "House"}];
-
-   matrice = {
-     {1, shx},
-     {shy, 1}
-     };
-
-   (* Applico la trasformazione con funzione inversa specificata *)
-   trasformata = ImageTransformation[
-     img,
-     Function[{x, y}, InverseFunction[matrice].{x, y}],
-     DataRange -> Full
-     ];
-
-   Grid[{
-     {trasformata, MatrixForm[NumberForm[matrice, {4, 2}]]}
-     }, Spacings -> {2, 2}]
-   ],
-  {{shx, 0, "Shear X"}, -1, 1, 0.1, Appearance -> "Labeled"},
-  {{shy, 0, "Shear Y"}, -1, 1, 0.1, Appearance -> "Labeled"}
-  ]
- ]
+   
+   (* Controls *)
+   {{sx, 1, "Scale X"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
+   {{sy, 1, "Scale Y"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
+   
+   (* Quick-set buttons *)
+   Delimiter,
+   Row[{
+     Button["1:1", {sx = 1, sy = 1}],
+     Button["2:1", {sx = 1, sy = 0.5}],
+     Button["1:2", {sx = 0.5, sy = 1}],
+   }, Spacer[5]],
+   
+   (* Enlarge the Manipulate window *)
+   ControlPlacement -> Top,
+   Paneled -> True,
+   FrameMargins -> 10  ]
+]
 
 bUI[] := Column[{
   Style["Rotazione", Bold, 14],
@@ -248,9 +322,7 @@ bUI[] := Column[{
   Style["Riflessione", Bold, 14],
   riflessione[],
   Style["Scala", Bold, 14],
-  scala[],
-  Style["Shear (Inclinazione)", Bold, 14],
-  shear[]
+  scala[]
   }]
 
 
