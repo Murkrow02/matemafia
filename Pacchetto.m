@@ -1,8 +1,14 @@
 BeginPackage["Pacchetto`"]
 
 
+
+
 aUI::usage = "aUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
-bUI::usage = "bUI represents the second user interface component of the application. It is used to manage and display additional graphical interface elements.";
+bUI::usage = "bUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
+
+
+
+
 
 Begin["`Private`"]
 
@@ -58,7 +64,7 @@ aUI[] := DynamicModule[
 
     Spacer[30],
 
-    (* RIGA 2: Matrice RGB + ArrayPlot RGB + SLIDER A DESTRA *)
+    
     Row[{
 
       (* RGB VALUES GRID *)
