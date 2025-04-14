@@ -154,49 +154,99 @@ aUI[] := DynamicModule[
   }]
 ]
 
-
 rotazione[] := Module[{},
-  Manipulate[
-    Module[{img, rotata, matrice},
-      img = ExampleData[{"TestImage", "House"}];
-      rotata = ImageRotate[img, angolo Degree];
-      matrice = N[{
-        {Cos[angolo Degree], -Sin[angolo Degree]},
-        {Sin[angolo Degree],  Cos[angolo Degree]}
+
+ Manipulate[
+  Module[{img, rotata, matrice},
+   img = ExampleData[{"TestImage", "House"}];
+   rotata = ImageRotate[img, angolo Degree];
+   matrice = N[{
+      {Cos[angolo Degree], -Sin[angolo Degree]},
+      {Sin[angolo Degree], Cos[angolo Degree]}
       }];
-      Grid[{
-        {rotata, MatrixForm[NumberForm[#, {4, 2}] & /@ matrice]}
-      }, Spacings -> {2, 2}]
-    ],
-    {{angolo, 0, "Angolo (gradi)"}, 0, 360, 1, Appearance -> "Labeled"}
+   Grid[{
+     {rotata, MatrixForm[NumberForm[#, {4, 2}] & /@ matrice]}
+     }, Spacings -> {2, 2}]
+   ],
+  {{angolo, 0, "Angolo (gradi)"}, 0, 360, 1, Appearance -> "Labeled"}
   ]
-]
-
-
+ ]
 
 riflessione[] := Module[{},
-  Manipulate[
-    Module[{img, riflessa, matrice},
-      img = ExampleData[{"TestImage", "House"}];
-      {riflessa, matrice} = 
-        If[asse == "X",
-          {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
-          {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
-        ];
-      Grid[{
-        {riflessa, MatrixForm[matrice]}
-      }, Spacings -> {2, 2}]
-    ],
-    {{asse, "X", "Asse di riflessione"}, {"X", "Y"}}
+
+ Manipulate[
+  Module[{img, riflessa, matrice},
+   img = ExampleData[{"TestImage", "House"}];
+   {riflessa, matrice} =
+    If[asse == "X",
+     {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
+     {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
+     ];
+   Grid[{
+     {riflessa, MatrixForm[matrice]}
+     }, Spacings -> {2, 2}]
+   ],
+  {{asse, "X", "Asse di riflessione"}, {"X", "Y"}}
   ]
-]
+ ]
+
+scala[] := Module[{},
+
+ Manipulate[
+  Module[{img, scalata, matrice},
+   img = ExampleData[{"TestImage", "House"}];
+   scalata = ImageResize[img, Scaled[{sx, sy}]];
+   matrice = {
+     {sx, 0},
+     {0, sy}
+     };
+   Grid[{
+     {scalata, MatrixForm[NumberForm[matrice, {4, 2}]]}
+     }, Spacings -> {2, 2}]
+   ],
+  {{sx, 1, "Scala X"}, 0.1, 3, 0.1, Appearance -> "Labeled"},
+  {{sy, 1, "Scala Y"}, 0.1, 3, 0.1, Appearance -> "Labeled"}
+  ]
+ ]
+
+shear[] := Module[{},
+
+ Manipulate[
+  Module[{img, trasformata, matrice, t},
+   img = ExampleData[{"TestImage", "House"}];
+
+   matrice = {
+     {1, shx},
+     {shy, 1}
+     };
+
+   (* Applico la trasformazione con funzione inversa specificata *)
+   trasformata = ImageTransformation[
+     img,
+     Function[{x, y}, InverseFunction[matrice].{x, y}],
+     DataRange -> Full
+     ];
+
+   Grid[{
+     {trasformata, MatrixForm[NumberForm[matrice, {4, 2}]]}
+     }, Spacings -> {2, 2}]
+   ],
+  {{shx, 0, "Shear X"}, -1, 1, 0.1, Appearance -> "Labeled"},
+  {{shy, 0, "Shear Y"}, -1, 1, 0.1, Appearance -> "Labeled"}
+  ]
+ ]
 
 bUI[] := Column[{
   Style["Rotazione", Bold, 14],
   rotazione[],
   Style["Riflessione", Bold, 14],
-  riflessione[]
-}]
+  riflessione[],
+  Style["Scala", Bold, 14],
+  scala[],
+  Style["Shear (Inclinazione)", Bold, 14],
+  shear[]
+  }]
+
 
 
 
