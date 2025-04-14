@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     21021,        447]
-NotebookOptionsPosition[     20218,        426]
-NotebookOutlinePosition[     20645,        443]
-CellTagsIndexPosition[     20602,        440]
+NotebookDataLength[     20398,        421]
+NotebookOptionsPosition[     19786,        402]
+NotebookOutlinePosition[     20213,        419]
+CellTagsIndexPosition[     20170,        416]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -32,15 +32,14 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{"SetDirectory", "[", 
-     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{"(*", 
-    RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\n", 
-   
+    RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{"bUI", "[", "]"}]}]}]], "Input",
+   RowBox[{"cUI", "[", "]"}]}]}]], "Input",
  CellChangeTimes->{{3.952745699409548*^9, 3.952745710570202*^9}, 
    3.952745952639303*^9, {3.952746078962372*^9, 3.9527460978947487`*^9}, {
    3.9527461487763844`*^9, 3.9527461687407856`*^9}, 3.952746288894665*^9, {
@@ -61,59 +60,32 @@ Cell[BoxData[
    3.9536088757937546`*^9}, {3.953608930549017*^9, 3.953608931271534*^9}, {
    3.953609160162426*^9, 3.953609162031288*^9}, {3.953609421281225*^9, 
    3.9536094380774937`*^9}, {3.9536106701294785`*^9, 
-   3.9536106756088924`*^9}, {3.9536148275628357`*^9, 3.9536148278465767`*^9}},
- 
- CellLabel->
-  "In[101]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
+   3.9536106756088924`*^9}, {3.9536148275628357`*^9, 
+   3.9536148278465767`*^9}, {3.953618498903268*^9, 
+   3.9536185000622683`*^9}},ExpressionUUID->"a9d445c0-f186-e54d-afa1-\
+eb0fd5770572"],
 
 Cell[BoxData[
  TemplateBox[{
   "Syntax", "com", 
    "\"Warning: comma encountered with no adjacent expression. The expression \
 will be treated as Null. \\!\\(\\*RowBox[{\\\"\\\\\\\" (line 311 of \
-\\\\\\\\\\\\\\\"Pacchetto.m\\\\\\\\\\\\\\\")\\\\\\\"\\\"}]\\).\"", 2, 102, 90,
-    30101421178993081878, "Local"},
+\\\\\\\\\\\\\\\"Pacchetto.m\\\\\\\\\\\\\\\")\\\\\\\"\\\"}]\\).\"", 2, 162, 
+   604, 30101421178993081878, "Local"},
   "MessageTemplate",
   BaseStyle->"MSG"]], "Message",
  CellChangeTimes->{
   3.9536161759769993`*^9, 3.953616262435257*^9, 3.953616326210305*^9, 
    3.953616442807349*^9, {3.9536165875758743`*^9, 3.953616611538406*^9}, 
-   3.953616697513736*^9},
+   3.953616697513736*^9, {3.953616865893861*^9, 3.9536168786939287`*^9}, {
+   3.953616914009819*^9, 3.953616925155429*^9}, {3.953616964961114*^9, 
+   3.953617024560186*^9}, 3.953617143281864*^9, 3.9536172335559483`*^9, 
+   3.95361737642222*^9, 3.953617682009766*^9, 3.953618020664585*^9, {
+   3.9536181618686934`*^9, 3.953618184280676*^9}, 3.953618222853751*^9, 
+   3.9536182540242653`*^9},
  CellLabel->
   "During evaluation of \
-In[101]:=",ExpressionUUID->"791da43f-fd21-4369-ae08-e49afb89bdd6"],
-
-Cell[BoxData[
- TemplateBox[{
-  "OptionValue", "nodef", 
-   "\"Unknown option \\!\\(\\*RowBox[{\\\"\\\\\\\"ImageSize\\\\\\\"\\\"}]\\) \
-for \\!\\(\\*RowBox[{\\\"Manipulate\\\"}]\\).\"", 2, 103, 91, 
-   30101421178993081878, "Local"},
-  "MessageTemplate",
-  BaseStyle->"MSG"]], "Message",
- CellChangeTimes->{
-  3.9536161759769993`*^9, 3.953616262435257*^9, 3.953616326210305*^9, 
-   3.953616442807349*^9, {3.9536165875758743`*^9, 3.953616611538406*^9}, 
-   3.9536166975836153`*^9},
- CellLabel->
-  "During evaluation of \
-In[101]:=",ExpressionUUID->"312457a0-4003-4191-bb12-b653d4ce19c1"],
-
-Cell[BoxData[
- TemplateBox[{
-  "OptionValue", "nodef", 
-   "\"Unknown option \\!\\(\\*RowBox[{\\\"\\\\\\\"ImageSize\\\\\\\"\\\"}]\\) \
-for \\!\\(\\*RowBox[{\\\"Manipulate\\\"}]\\).\"", 2, 103, 92, 
-   30101421178993081878, "Local"},
-  "MessageTemplate",
-  BaseStyle->"MSG"]], "Message",
- CellChangeTimes->{
-  3.9536161759769993`*^9, 3.953616262435257*^9, 3.953616326210305*^9, 
-   3.953616442807349*^9, {3.9536165875758743`*^9, 3.953616611538406*^9}, 
-   3.953616697639021*^9},
- CellLabel->
-  "During evaluation of \
-In[101]:=",ExpressionUUID->"92366479-79a8-454f-bf78-66395ca06a44"],
+In[161]:=",ExpressionUUID->"6ff4d27d-de4e-41b0-8af9-ad10c017ca30"],
 
 Cell[BoxData[
  TagBox[GridBox[{
@@ -125,7 +97,7 @@ Cell[BoxData[
     {
      TagBox[
       StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`angolo$$ = 0, Typeset`show$$ = 
+       DynamicModuleBox[{Pacchetto`Private`angolo$$ = 188, Typeset`show$$ = 
         True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
         Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
         "\"untitled\"", Typeset`specs$$ = {{{
@@ -143,8 +115,8 @@ Cell[BoxData[
              Button["360\[Degree]", Pacchetto`Private`angolo$$ = 360]}, 
             Spacer[5]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
           None}}, Typeset`size$$ = {
-        567.5, {128.1321927509702, 135.2971097431577}}, Typeset`update$$ = 0, 
-        Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+        588.75, {128.1321927509702, 135.2971097431577}}, Typeset`update$$ = 0,
+         Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
         Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
         DynamicBox[Manipulate`ManipulateBoxes[
          1, StandardForm, "Variables" :> {Pacchetto`Private`angolo$$ = 0}, 
@@ -266,11 +238,11 @@ Cell[BoxData[
     {
      TagBox[
       StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`sx$$ = 1., Pacchetto`Private`sy$$ =
-         1., Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
-        Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, 
-        Typeset`animvar$$ = 1, Typeset`name$$ = "\"untitled\"", 
-        Typeset`specs$$ = {{{
+       DynamicModuleBox[{Pacchetto`Private`sx$$ = 0.6000000000000001, 
+        Pacchetto`Private`sy$$ = 1., Typeset`show$$ = True, 
+        Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+        Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+        "\"untitled\"", Typeset`specs$$ = {{{
            Hold[Pacchetto`Private`sx$$], 1, "Scale X"}, 0., 1.5, 0.1, 
           ControlType -> Manipulator}, {{
            Hold[Pacchetto`Private`sy$$], 1, "Scale Y"}, 0., 1.5, 0.1, 
@@ -287,10 +259,9 @@ Cell[BoxData[
                1}], Null}, 
             Spacer[5]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
           None}}, Typeset`size$$ = {
-        433.75, {189.22300048828126`, 196.38791748046876`}}, 
-        Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
-        True, Typeset`keyframeActionsQ$$ = False, 
-        Typeset`keyframeList$$ = {}}, 
+        370., {189.22300048828126`, 196.38791748046876`}}, Typeset`update$$ = 
+        0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+        Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
         DynamicBox[Manipulate`ManipulateBoxes[
          1, StandardForm, 
           "Variables" :> {
@@ -391,9 +362,9 @@ line/point)!", Red, Bold], Pacchetto`Private`det$ < 0.1,
                 1}], Null}, 
              Spacer[5]]}, 
           "Options" :> {
-           ControlPlacement -> Top, Paneled -> True, FrameMargins -> 10, 
-            ImageSize -> Large}, "DefaultOptions" :> {}],
-         ImageSizeCache->{493.125, {292.6301240539551, 299.7950410461426}},
+           ControlPlacement -> Top, Paneled -> True, FrameMargins -> 10}, 
+          "DefaultOptions" :> {}],
+         ImageSizeCache->{429.375, {292.6301240539551, 299.7950410461426}},
          SingleEvaluation->True],
         Deinitialization:>None,
         DynamicModuleValues:>{},
@@ -419,9 +390,14 @@ line/point)!", Red, Bold], Pacchetto`Private`det$ < 0.1,
    3.9536160804941673`*^9, 3.953616118220796*^9}, {3.9536161544825077`*^9, 
    3.9536161760505753`*^9}, 3.953616262513345*^9, 3.9536163262856073`*^9, 
    3.95361644288505*^9, {3.953616587654615*^9, 3.953616611684174*^9}, 
-   3.9536166976599894`*^9},
+   3.9536166976599894`*^9, {3.9536168659321537`*^9, 3.953616878731307*^9}, {
+   3.953616914049143*^9, 3.953616925193801*^9}, {3.953616965000997*^9, 
+   3.953617024584135*^9}, 3.953617143373494*^9, 3.953617233649036*^9, 
+   3.953617376515583*^9, 3.9536176821053867`*^9, 3.953618020682664*^9, {
+   3.953618161895042*^9, 3.9536181843052387`*^9}, 3.953618222932913*^9, 
+   3.9536182540496492`*^9},
  CellLabel->
-  "Out[103]=",ExpressionUUID->"940c9ca5-47b5-478f-bbbf-6fd2b6840879"]
+  "Out[163]=",ExpressionUUID->"474b45a9-882d-4256-817a-f02a50e87d14"]
 }, Open  ]]
 },
 WindowSize->{1512, 845},
@@ -443,11 +419,9 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[576, 22, 2356, 44, 215, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
-Cell[2935, 68, 663, 15, 32, "Message",ExpressionUUID->"791da43f-fd21-4369-ae08-e49afb89bdd6"],
-Cell[3601, 85, 585, 14, 32, "Message",ExpressionUUID->"312457a0-4003-4191-bb12-b653d4ce19c1"],
-Cell[4189, 101, 583, 14, 32, "Message",ExpressionUUID->"92366479-79a8-454f-bf78-66395ca06a44"],
-Cell[4775, 117, 15427, 306, 1419, "Output",ExpressionUUID->"940c9ca5-47b5-478f-bbbf-6fd2b6840879"]
+Cell[576, 22, 2380, 43, 215, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
+Cell[2959, 67, 1029, 20, 32, "Message",ExpressionUUID->"6ff4d27d-de4e-41b0-8af9-ad10c017ca30"],
+Cell[3991, 89, 15779, 310, 1403, "Output",ExpressionUUID->"474b45a9-882d-4256-817a-f02a50e87d14"]
 }, Open  ]]
 }
 ]

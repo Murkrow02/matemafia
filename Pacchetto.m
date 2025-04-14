@@ -5,7 +5,7 @@ BeginPackage["Pacchetto`"]
 
 aUI::usage = "aUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
 bUI::usage = "bUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
-
+cUI::usage = "cUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
 
 
 
@@ -233,7 +233,7 @@ riflessione[] := Module[{},
   ]
  ]
 
- 
+
 scala[] := Module[{},
   Manipulate[
    Module[{img, scalata, matrice, det, unitSquare, transformedSquare, 
@@ -325,11 +325,83 @@ bUI[] := Column[{
   scala[]
   }]
 
+cUI[] := Column[{
+  Style["Esercizio 1: Sfocatura con Kernel", Bold, 16],
+  
+  Text[
+   "Questo esercizio illustra l'effetto di un kernel di sfocatura su un'immagine. " <>
+    "Un kernel è una piccola matrice che viene fatta scorrere su ogni pixel dell'immagine. " <>
+    "Il nuovo valore di ogni pixel è calcolato come la media dei valori dei pixel vicini, pesati dai valori del kernel. " <>
+    "Qui, utilizziamo un kernel di media uniforme, dove tutti i pesi sono uguali a 1/(dimensione del kernel)^2."
+   ],
+  
+  DynamicModule[{kernelSize = 3, locatorPosition = {50, 50}, 
+    img = ExampleData[{"TestImage", "House"}]},
+   Column[{
+    Slider[Dynamic[kernelSize], {3, 9, 2}, Appearance -> "Labeled", 
+     ImageSize -> Full],
+    
+    DynamicModule[{imageDimensions = ImageDimensions[img]},
+     Dynamic[
+      Module[{kSize = kernelSize, kernel, locX, locY, imageData, 
+        neighborhood, convolvedValue, padding, blurredImg},
+       kernel = ConstantArray[1/kSize^2, {kSize, kSize}];
+       locX = Round[locatorPosition[[1]]];
+       locY = Round[imageDimensions[[2]] - locatorPosition[[2]] + 1];
+       imageData = ImageData[img];
+       padding = Floor[kSize/2];
+       blurredImg = ImageConvolve[img, kernel];
+       
+       neighborhood = 
+        Table[imageData[[Clip[locY + i - padding, {1, imageDimensions[[2]]}], 
+           Clip[locX + j - padding, {1, imageDimensions[[1]]}]]], 
+         {i, 1, kSize}, {j, 1, kSize}];
+       
+       convolvedValue = Sum[neighborhood[[i, j]] * kernel[[i, j]], 
+         {i, 1, kSize}, {j, 1, kSize}];
+       
+       Column[{
+        Row[{
+         Column[{
+          Style["Immagine Originale", Bold],
+          LocatorPane[Dynamic[locatorPosition], 
+           Dynamic[
+            Show[img, 
+             Graphics[{Red, Thickness[0.01], 
+               Rectangle[{locatorPosition[[1]] - kSize/2, 
+                 locatorPosition[[2]] - kSize/2}, 
+                {locatorPosition[[1]] + kSize/2, 
+                 locatorPosition[[2]] + kSize/2}]}]]], 
+           LocatorShape -> Graphics[{Circle[{0, 0}, 5]}], 
+           ImageSize -> 300]
+          }],
+         Spacer[20],
+         Column[{
+          Style["Immagine Sfocata", Bold],
+          Image[blurredImg, ImageSize -> 300]
+          }],
+         Spacer[20],
+         Column[{
+          Style["Kernel (Dimensione: " <> ToString[kSize] <> ")", Bold],
+          MatrixForm[kernel]
+          }]
+         }, Alignment -> Top],
+        
+        Style["Dettagli Locali (Intorno al Locatore)", Bold],
+        Row[{Style["Neighborhood:", Bold], 
+          Image[neighborhood, ImageSize -> Scaled[0.5]]}],
+        Row[{Style["Valore Pixel Originale (centro): ", Bold], 
+          PaddedForm[imageData[[locY, locX]], {3, 3}]}],
+        Row[{Style["Valore Pixel Convoluto: ", Bold], 
+          PaddedForm[convolvedValue, {3, 3}]}]
+        }]
+       ]
+      ]
+     ]
+    }]
+   ]
+  }]
 
-
-
-
- 
 
 End[]
 EndPackage[]
