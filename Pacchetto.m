@@ -1,11 +1,8 @@
 BeginPackage["Pacchetto`"]
 
 
-
-
 aUI::usage = "aUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
-
-
+bUI::usage = "bUI represents the second user interface component of the application. It is used to manage and display additional graphical interface elements.";
 
 Begin["`Private`"]
 
@@ -158,24 +155,24 @@ aUI[] := DynamicModule[
 ]
 
 
-
-
 rotazione[] := Module[{},
   Manipulate[
     Module[{img, rotata, matrice},
       img = ExampleData[{"TestImage", "House"}];
       rotata = ImageRotate[img, angolo Degree];
-      matrice = {
+      matrice = N[{
         {Cos[angolo Degree], -Sin[angolo Degree]},
         {Sin[angolo Degree],  Cos[angolo Degree]}
-      };
+      }];
       Grid[{
-        {rotata, MatrixForm[matrice]}
+        {rotata, MatrixForm[NumberForm[#, {4, 2}] & /@ matrice]}
       }, Spacings -> {2, 2}]
     ],
-    {{angolo, 0, "Angolo (gradi)"}, -180, 180}
+    {{angolo, 0, "Angolo (gradi)"}, 0, 360, 1, Appearance -> "Labeled"}
   ]
 ]
+
+
 
 riflessione[] := Module[{},
   Manipulate[
@@ -197,9 +194,11 @@ riflessione[] := Module[{},
 bUI[] := Column[{
   Style["Rotazione", Bold, 14],
   rotazione[],
-  Style["Riflessione", Bold, 14, Top],
+  Style["Riflessione", Bold, 14],
   riflessione[]
 }]
+
+
 
 
  
