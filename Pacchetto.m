@@ -159,24 +159,47 @@ aUI[] := DynamicModule[
 
 
 
-bUI[] := Module[{img},
-  img = ExampleData[{"TestImage", "House"}];
+
+rotazione[] := Module[{},
   Manipulate[
-    Grid[{
-      {
-        ImageRotate[img, angle Degree],
-        MatrixForm[
-          {
-            {Cos[angle Degree], -Sin[angle Degree]},
-            {Sin[angle Degree],  Cos[angle Degree]}
-          }
-        ]
-      }
-    },
-    Spacings -> {2, 2}],
-    {{angle, 0, "Angolo (gradi)"}, -180, 180}
+    Module[{img, rotata, matrice},
+      img = ExampleData[{"TestImage", "House"}];
+      rotata = ImageRotate[img, angolo Degree];
+      matrice = {
+        {Cos[angolo Degree], -Sin[angolo Degree]},
+        {Sin[angolo Degree],  Cos[angolo Degree]}
+      };
+      Grid[{
+        {rotata, MatrixForm[matrice]}
+      }, Spacings -> {2, 2}]
+    ],
+    {{angolo, 0, "Angolo (gradi)"}, -180, 180}
   ]
 ]
+
+riflessione[] := Module[{},
+  Manipulate[
+    Module[{img, riflessa, matrice},
+      img = ExampleData[{"TestImage", "House"}];
+      {riflessa, matrice} = 
+        If[asse == "X",
+          {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
+          {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
+        ];
+      Grid[{
+        {riflessa, MatrixForm[matrice]}
+      }, Spacings -> {2, 2}]
+    ],
+    {{asse, "X", "Asse di riflessione"}, {"X", "Y"}}
+  ]
+]
+
+bUI[] := Column[{
+  Style["Rotazione", Bold, 14],
+  rotazione[],
+  Style["Riflessione", Bold, 14, Top],
+  riflessione[]
+}]
 
 
  
