@@ -215,8 +215,6 @@ rotazione[] := Module[{},
    ]
  ]
 
-
-
 riflessione[] := Module[{},
 
  Manipulate[
@@ -234,6 +232,8 @@ riflessione[] := Module[{},
   {{asse, "X", "Asse di riflessione"}, {"X", "Y"}}
   ]
  ]
+
+ 
 scala[] := Module[{},
   Manipulate[
    Module[{img, scalata, matrice, det, unitSquare, transformedSquare, 
