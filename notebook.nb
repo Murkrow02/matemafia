@@ -10,14 +10,16 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[      2962,         73]
-NotebookOptionsPosition[      2578,         58]
-NotebookOutlinePosition[      3005,         75]
-CellTagsIndexPosition[      2962,         72]
+NotebookDataLength[     35663,        742]
+NotebookOptionsPosition[     35043,        723]
+NotebookOutlinePosition[     35476,        740]
+CellTagsIndexPosition[     35433,        737]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+
+Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", 
@@ -30,14 +32,15 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{"SetDirectory", "[", 
-     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
-   "\[IndentingNewLine]", "\n", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{"(*", 
     RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{"bUI", "[", "]"}], "\[IndentingNewLine]", "\n"}]}]], "Input",
+   RowBox[{"aUI", "[", "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"bUI", "[", "]"}]}]}]], "Input",
  CellChangeTimes->{{3.952745699409548*^9, 3.952745710570202*^9}, 
    3.952745952639303*^9, {3.952746078962372*^9, 3.9527460978947487`*^9}, {
    3.9527461487763844`*^9, 3.9527461687407856`*^9}, 3.952746288894665*^9, {
@@ -53,11 +56,673 @@ Cell[BoxData[
    3.953356346218157*^9, {3.9536074304786797`*^9, 3.953607431807453*^9}, {
    3.95360748411611*^9, 3.953607484779335*^9}, {3.95360783466951*^9, 
    3.9536078385375023`*^9}, {3.9536080052568226`*^9, 
-   3.9536080059694214`*^9}, {3.953608088337969*^9, 3.953608091897156*^9}},
- CellLabel->"In[4]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
+   3.9536080059694214`*^9}, {3.953608088337969*^9, 3.953608091897156*^9}, {
+   3.953608821240795*^9, 3.953608821401579*^9}, {3.953608875639862*^9, 
+   3.9536088757937546`*^9}, {3.953608930549017*^9, 3.953608931271534*^9}, {
+   3.953609160162426*^9, 3.953609162031288*^9}, {3.953609421281225*^9, 
+   3.9536094380774937`*^9}, {3.9536106701294785`*^9, 3.9536106756088924`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
+
+Cell[BoxData[
+ DynamicModuleBox[{Pacchetto`Private`mat$$ = {{255, 255, 255, 255, 255}, {255,
+   255, 255, 0, 0}, {255, 255, 255, 255, 255}, {255, 255, 255, 255, 255}, {
+  255, 255, 255, 255, 255}}, Pacchetto`Private`rgbMat$$ = {{{255, 255, 255}, {
+  255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}}, {{255, 
+  255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 
+  255}}, {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 
+  255}, {255, 255, 255}}, {{255, 255, 255}, {255, 255, 255}, {255, 255, 
+  255}, {255, 255, 255}, {255, 255, 255}}, {{255, 255, 255}, {255, 255, 
+  255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}}}, 
+  Pacchetto`Private`r$$ = 255, Pacchetto`Private`g$$ = 255, 
+  Pacchetto`Private`b$$ = 255}, 
+  TagBox[GridBox[{
+     {
+      TemplateBox[{
+        TagBox[
+         GridBox[{{
+            InterpretationBox[
+             Cell[
+              BoxData[
+               FormBox[
+               "\"Clicca su una cella per passare da 0 a 255 e viceversa:\"", 
+                TextForm]], "InlineText"], 
+             Text[
+             "Clicca su una cella per passare da 0 a 255 e viceversa:"]]}, {
+            TagBox[
+             GridBox[{{
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 1, 1], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 1, 1] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 1] = 
+                  If[Part[Pacchetto`Private`mat$$, 1, 1] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 1, 2], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 1, 2] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 2] = 
+                  If[Part[Pacchetto`Private`mat$$, 1, 2] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 1, 3], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 1, 3] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 3] = 
+                  If[Part[Pacchetto`Private`mat$$, 1, 3] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 1, 4], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 1, 4] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 4] = 
+                  If[Part[Pacchetto`Private`mat$$, 1, 4] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 1, 5], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 1, 5] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 5] = 
+                  If[Part[Pacchetto`Private`mat$$, 1, 5] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"]}, {
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 2, 1], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 2, 1] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 1] = 
+                  If[Part[Pacchetto`Private`mat$$, 2, 1] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 2, 2], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 2, 2] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 2] = 
+                  If[Part[Pacchetto`Private`mat$$, 2, 2] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 2, 3], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 2, 3] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 3] = 
+                  If[Part[Pacchetto`Private`mat$$, 2, 3] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 2, 4], StandardForm], 
+                  ImageSizeCache -> {
+                   6.157812595367432, {0.12578124785795808`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 2, 4] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 4] = 
+                  If[Part[Pacchetto`Private`mat$$, 2, 4] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 2, 5], StandardForm], 
+                  ImageSizeCache -> {
+                   6.157812595367432, {0.12578124785795808`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 2, 5] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 5] = 
+                  If[Part[Pacchetto`Private`mat$$, 2, 5] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"]}, {
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 3, 1], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 3, 1] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 1] = 
+                  If[Part[Pacchetto`Private`mat$$, 3, 1] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 3, 2], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 3, 2] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 2] = 
+                  If[Part[Pacchetto`Private`mat$$, 3, 2] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 3, 3], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 3, 3] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 3] = 
+                  If[Part[Pacchetto`Private`mat$$, 3, 3] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 3, 4], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 3, 4] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 4] = 
+                  If[Part[Pacchetto`Private`mat$$, 3, 4] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 3, 5], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 3, 5] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 5] = 
+                  If[Part[Pacchetto`Private`mat$$, 3, 5] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"]}, {
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 4, 1], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 4, 1] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 1] = 
+                  If[Part[Pacchetto`Private`mat$$, 4, 1] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 4, 2], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 4, 2] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 2] = 
+                  If[Part[Pacchetto`Private`mat$$, 4, 2] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 4, 3], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 4, 3] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 3] = 
+                  If[Part[Pacchetto`Private`mat$$, 4, 3] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 4, 4], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 4, 4] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 4] = 
+                  If[Part[Pacchetto`Private`mat$$, 4, 4] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 4, 5], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 4, 5] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 5] = 
+                  If[Part[Pacchetto`Private`mat$$, 4, 5] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"]}, {
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 5, 1], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 5, 1] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 1] = 
+                  If[Part[Pacchetto`Private`mat$$, 5, 1] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 5, 2], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 5, 2] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 2] = 
+                  If[Part[Pacchetto`Private`mat$$, 5, 2] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 5, 3], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 5, 3] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 3] = 
+                  If[Part[Pacchetto`Private`mat$$, 5, 3] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 5, 4], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 5, 4] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 4] = 
+                  If[Part[Pacchetto`Private`mat$$, 5, 4] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"], 
+                ButtonBox[
+                 DynamicBox[
+                  ToBoxes[
+                   Part[Pacchetto`Private`mat$$, 5, 5], StandardForm], 
+                  ImageSizeCache -> {
+                   18.473437786102295`, {0.10937499813735485`, 
+                    7.26796862622723}}], Appearance -> None, Background -> 
+                 Dynamic[
+                   If[
+                   Part[Pacchetto`Private`mat$$, 5, 5] == 0, Gray, 
+                    LightGray]], 
+                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
+                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 5] = 
+                  If[Part[Pacchetto`Private`mat$$, 5, 5] == 0, 255, 0]), 
+                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
+                 "Preemptive"]}}, AutoDelete -> False, 
+              GridBoxFrame -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+              GridBoxItemSize -> {
+               "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+              GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{0}}}], 
+             "Grid"]}}, DefaultBaseStyle -> "Column", 
+          GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"], 
+        TemplateBox[{20}, "Spacer1"], 
+        DynamicBox[
+         ToBoxes[
+          ArrayPlot[
+          Pacchetto`Private`mat$$, 
+           ColorFunction -> (If[# == 0, Black, White]& ), 
+           PlotRange -> {0, 255}, PlotRangePadding -> None, Mesh -> All, 
+           MeshStyle -> Black, Frame -> True, FrameTicks -> None, AspectRatio -> 
+           1, ImageSize -> 200], StandardForm]]},
+       "RowDefault"]},
+     {
+      TemplateBox[{30},
+       "Spacer1"]},
+     {
+      TemplateBox[{
+        DynamicBox[
+         ToBoxes[
+          Grid[
+           Table[
+            
+            With[{Pacchetto`Private`val = 
+              Part[Pacchetto`Private`rgbMat$$, Pacchetto`Private`i, 
+                Pacchetto`Private`j]}, 
+             Pane[
+              Column[
+               Map[
+               Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> 
+                 Medium]& , Pacchetto`Private`val], Alignment -> Center, 
+               Spacings -> 0.5], {50, 50}, Alignment -> Center]], {
+            Pacchetto`Private`i, 5}, {Pacchetto`Private`j, 5}], Frame -> All, 
+           Spacings -> {0, 0}, Alignment -> Center, ItemSize -> All], 
+          StandardForm]], 
+        TemplateBox[{20}, "Spacer1"], 
+        DynamicBox[
+         ToBoxes[
+          ArrayPlot[
+           Map[Apply[RGBColor, #/255]& , Pacchetto`Private`rgbMat$$, {2}], 
+           Mesh -> All, MeshStyle -> Black, Frame -> True, FrameTicks -> None,
+            AspectRatio -> 1, ImageSize -> 200], StandardForm]], 
+        TemplateBox[{20}, "Spacer1"], 
+        TagBox[
+         GridBox[{{
+            StyleBox[
+            "\"Regola i canali RGB:\"", Bold, StripOnInput -> False]}, {
+            TemplateBox[{
+              StyleBox["\"R\"", Bold, 
+               RGBColor[1, 0, 0], StripOnInput -> False], 
+              SliderBox[
+               Dynamic[
+               Pacchetto`Private`r$$, (Pacchetto`Private`r$$ = Round[#])& ], {
+               0, 255}, ContinuousAction -> False, ImageSize -> 200], 
+              TemplateBox[{10}, "Spacer1"], 
+              DynamicBox[
+               ToBoxes[
+                Style[Pacchetto`Private`r$$, Red, Bold], StandardForm]]}, 
+             "RowDefault"]}, {
+            TemplateBox[{
+              StyleBox["\"G\"", Bold, 
+               RGBColor[0, 
+                Rational[2, 3], 0], StripOnInput -> False], 
+              SliderBox[
+               Dynamic[
+               Pacchetto`Private`g$$, (Pacchetto`Private`g$$ = Round[#])& ], {
+               0, 255}, ContinuousAction -> False, ImageSize -> 200], 
+              TemplateBox[{10}, "Spacer1"], 
+              DynamicBox[
+               ToBoxes[
+                Style[Pacchetto`Private`g$$, 
+                 Darker[Green], Bold], StandardForm]]}, "RowDefault"]}, {
+            TemplateBox[{
+              StyleBox["\"B\"", Bold, 
+               RGBColor[0, 0, 1], StripOnInput -> False], 
+              SliderBox[
+               Dynamic[
+               Pacchetto`Private`b$$, (Pacchetto`Private`b$$ = Round[#])& ], {
+               0, 255}, ContinuousAction -> False, ImageSize -> 200], 
+              TemplateBox[{10}, "Spacer1"], 
+              DynamicBox[
+               ToBoxes[
+                Style[Pacchetto`Private`b$$, Blue, Bold], StandardForm]]}, 
+             "RowDefault"]}, {
+            TemplateBox[{10}, "Spacer1"]}, {
+            ButtonBox[
+            "\"Applica RGB a tutta la matrice\"", 
+             ButtonFunction :> (Pacchetto`Private`rgbMat$$ = ConstantArray[{
+                 Round[Pacchetto`Private`r$$], 
+                 Round[Pacchetto`Private`g$$], 
+                 Round[Pacchetto`Private`b$$]}, {5, 5}]), ImageSize -> 200, 
+             Appearance -> Automatic, Evaluator -> Automatic, Method -> 
+             "Preemptive"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+          DefaultBaseStyle -> "Column", 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]},
+       "RowDefault"]}
+    },
+    DefaultBaseStyle->"Column",
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Column"],
+  DynamicModuleValues:>{}]], "Output",
+ CellChangeTimes->{3.9536115947669735`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"32d5235e-d133-7c46-adab-aa0b15e52483"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     StyleBox["\<\"Rotazione\"\>",
+      StripOnInput->False,
+      FontSize->14,
+      FontWeight->Bold]},
+    {
+     TagBox[
+      StyleBox[
+       DynamicModuleBox[{Pacchetto`Private`angolo$$ = 180., Typeset`show$$ = 
+        True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+        Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+        "\"untitled\"", Typeset`specs$$ = {{{
+           Hold[Pacchetto`Private`angolo$$], 0, "Angolo (gradi)"}, -180, 180, 
+          ControlType -> Manipulator}}, Typeset`size$$ = {
+        302.5719086933137, {48.90722664659843, 53.492773353401574`}}, 
+        Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+        True, Typeset`keyframeActionsQ$$ = False, 
+        Typeset`keyframeList$$ = {}}, 
+        DynamicBox[Manipulate`ManipulateBoxes[
+         1, StandardForm, "Variables" :> {Pacchetto`Private`angolo$$ = 0}, 
+          "ControllerVariables" :> {}, 
+          "OtherVariables" :> {
+           Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+            Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+            Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+            Typeset`initDone$$, Typeset`skipInitDone$$, 
+            Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+          Module[{Pacchetto`Private`img$, Pacchetto`Private`rotata$, 
+             Pacchetto`Private`matrice$}, 
+            Pacchetto`Private`img$ = ExampleData[{"TestImage", "House"}]; 
+            Pacchetto`Private`rotata$ = 
+             ImageRotate[
+              Pacchetto`Private`img$, Pacchetto`Private`angolo$$ Degree]; 
+            Pacchetto`Private`matrice$ = {{
+                Cos[Pacchetto`Private`angolo$$ Degree], -
+                Sin[Pacchetto`Private`angolo$$ Degree]}, {
+                Sin[Pacchetto`Private`angolo$$ Degree], 
+                Cos[Pacchetto`Private`angolo$$ Degree]}}; 
+            Grid[{{Pacchetto`Private`rotata$, 
+                MatrixForm[Pacchetto`Private`matrice$]}}, 
+              Spacings -> {2, 2}]], 
+          "Specifications" :> {{{
+             Pacchetto`Private`angolo$$, 0, "Angolo (gradi)"}, -180, 180}}, 
+          "Options" :> {}, "DefaultOptions" :> {}],
+         ImageSizeCache->{
+          553.1042217416764, {71.87589852159843, 76.46144522840157}},
+         SingleEvaluation->True],
+        Deinitialization:>None,
+        DynamicModuleValues:>{},
+        SynchronousInitialization->True,
+        UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+        UnsavedVariables:>{Typeset`initDone$$},
+        UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+       Deployed->True,
+       StripOnInput->False],
+      Manipulate`InterpretManipulate[1]]},
+    {
+     RowBox[{"Style", "[", 
+      RowBox[{"\<\"Riflessione\"\>", ",", "Bold", ",", "14", ",", "Top"}], 
+      "]"}]},
+    {
+     TagBox[
+      StyleBox[
+       DynamicModuleBox[{Pacchetto`Private`asse$$ = "X", Typeset`show$$ = 
+        True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+        Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+        "\"untitled\"", Typeset`specs$$ = {{{
+           Hold[Pacchetto`Private`asse$$], "X", "Asse di riflessione"}, {
+          "X", "Y"}, ControlType -> SetterBar}}, Typeset`size$$ = {
+        165.78515484809876`, {48.90722664659843, 53.492773353401574`}}, 
+        Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+        True, Typeset`keyframeActionsQ$$ = False, 
+        Typeset`keyframeList$$ = {}}, 
+        DynamicBox[Manipulate`ManipulateBoxes[
+         1, StandardForm, "Variables" :> {Pacchetto`Private`asse$$ = "X"}, 
+          "ControllerVariables" :> {}, 
+          "OtherVariables" :> {
+           Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+            Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+            Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+            Typeset`initDone$$, Typeset`skipInitDone$$, 
+            Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+          Module[{Pacchetto`Private`img$, Pacchetto`Private`riflessa$, 
+             Pacchetto`Private`matrice$}, 
+            Pacchetto`Private`img$ = 
+             ExampleData[{"TestImage", "House"}]; {
+              Pacchetto`Private`riflessa$, Pacchetto`Private`matrice$} = 
+             If[Pacchetto`Private`asse$$ == "X", {
+                ImageReflect[Pacchetto`Private`img$, Top], {{1, 0}, {
+                0, -1}}}, {
+                ImageReflect[Pacchetto`Private`img$, Left], {{-1, 0}, {0, 
+                1}}}]; Grid[{{Pacchetto`Private`riflessa$, 
+                MatrixForm[Pacchetto`Private`matrice$]}}, 
+              Spacings -> {2, 2}]], 
+          "Specifications" :> {{{
+             Pacchetto`Private`asse$$, "X", "Asse di riflessione"}, {
+             "X", "Y"}}}, "Options" :> {}, "DefaultOptions" :> {}],
+         ImageSizeCache->{
+          277.4279058494568, {71.87589852159843, 76.46144522840157}},
+         SingleEvaluation->True],
+        Deinitialization:>None,
+        DynamicModuleValues:>{},
+        SynchronousInitialization->True,
+        UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+        UnsavedVariables:>{Typeset`initDone$$},
+        UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+       Deployed->True,
+       StripOnInput->False],
+      Manipulate`InterpretManipulate[1]]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{3.953611595021923*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"bcdbb20a-a301-4545-8a30-8f25abc22951"]
+}, Open  ]]
 },
-WindowSize->{949, 497},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{960, 508},
+WindowMargins->{{-5.5, Automatic}, {Automatic, -5.5}},
 Magnification:>0.8 Inherited,
 FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (March 14, 2025)",
 StyleDefinitions->"Default.nb",
@@ -74,7 +739,11 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[554, 20, 2020, 36, 159, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
+Cell[CellGroupData[{
+Cell[576, 22, 2368, 41, 159, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
+Cell[2947, 65, 26301, 536, 408, "Output",ExpressionUUID->"32d5235e-d133-7c46-adab-aa0b15e52483"],
+Cell[29251, 603, 5776, 117, 344, "Output",ExpressionUUID->"bcdbb20a-a301-4545-8a30-8f25abc22951"]
+}, Open  ]]
 }
 ]
 *)
