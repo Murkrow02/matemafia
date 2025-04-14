@@ -1,13 +1,10 @@
 BeginPackage["Pacchetto`"]
 
-aUI::usage = "aUI[] mostra:
-- una matrice binaria cliccabile;
-- slider RGB che aggiornano una matrice RGB;
-- visualizzazione della matrice RGB sia come valori che come colori."
 
 
-bUi::usage = "bUi[] fornisce esercizi interattivi per comprendere le trasformazioni lineari:
-             rotazione, riflessione, scalatura e shear."
+
+aUI::usage = "aUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
+
 
 
 Begin["`Private`"]
@@ -160,79 +157,29 @@ aUI[] := DynamicModule[
   }]
 ]
 
-(*_______________________________________________________________________________________________*)
-(* Funzione di visualizzazione di un quadrato con freccia centrale *)
-quadratoConFreccia[pts_] := Graphics[
-  {
-    Thick, Line[pts[[1 ;; 5]]],  (* contorno quadrato *)
-    Red, Arrow[{pts[[6]], pts[[7]]}]  (* freccia *)
-  },
-  PlotRange -> {{-3, 3}, {-3, 3}},
-  Axes -> True,
-  AxesOrigin -> {0, 0},
-  AspectRatio -> 1,
-  ImageSize -> Medium
+
+
+bUI[] := Module[{img},
+  img = ExampleData[{"TestImage", "House"}];
+  Manipulate[
+    Grid[{
+      {
+        ImageRotate[img, angle Degree],
+        MatrixForm[
+          {
+            {Cos[angle Degree], -Sin[angle Degree]},
+            {Sin[angle Degree],  Cos[angle Degree]}
+          }
+        ]
+      }
+    },
+    Spacings -> {2, 2}],
+    {{angle, 0, "Angolo (gradi)"}, -180, 180}
+  ]
 ]
 
-(* Punti iniziali: quadrato + freccia verso l’alto *)
-p0 := {{0, 0}, {1, 0}, {1, 1}, {0, 1}, {0, 0}, {0.5, 0.5}, {0.5, 1.2}}
 
-(* Funzione che applica una matrice ai punti *)
-trasforma[mat_] := (mat.# & /@ p0)
-
-(* Funzione principale *)
-bUi[] := Column[{
-
-  Style["1. Rotazione", Bold, 16],
-  DynamicModule[{θ = 0},
-    Column[{
-      Slider[Dynamic[θ], {0, 2 Pi}, Appearance -> "Labeled"],
-      Dynamic[quadratoConFreccia[trasforma[{{Cos[θ], -Sin[θ]}, {Sin[θ], Cos[θ]}}]]]
-    }]
-  ],
-
-  Divider[],
-
-  Style["2. Riflessione", Bold, 16],
-  DynamicModule[{mat = IdentityMatrix[2]},
-    Column[{
-      Row[{
-        Button["Riflessione X", mat = {{1, 0}, {0, -1}}],
-        Button["Riflessione Y", mat = {{-1, 0}, {0, 1}}],
-        Button["Riflessione diagonale y=x", mat = {{0, 1}, {1, 0}}]
-      }],
-      Dynamic[quadratoConFreccia[trasforma[mat]]]
-    }]
-  ],
-
-  Divider[],
-
-  Style["3. Scalatura", Bold, 16],
-  DynamicModule[{sx = 1, sy = 1},
-    Column[{
-      Row[{"Scala X: ", Slider[Dynamic[sx], {0.1, 3}, Appearance -> "Labeled"]}],
-      Row[{"Scala Y: ", Slider[Dynamic[sy], {0.1, 3}, Appearance -> "Labeled"]}],
-      Dynamic[quadratoConFreccia[trasforma[{{sx, 0}, {0, sy}}]]]
-    }]
-  ],
-
-  Divider[],
-
-  Style["4. Shear (Deformazione)", Bold, 16],
-  DynamicModule[{k = 0},
-    Column[{
-      Row[{"k (taglio orizzontale): ", Slider[Dynamic[k], {-2, 2}, Appearance -> "Labeled"]}],
-      Dynamic[quadratoConFreccia[trasforma[{{1, k}, {0, 1}}]]]
-    }]
-  ]
-}]
-
-
-
-
-
-
-
+ 
 
 End[]
 EndPackage[]
