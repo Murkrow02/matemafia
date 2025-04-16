@@ -61,17 +61,9 @@ es[seed_: Automatic] := Module[
     {i, 5}
   ];
   
-  DynamicModule[{index = 1, userMatrix = ConstantArray[0, {2, 2}]},
+  DynamicModule[{index = 1, userMatrix = ConstantArray[0, {2, 2}], resultText = "", userImage = img},
     Panel[
       Column[{
-        Style[
-          If[IntegerQ[seed],
-            "Seed: " <> ToString[seed],
-            Style["Seed casuale (non riproducibile)", Gray]
-          ],
-          Italic, 12
-        ],
-        
         Framed[
           Grid[{
             {
@@ -123,13 +115,36 @@ es[seed_: Automatic] := Module[
         }, Spacings -> {2, 2}],
         
         Spacer[5],
-        Button["✅ Verifica",
-          If[
-            userMatrix === transformations[[index, 2]],
-            CreateDialog[{Style["✔️ Corretto!", Bold, 16, Darker[Green]], DefaultButton[]}],
-            CreateDialog[{Style["❌ Sbagliato!", Bold, 16, Red], DefaultButton[]}]
-          ],
-          ImageSize -> Medium, Background -> LightGreen
+        DynamicModule[{},
+          Column[{
+            Button["✅ Verifica",
+              Module[{isCorrect, matrixFun},
+                isCorrect = userMatrix === transformations[[index, 2]];
+                resultText = If[isCorrect, "✔️ Corretto!", "❌ Sbagliato!"];
+                matrixFun = Function[p, center + userMatrix . (p - center)];
+                userImage = ImageTransformation[img, matrixFun, DataRange -> Full, Resampling -> "Linear"];
+              ],
+              ImageSize -> Medium, Background -> LightGreen
+            ],
+            
+            Dynamic[
+              If[resultText =!= "",
+                Column[{
+                  Style[resultText, Bold, 14, If[resultText === "✔️ Corretto!", Darker[Green], Red]],
+                  Grid[{
+                    {
+                      Labeled[Framed[img, FrameStyle -> LightGray], "Originale", Top],
+                      Spacer[20],
+                      Labeled[Framed[userImage, FrameStyle -> LightGray], "Tua trasformazione", Top]
+                    }
+                  }]
+                },
+                Spacings -> 1.5
+                ],
+                ""
+              ]
+            ]
+          }]
         ]
       },
       Spacings -> 1.5
