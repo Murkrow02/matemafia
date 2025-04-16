@@ -10,14 +10,16 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[    307095,       6328]
-NotebookOptionsPosition[    291611,       6106]
-NotebookOutlinePosition[    292048,       6123]
-CellTagsIndexPosition[    292005,       6120]
+NotebookDataLength[    281372,       5809]
+NotebookOptionsPosition[    265796,       5584]
+NotebookOutlinePosition[    266233,       5601]
+CellTagsIndexPosition[    266190,       5598]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+
+Cell[CellGroupData[{
 Cell[BoxData[{
  RowBox[{
   RowBox[{"SetOptions", "[", 
@@ -39,7 +41,22 @@ Cell[BoxData[{
   RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}]}], "Input",
  CellChangeTimes->{{3.953777006687752*^9, 3.9537770231465607`*^9}, {
   3.953777069654051*^9, 3.9537770699076233`*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"b7240f03-1c9b-f548-85f5-b262c1b6572c"],
+ CellLabel->"In[1]:=",ExpressionUUID->"b7240f03-1c9b-f548-85f5-b262c1b6572c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Syntax", "com", 
+   "\"Warning: comma encountered with no adjacent expression. The expression \
+will be treated as Null. \\!\\(\\*RowBox[{\\\"\\\\\\\" (line 311 of \
+\\\\\\\\\\\\\\\"Pacchetto.m\\\\\\\\\\\\\\\")\\\\\\\"\\\"}]\\).\"", 2, 3, 1, 
+   29624671602140040952, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9537797412590523`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"4358a35e-9826-b145-9555-01df092f5309"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -395,552 +412,12 @@ Cell[BoxData[
  RowBox[{"aUI", "[", "]"}]], "Input",
  CellChangeTimes->{{3.9537770941743298`*^9, 3.953777114588871*^9}},
  FontWeight->"Bold",
- CellLabel->"In[8]:=",ExpressionUUID->"b1fa65cf-99f5-b549-b1e1-0da001199367"],
+ CellLabel->"In[84]:=",ExpressionUUID->"b1fa65cf-99f5-b549-b1e1-0da001199367"],
 
 Cell[BoxData[
- DynamicModuleBox[{Pacchetto`Private`mat$$ = {{255, 255, 255, 255, 255}, {255,
-   255, 255, 255, 255}, {255, 255, 255, 255, 255}, {255, 255, 255, 255, 
-  255}, {255, 255, 255, 255, 255}}, Pacchetto`Private`rgbMat$$ = {{{116, 38, 
-  78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}}, {{116, 38,
-   78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}}, {{116, 
-  38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}}, {{116,
-   38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}}, {{
-  116, 38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}, {116, 38, 78}}}, 
-  Pacchetto`Private`r$$ = 116, Pacchetto`Private`g$$ = 38, 
-  Pacchetto`Private`b$$ = 78}, 
-  TagBox[GridBox[{
-     {
-      TemplateBox[{
-        TagBox[
-         GridBox[{{
-            InterpretationBox[
-             Cell[
-              BoxData[
-               FormBox[
-               "\"Clicca su una cella per passare da 0 a 255 e viceversa:\"", 
-                TextForm]], "InlineText"], 
-             Text[
-             "Clicca su una cella per passare da 0 a 255 e viceversa:"]]}, {
-            TagBox[
-             GridBox[{{
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 1, 1], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 1, 1] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 1] = 
-                  If[Part[Pacchetto`Private`mat$$, 1, 1] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 1, 2], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 1, 2] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 2] = 
-                  If[Part[Pacchetto`Private`mat$$, 1, 2] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 1, 3], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 1, 3] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 3] = 
-                  If[Part[Pacchetto`Private`mat$$, 1, 3] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 1, 4], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 1, 4] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 4] = 
-                  If[Part[Pacchetto`Private`mat$$, 1, 4] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 1, 5], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 1, 5] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 1, 5] = 
-                  If[Part[Pacchetto`Private`mat$$, 1, 5] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"]}, {
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 2, 1], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 2, 1] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 1] = 
-                  If[Part[Pacchetto`Private`mat$$, 2, 1] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 2, 2], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 2, 2] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 2] = 
-                  If[Part[Pacchetto`Private`mat$$, 2, 2] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 2, 3], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 2, 3] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 3] = 
-                  If[Part[Pacchetto`Private`mat$$, 2, 3] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 2, 4], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 2, 4] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 4] = 
-                  If[Part[Pacchetto`Private`mat$$, 2, 4] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 2, 5], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 2, 5] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 2, 5] = 
-                  If[Part[Pacchetto`Private`mat$$, 2, 5] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"]}, {
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 3, 1], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 3, 1] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 1] = 
-                  If[Part[Pacchetto`Private`mat$$, 3, 1] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 3, 2], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 3, 2] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 2] = 
-                  If[Part[Pacchetto`Private`mat$$, 3, 2] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 3, 3], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 3, 3] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 3] = 
-                  If[Part[Pacchetto`Private`mat$$, 3, 3] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 3, 4], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 3, 4] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 4] = 
-                  If[Part[Pacchetto`Private`mat$$, 3, 4] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 3, 5], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 3, 5] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 3, 5] = 
-                  If[Part[Pacchetto`Private`mat$$, 3, 5] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"]}, {
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 4, 1], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 4, 1] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 1] = 
-                  If[Part[Pacchetto`Private`mat$$, 4, 1] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 4, 2], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 4, 2] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 2] = 
-                  If[Part[Pacchetto`Private`mat$$, 4, 2] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 4, 3], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 4, 3] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 3] = 
-                  If[Part[Pacchetto`Private`mat$$, 4, 3] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 4, 4], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 4, 4] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 4] = 
-                  If[Part[Pacchetto`Private`mat$$, 4, 4] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 4, 5], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 4, 5] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 4, 5] = 
-                  If[Part[Pacchetto`Private`mat$$, 4, 5] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"]}, {
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 5, 1], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 5, 1] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 1] = 
-                  If[Part[Pacchetto`Private`mat$$, 5, 1] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 5, 2], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 5, 2] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 2] = 
-                  If[Part[Pacchetto`Private`mat$$, 5, 2] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 5, 3], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 5, 3] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 3] = 
-                  If[Part[Pacchetto`Private`mat$$, 5, 3] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 5, 4], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 5, 4] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 4] = 
-                  If[Part[Pacchetto`Private`mat$$, 5, 4] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"], 
-                ButtonBox[
-                 DynamicBox[
-                  ToBoxes[
-                   Part[Pacchetto`Private`mat$$, 5, 5], StandardForm], 
-                  ImageSizeCache -> {
-                   23.09179744720459, {0.1367187537252903, 
-                    9.084961185045541}}], Appearance -> None, Background -> 
-                 Dynamic[
-                   If[
-                   Part[Pacchetto`Private`mat$$, 5, 5] == 0, Gray, 
-                    LightGray]], 
-                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold}, 
-                 ButtonFunction :> (Part[Pacchetto`Private`mat$$, 5, 5] = 
-                  If[Part[Pacchetto`Private`mat$$, 5, 5] == 0, 255, 0]), 
-                 Evaluator -> Automatic, ImageSize -> {40, 40}, Method -> 
-                 "Preemptive"]}}, AutoDelete -> False, 
-              GridBoxFrame -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
-              GridBoxItemSize -> {
-               "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-              GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{0}}}], 
-             "Grid"]}}, DefaultBaseStyle -> "Column", 
-          GridBoxAlignment -> {"Columns" -> {{Left}}}, 
-          GridBoxItemSize -> {
-           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"], 
-        TemplateBox[{20}, "Spacer1"], 
-        DynamicBox[
-         ToBoxes[
-          ArrayPlot[
-          Pacchetto`Private`mat$$, 
-           ColorFunction -> (If[# == 0, Black, White]& ), 
-           PlotRange -> {0, 255}, PlotRangePadding -> None, Mesh -> All, 
-           MeshStyle -> Black, Frame -> True, FrameTicks -> None, AspectRatio -> 
-           1, ImageSize -> 200], StandardForm]]},
-       "RowDefault"]},
-     {
-      TemplateBox[{30},
-       "Spacer1"]},
-     {
-      TemplateBox[{
-        DynamicBox[
-         ToBoxes[
-          Grid[
-           Table[
-            
-            With[{Pacchetto`Private`val = 
-              Part[Pacchetto`Private`rgbMat$$, Pacchetto`Private`i, 
-                Pacchetto`Private`j]}, 
-             Pane[
-              Column[
-               Map[
-               Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> 
-                 Medium]& , Pacchetto`Private`val], Alignment -> Center, 
-               Spacings -> 0.5], {50, 50}, Alignment -> Center]], {
-            Pacchetto`Private`i, 5}, {Pacchetto`Private`j, 5}], Frame -> All, 
-           Spacings -> {0, 0}, Alignment -> Center, ItemSize -> All], 
-          StandardForm]], 
-        TemplateBox[{20}, "Spacer1"], 
-        DynamicBox[
-         ToBoxes[
-          ArrayPlot[
-           Map[Apply[RGBColor, #/255]& , Pacchetto`Private`rgbMat$$, {2}], 
-           Mesh -> All, MeshStyle -> Black, Frame -> True, FrameTicks -> None,
-            AspectRatio -> 1, ImageSize -> 200], StandardForm]], 
-        TemplateBox[{20}, "Spacer1"], 
-        TagBox[
-         GridBox[{{
-            StyleBox[
-            "\"Regola i canali RGB:\"", StripOnInput -> False, FontWeight -> 
-             Bold]}, {
-            TemplateBox[{
-              StyleBox["\"R\"", Bold, 
-               RGBColor[1, 0, 0], StripOnInput -> False], 
-              SliderBox[
-               Dynamic[
-               Pacchetto`Private`r$$, (Pacchetto`Private`r$$ = Round[#])& ], {
-               0, 255}, ContinuousAction -> False, ImageSize -> 200], 
-              TemplateBox[{10}, "Spacer1"], 
-              DynamicBox[
-               ToBoxes[
-                Style[Pacchetto`Private`r$$, Red, Bold], StandardForm], 
-               ImageSizeCache -> {
-                21.44238224029541, {0.1459960894659158, 8.347167723812163}}]},
-              "RowDefault"]}, {
-            TemplateBox[{
-              StyleBox["\"G\"", Bold, 
-               RGBColor[0, 
-                Rational[2, 3], 0], StripOnInput -> False], 
-              SliderBox[
-               Dynamic[
-               Pacchetto`Private`g$$, (Pacchetto`Private`g$$ = Round[#])& ], {
-               0, 255}, ContinuousAction -> False, ImageSize -> 200], 
-              TemplateBox[{10}, "Spacer1"], 
-              DynamicBox[
-               ToBoxes[
-                Style[Pacchetto`Private`g$$, 
-                 Darker[Green], Bold], StandardForm], 
-               ImageSizeCache -> {
-                14.294921493530273`, {0.14599608946591758`, 
-                 8.436034908704459}}]}, "RowDefault"]}, {
-            TemplateBox[{
-              StyleBox["\"B\"", Bold, 
-               RGBColor[0, 0, 1], StripOnInput -> False], 
-              SliderBox[
-               Dynamic[
-               Pacchetto`Private`b$$, (Pacchetto`Private`b$$ = Round[#])& ], {
-               0, 255}, ContinuousAction -> False, ImageSize -> 200], 
-              TemplateBox[{10}, "Spacer1"], 
-              DynamicBox[
-               ToBoxes[
-                Style[Pacchetto`Private`b$$, Blue, Bold], StandardForm], 
-               ImageSizeCache -> {
-                14.294921493530273`, {0.14599608946591758`, 
-                 8.436034908704459}}]}, "RowDefault"]}, {
-            TemplateBox[{10}, "Spacer1"]}, {
-            ButtonBox[
-            "\"Applica RGB a tutta la matrice\"", Appearance -> Automatic, 
-             ButtonFunction :> (Pacchetto`Private`rgbMat$$ = ConstantArray[{
-                 Round[Pacchetto`Private`r$$], 
-                 Round[Pacchetto`Private`g$$], 
-                 Round[Pacchetto`Private`b$$]}, {5, 5}]), Evaluator -> 
-             Automatic, ImageSize -> 200, Method -> "Preemptive"]}}, 
-          DefaultBaseStyle -> "Column", 
-          GridBoxAlignment -> {"Columns" -> {{Left}}}, 
-          GridBoxItemSize -> {
-           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]},
-       "RowDefault"]}
-    },
-    DefaultBaseStyle->"Column",
-    GridBoxAlignment->{"Columns" -> {{Left}}},
-    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-   "Column"],
-  DynamicModuleValues:>{}]], "Output",
- CellChangeTimes->{3.953777187147297*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"69fc2e70-35bd-024c-afd9-aacf83075e44"]
+ RowBox[{"aUI", "[", "]"}]], "Output",
+ CellChangeTimes->{3.953779285930025*^9},
+ CellLabel->"Out[84]=",ExpressionUUID->"0fd2015f-dd16-374f-9ff4-1e04295d0848"]
 }, Open  ]],
 
 Cell["\t",
@@ -1959,7 +1436,7 @@ Cell[BoxData[
     {
      TagBox[
       StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`angolo$$ = 4, Typeset`show$$ = 
+       DynamicModuleBox[{Pacchetto`Private`angolo$$ = 279, Typeset`show$$ = 
         True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
         Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
         "\"untitled\"", Typeset`specs$$ = {{{
@@ -1985,8 +1462,8 @@ Cell[BoxData[
              "360\[CapitalAHat]\[Degree]", Pacchetto`Private`angolo$$ = 360]}, 
             Spacer[5]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
           None}}, Typeset`size$$ = {
-        463., {100.1151693264175, 105.84710275197064`}}, Typeset`update$$ = 0,
-         Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+        472.5, {100.1151693264175, 105.84710275197064`}}, Typeset`update$$ = 
+        0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
         Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
         DynamicBox[Manipulate`ManipulateBoxes[
          1, StandardForm, "Variables" :> {Pacchetto`Private`angolo$$ = 0}, 
@@ -2039,12 +1516,13 @@ Cell[BoxData[
               Button[
               "180\[CapitalAHat]\[Degree]", Pacchetto`Private`angolo$$ = 180], 
               Button[
-              "270\[CapitalAHat]\[Degree]", Pacchetto`Private`angolo$$ = 270], 
+              "270\[CapitalAHat]\[Degree]", Pacchetto`Private`angolo$$ = 270],
+               
               Button[
               "360\[CapitalAHat]\[Degree]", Pacchetto`Private`angolo$$ = 
                360]}, 
              Spacer[5]]}, "Options" :> {}, "DefaultOptions" :> {}],
-         ImageSizeCache->{508.9, {159.98136073266824`, 165.7132941582214}},
+         ImageSizeCache->{518.4, {159.98136073266824`, 165.7132941582214}},
          SingleEvaluation->True],
         Deinitialization:>None,
         DynamicModuleValues:>{},
@@ -2063,7 +1541,7 @@ Cell[BoxData[
     {
      TagBox[
       StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`asse$$ = "Y", Typeset`show$$ = 
+       DynamicModuleBox[{Pacchetto`Private`asse$$ = "X", Typeset`show$$ = 
         True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
         Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
         "\"untitled\"", Typeset`specs$$ = {{{
@@ -2117,7 +1595,7 @@ Cell[BoxData[
     {
      TagBox[
       StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`sx$$ = 1.5, 
+       DynamicModuleBox[{Pacchetto`Private`sx$$ = 0.5, 
         Pacchetto`Private`sy$$ = 0.7000000000000001, Typeset`show$$ = True, 
         Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
         Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
@@ -2138,8 +1616,8 @@ Cell[BoxData[
                1}], Null}, 
             Spacer[5]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
           None}}, Typeset`size$$ = {
-        399., {129.65251962142506`, 135.38445304697822`}}, Typeset`update$$ = 
-        0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+        347., {149.850389762409, 155.58232318796217`}}, Typeset`update$$ = 0, 
+        Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
         Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
         DynamicBox[Manipulate`ManipulateBoxes[
          1, StandardForm, 
@@ -2244,7 +1722,7 @@ Transformed", 14], ImageSize -> 300, PlotRange ->
           "Options" :> {
            ControlPlacement -> Top, Paneled -> True, FrameMargins -> 10}, 
           "DefaultOptions" :> {}],
-         ImageSizeCache->{444.9, {199.93871102767582`, 205.670644453229}},
+         ImageSizeCache->{392.9, {220.13658116865975`, 225.8685145942129}},
          SingleEvaluation->True],
         Deinitialization:>None,
         DynamicModuleValues:>{},
@@ -2547,7 +2025,7 @@ media uniforme, dove tutti i pesi sono uguali a 1/(dimensione del \
 kernel)^2."]]},
     {
      DynamicModuleBox[{Pacchetto`Private`kernelSize$$ = 5, 
-      Pacchetto`Private`locatorPosition$$ = {108.4, 118.}, 
+      Pacchetto`Private`locatorPosition$$ = {197.20000000000002`, 222.}, 
       Pacchetto`Private`img$$ = Image[CompressedData["
 1:eJxMvVmXW+eRLajufunH/gv9L+5b963bNbrKZWvgkBPmOQeSSVKUZA2WyrPK
 NkVmAmceAGQmSUmWbJUt21W2mDgHQyYlyy7Zki0cDHTV7b/RsXd8UPVaqVwp
@@ -6027,8 +5505,8 @@ FRWBfldp+gjTT+hBopmyN/L4wXjn/wNLXbsh
                  Pacchetto`Private`i, 1, Pacchetto`Private`kSize$}, {
                  Pacchetto`Private`j, 1, Pacchetto`Private`kSize$}]; 
               Pacchetto`Private`convolvedValue$ = 
-               Sum[
-                Part[Pacchetto`Private`neighborhood$, Pacchetto`Private`i, 
+               Sum[Part[
+                  Pacchetto`Private`neighborhood$, Pacchetto`Private`i, 
                    Pacchetto`Private`j] 
                  Part[Pacchetto`Private`kernel$, Pacchetto`Private`i, 
                    Pacchetto`Private`j], {
@@ -6061,9 +5539,9 @@ FRWBfldp+gjTT+hBopmyN/L4wXjn/wNLXbsh
                     Image[Pacchetto`Private`blurredImg$, ImageSize -> 300]}], 
                    Spacer[20], 
                    Column[{
-                    Style[
-                    "Kernel (Dimensione: " <> 
-                    ToString[Pacchetto`Private`kSize$] <> ")", Bold], 
+                    
+                    Style[("Kernel (Dimensione: " <> 
+                    ToString[Pacchetto`Private`kSize$]) <> ")", Bold], 
                     MatrixForm[Pacchetto`Private`kernel$]}]}, Alignment -> 
                   Top], 
                  Style["Dettagli Locali (Intorno al Locatore)", Bold], 
@@ -6122,211 +5600,214 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[554, 20, 923, 21, 161, "Input",ExpressionUUID->"b7240f03-1c9b-f548-85f5-b262c1b6572c"],
 Cell[CellGroupData[{
-Cell[1502, 45, 84, 0, 96, "Title",ExpressionUUID->"27ae2eca-f8a3-1543-bfef-0b08770890e1"],
-Cell[1589, 47, 416, 37, 33, "Text",ExpressionUUID->"4a6c60e0-e235-f04c-add6-7c01eed4e359"],
-Cell[2008, 86, 733, 81, 55, "Text",ExpressionUUID->"7904cd9c-7f7f-d146-ac57-2cc93e430883"],
-Cell[2744, 169, 110, 0, 33, "Text",ExpressionUUID->"9dab5379-98c8-5d48-afcf-5a9ba4b11e2c"],
-Cell[2857, 171, 140, 2, 30, "Item",ExpressionUUID->"9566c686-dd86-534e-b695-cd72b3e01c37"],
-Cell[3000, 175, 124, 0, 30, "Item",ExpressionUUID->"20749ffc-4215-5145-bd06-f262ad91544a"],
-Cell[3127, 177, 286, 23, 30, "Item",ExpressionUUID->"336e8334-0437-2f46-97c5-c1ede2b69571"],
-Cell[3416, 202, 105, 0, 33, "Text",ExpressionUUID->"0c9123dd-b786-6347-819d-c348b28d43fc"],
-Cell[3524, 204, 147, 2, 30, "ItemNumbered",ExpressionUUID->"e229a865-5880-4f40-90c0-0511c991474a"],
-Cell[3674, 208, 158, 2, 30, "ItemNumbered",ExpressionUUID->"964f9204-ceb4-6d4d-a904-55a445cad402"],
-Cell[3835, 212, 164, 2, 30, "ItemNumbered",ExpressionUUID->"6a84b68f-ba9e-594a-be11-4f99ba7e2597"],
-Cell[4002, 216, 199, 5, 21, InheritFromParent,ExpressionUUID->"8a90ce20-9df2-804c-b4eb-38661778b8f0"]
+Cell[576, 22, 923, 21, 161, "Input",ExpressionUUID->"b7240f03-1c9b-f548-85f5-b262c1b6572c"],
+Cell[1502, 45, 511, 12, 26, "Message",ExpressionUUID->"4358a35e-9826-b145-9555-01df092f5309"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4238, 226, 106, 0, 96, "Title",ExpressionUUID->"27cd9dda-fbcc-f248-bee7-50c4b0273405"],
+Cell[2050, 62, 84, 0, 96, "Title",ExpressionUUID->"27ae2eca-f8a3-1543-bfef-0b08770890e1"],
+Cell[2137, 64, 416, 37, 33, "Text",ExpressionUUID->"4a6c60e0-e235-f04c-add6-7c01eed4e359"],
+Cell[2556, 103, 733, 81, 55, "Text",ExpressionUUID->"7904cd9c-7f7f-d146-ac57-2cc93e430883"],
+Cell[3292, 186, 110, 0, 33, "Text",ExpressionUUID->"9dab5379-98c8-5d48-afcf-5a9ba4b11e2c"],
+Cell[3405, 188, 140, 2, 30, "Item",ExpressionUUID->"9566c686-dd86-534e-b695-cd72b3e01c37"],
+Cell[3548, 192, 124, 0, 30, "Item",ExpressionUUID->"20749ffc-4215-5145-bd06-f262ad91544a"],
+Cell[3675, 194, 286, 23, 30, "Item",ExpressionUUID->"336e8334-0437-2f46-97c5-c1ede2b69571"],
+Cell[3964, 219, 105, 0, 33, "Text",ExpressionUUID->"0c9123dd-b786-6347-819d-c348b28d43fc"],
+Cell[4072, 221, 147, 2, 30, "ItemNumbered",ExpressionUUID->"e229a865-5880-4f40-90c0-0511c991474a"],
+Cell[4222, 225, 158, 2, 30, "ItemNumbered",ExpressionUUID->"964f9204-ceb4-6d4d-a904-55a445cad402"],
+Cell[4383, 229, 164, 2, 30, "ItemNumbered",ExpressionUUID->"6a84b68f-ba9e-594a-be11-4f99ba7e2597"],
+Cell[4550, 233, 199, 5, 21, InheritFromParent,ExpressionUUID->"8a90ce20-9df2-804c-b4eb-38661778b8f0"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[4369, 230, 91, 0, 66, "Section",ExpressionUUID->"ec954fc0-e5cb-e541-a760-b805e91ae95d"],
-Cell[4463, 232, 298, 25, 33, "Text",ExpressionUUID->"0868b74b-f817-d743-b481-f829a4b1e68d"],
-Cell[4764, 259, 148, 2, 33, "Text",ExpressionUUID->"ac872807-e04c-8d44-8fc5-0fafa9e30346"],
-Cell[4915, 263, 128, 0, 30, "Item",ExpressionUUID->"80390bee-f1b4-274d-b434-0e2dd9ed8b1b"],
-Cell[5046, 265, 143, 2, 30, "Item",ExpressionUUID->"575a1d78-93b8-064a-86c4-0955b3462656"],
-Cell[5192, 269, 150, 2, 33, "Text",ExpressionUUID->"27ae014b-767d-0e4f-be1e-6916d7d76aba"],
+Cell[4786, 243, 106, 0, 96, "Title",ExpressionUUID->"27cd9dda-fbcc-f248-bee7-50c4b0273405"],
 Cell[CellGroupData[{
-Cell[5367, 275, 93, 0, 53, "Subsection",ExpressionUUID->"f2474542-2b78-024a-b711-d82d97326297"],
-Cell[5463, 277, 204, 3, 33, "Text",ExpressionUUID->"49679611-560d-fd4c-97ce-a217df2d8434"],
-Cell[5670, 282, 141, 5, 33, "Text",ExpressionUUID->"6633d881-4954-6042-9ef2-0c12cbfaafa3"],
-Cell[5814, 289, 199, 5, 21, InheritFromParent,ExpressionUUID->"ffa1e9aa-8cab-a64c-b25f-d18a37fb7447"]
+Cell[4917, 247, 91, 0, 66, "Section",ExpressionUUID->"ec954fc0-e5cb-e541-a760-b805e91ae95d"],
+Cell[5011, 249, 298, 25, 33, "Text",ExpressionUUID->"0868b74b-f817-d743-b481-f829a4b1e68d"],
+Cell[5312, 276, 148, 2, 33, "Text",ExpressionUUID->"ac872807-e04c-8d44-8fc5-0fafa9e30346"],
+Cell[5463, 280, 128, 0, 30, "Item",ExpressionUUID->"80390bee-f1b4-274d-b434-0e2dd9ed8b1b"],
+Cell[5594, 282, 143, 2, 30, "Item",ExpressionUUID->"575a1d78-93b8-064a-86c4-0955b3462656"],
+Cell[5740, 286, 150, 2, 33, "Text",ExpressionUUID->"27ae014b-767d-0e4f-be1e-6916d7d76aba"],
+Cell[CellGroupData[{
+Cell[5915, 292, 93, 0, 53, "Subsection",ExpressionUUID->"f2474542-2b78-024a-b711-d82d97326297"],
+Cell[6011, 294, 204, 3, 33, "Text",ExpressionUUID->"49679611-560d-fd4c-97ce-a217df2d8434"],
+Cell[6218, 299, 141, 5, 33, "Text",ExpressionUUID->"6633d881-4954-6042-9ef2-0c12cbfaafa3"],
+Cell[6362, 306, 199, 5, 21, InheritFromParent,ExpressionUUID->"ffa1e9aa-8cab-a64c-b25f-d18a37fb7447"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6062, 300, 93, 0, 66, "Section",ExpressionUUID->"c83ed3bf-e4ed-e04b-80f3-23ff7126a1f8"],
+Cell[6610, 317, 93, 0, 66, "Section",ExpressionUUID->"c83ed3bf-e4ed-e04b-80f3-23ff7126a1f8"],
 Cell[CellGroupData[{
-Cell[6180, 304, 91, 0, 53, "Subsection",ExpressionUUID->"8ffe01dd-cf8e-ce4d-9d2c-982918cf7a60"],
-Cell[6274, 306, 182, 3, 33, "Text",ExpressionUUID->"9b32b91e-d035-9440-90a7-f841a808ac12"],
-Cell[6459, 311, 237, 17, 33, "Text",ExpressionUUID->"dde2ea8d-8e75-2942-891b-c5173959441d"]
+Cell[6728, 321, 91, 0, 53, "Subsection",ExpressionUUID->"8ffe01dd-cf8e-ce4d-9d2c-982918cf7a60"],
+Cell[6822, 323, 182, 3, 33, "Text",ExpressionUUID->"9b32b91e-d035-9440-90a7-f841a808ac12"],
+Cell[7007, 328, 237, 17, 33, "Text",ExpressionUUID->"dde2ea8d-8e75-2942-891b-c5173959441d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6733, 333, 80, 0, 53, "Subsection",ExpressionUUID->"600dce0d-e15b-2b4d-8f4d-959572d2aaf9"],
-Cell[6816, 335, 104, 0, 33, "Text",ExpressionUUID->"bf8c993c-21f3-7649-beb0-cc28b17b22a2"],
-Cell[6923, 337, 367, 35, 33, "Text",ExpressionUUID->"cdb70c32-3f8c-d140-b66f-0b7750ea3378"],
-Cell[7293, 374, 90, 0, 30, "Item",ExpressionUUID->"00d0be09-41e2-144a-b994-512868cb0590"],
-Cell[7386, 376, 90, 0, 30, "Item",ExpressionUUID->"b9348cec-966d-ab4c-81ae-981c519612de"],
-Cell[7479, 378, 88, 0, 30, "Item",ExpressionUUID->"704d9dc9-ee09-9c4b-95db-2ff0c1016b81"],
-Cell[7570, 380, 95, 0, 30, "Item",ExpressionUUID->"fb258660-335a-0444-9903-1cec0293e894"],
-Cell[7668, 382, 87, 0, 30, "Item",ExpressionUUID->"9aed28f8-9e1b-fb4c-8c95-158f656a9bee"],
-Cell[7758, 384, 125, 0, 33, "Text",ExpressionUUID->"beef66eb-34ca-7742-a882-ccdab276a09e"],
-Cell[7886, 386, 120, 3, 33, "Text",ExpressionUUID->"a165c31e-93fa-7a42-92a7-86f8a0f2d5d5"],
+Cell[7281, 350, 80, 0, 53, "Subsection",ExpressionUUID->"600dce0d-e15b-2b4d-8f4d-959572d2aaf9"],
+Cell[7364, 352, 104, 0, 33, "Text",ExpressionUUID->"bf8c993c-21f3-7649-beb0-cc28b17b22a2"],
+Cell[7471, 354, 367, 35, 33, "Text",ExpressionUUID->"cdb70c32-3f8c-d140-b66f-0b7750ea3378"],
+Cell[7841, 391, 90, 0, 30, "Item",ExpressionUUID->"00d0be09-41e2-144a-b994-512868cb0590"],
+Cell[7934, 393, 90, 0, 30, "Item",ExpressionUUID->"b9348cec-966d-ab4c-81ae-981c519612de"],
+Cell[8027, 395, 88, 0, 30, "Item",ExpressionUUID->"704d9dc9-ee09-9c4b-95db-2ff0c1016b81"],
+Cell[8118, 397, 95, 0, 30, "Item",ExpressionUUID->"fb258660-335a-0444-9903-1cec0293e894"],
+Cell[8216, 399, 87, 0, 30, "Item",ExpressionUUID->"9aed28f8-9e1b-fb4c-8c95-158f656a9bee"],
+Cell[8306, 401, 125, 0, 33, "Text",ExpressionUUID->"beef66eb-34ca-7742-a882-ccdab276a09e"],
+Cell[8434, 403, 120, 3, 33, "Text",ExpressionUUID->"a165c31e-93fa-7a42-92a7-86f8a0f2d5d5"],
 Cell[CellGroupData[{
-Cell[8031, 393, 218, 4, 28, "Input",ExpressionUUID->"b1fa65cf-99f5-b549-b1e1-0da001199367"],
-Cell[8252, 399, 26571, 543, 510, "Output",ExpressionUUID->"69fc2e70-35bd-024c-afd9-aacf83075e44"]
+Cell[8579, 410, 219, 4, 28, "Input",ExpressionUUID->"b1fa65cf-99f5-b549-b1e1-0da001199367"],
+Cell[8801, 416, 173, 3, 32, "Output",ExpressionUUID->"0fd2015f-dd16-374f-9ff4-1e04295d0848"]
 }, Open  ]],
-Cell[34838, 945, 199, 5, 21, InheritFromParent,ExpressionUUID->"c7398c1d-2898-e04d-83dd-5a60884f40e6"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[35098, 957, 103, 0, 96, "Title",ExpressionUUID->"3e56cf6e-88cf-2544-8af4-d512a0e031d6"],
-Cell[CellGroupData[{
-Cell[35226, 961, 154, 2, 53, "Subsection",ExpressionUUID->"7283165d-5125-2d49-a9ba-6f2a2129c5b5"],
-Cell[35383, 965, 628, 42, 55, "Text",ExpressionUUID->"244aa762-ba07-e249-bc63-58260c320e59"],
-Cell[36014, 1009, 113, 0, 33, "Text",ExpressionUUID->"46ea7e75-871a-ce4a-842a-49bd816bc7e5"],
-Cell[36130, 1011, 405, 37, 30, "Item",ExpressionUUID->"5b8f16f7-4d57-0347-86c6-5fded5b42c1f"],
-Cell[36538, 1050, 310, 27, 30, "Item",ExpressionUUID->"de043af8-9cc5-7741-ab7d-6f527554f34a"],
-Cell[36851, 1079, 199, 5, 21, InheritFromParent,ExpressionUUID->"8d331d6d-02ed-3f4f-8bbe-da9aa82d12f5"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[37087, 1089, 137, 2, 53, "Subsection",ExpressionUUID->"d291ca73-d3a9-8a45-a53c-30ca1099ac75"],
-Cell[37227, 1093, 288, 23, 33, "Text",ExpressionUUID->"479181e5-f478-ca41-8a90-34effc2a8f85"],
-Cell[37518, 1118, 154, 7, 30, "Item",ExpressionUUID->"53ed5e5c-7cee-4746-b7d3-ea5fe136b589"],
-Cell[37675, 1127, 142, 2, 30, "Item",ExpressionUUID->"ae0b5680-9213-5f42-a1e2-5f8b0a52d9dd"],
-Cell[37820, 1131, 196, 13, 30, "Item",ExpressionUUID->"d5cec6f8-e5f5-d24a-8358-ccc2242fd7e8"],
-Cell[38019, 1146, 123, 1, 30, "Item",ExpressionUUID->"bc908a17-1184-7c4f-85e2-3f17db49788c"],
-Cell[38145, 1149, 413, 35, 33, "Text",ExpressionUUID->"c6e1813b-d7c0-f343-8bda-f5e1017d9271"],
-Cell[38561, 1186, 265, 19, 33, "Text",ExpressionUUID->"d4a0f0fa-3ed5-1843-8cc6-78681de1ea02"],
-Cell[38829, 1207, 199, 5, 21, InheritFromParent,ExpressionUUID->"e8aded77-7ce4-3945-8634-c210721c5e32"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[39065, 1217, 148, 2, 53, "Subsection",ExpressionUUID->"e9c6880b-8e23-4d42-8ec2-000205717343"],
-Cell[39216, 1221, 554, 47, 33, "Text",ExpressionUUID->"a3b7466c-cd17-4241-955c-0361ca3a426f"],
-Cell[39773, 1270, 78, 0, 33, "Text",ExpressionUUID->"d6275ca5-787f-9f4f-83e5-6708a8750024"],
-Cell[39854, 1272, 102, 0, 30, "Item",ExpressionUUID->"cfe417b9-fec4-1f45-aa57-93b49634cc13"],
-Cell[39959, 1274, 124, 0, 30, "Item",ExpressionUUID->"4bd776eb-d7e4-e741-99ab-6ba17e79cb80"],
-Cell[40086, 1276, 218, 15, 30, "Item",ExpressionUUID->"9450a492-949a-284e-953d-134186374f97"],
-Cell[40307, 1293, 199, 5, 21, InheritFromParent,ExpressionUUID->"e24f06bd-ad9a-a541-bb7a-ca07cafe27d8"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[40543, 1303, 146, 5, 53, "Subsection",ExpressionUUID->"a4a36045-7f88-ad4f-a9f9-3319e1ae0ed5"],
-Cell[CellGroupData[{
-Cell[40714, 1312, 88, 0, 43, "Subsubsection",ExpressionUUID->"a69cc9d3-cdd7-f842-8826-2f928ab4cac8"],
-Cell[40805, 1314, 204, 2, 33, "Text",ExpressionUUID->"df19fa0c-f52c-ff41-94c9-f34e3eb462ba"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[41046, 1321, 92, 0, 43, "Subsubsection",ExpressionUUID->"532b7eb6-a09b-3940-bb67-ee3a6aa41145"],
-Cell[41141, 1323, 322, 21, 33, "Text",ExpressionUUID->"1a4967e9-96cf-c94b-8a69-a38304f5b402"],
-Cell[41466, 1346, 567, 51, 50, "Item",ExpressionUUID->"cb5c36a7-7d19-c04d-86d2-8ba2766fc72f"],
-Cell[42036, 1399, 882, 87, 50, "Item",ExpressionUUID->"79a4f20c-0042-dd46-921a-b69ed316fc4f"],
-Cell[42921, 1488, 458, 43, 30, "Item",ExpressionUUID->"c0a924d3-5f47-544e-bfa9-9830d10b430c"],
-Cell[43382, 1533, 237, 4, 33, "Text",ExpressionUUID->"2fe3def5-bab5-5a41-bcef-95017cea6fdb"],
-Cell[43622, 1539, 390, 35, 33, "Text",ExpressionUUID->"3955881a-c01d-6541-b8c6-5630c9823f90"],
-Cell[44015, 1576, 199, 5, 21, InheritFromParent,ExpressionUUID->"687f2d91-bcbd-af43-9e3f-52b093ffb6a4"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[44263, 1587, 163, 5, 53, "Subsection",ExpressionUUID->"ec251c50-6ca2-6d48-9023-3511343b64f0"],
-Cell[CellGroupData[{
-Cell[44451, 1596, 120, 0, 43, "Subsubsection",ExpressionUUID->"c9199649-3966-9e43-a967-7c76c89ab1fe"],
-Cell[44574, 1598, 88, 0, 33, "Text",ExpressionUUID->"185fe25e-33e4-ab45-9a35-d2d937a388a4"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[44699, 1603, 95, 0, 43, "Subsubsection",ExpressionUUID->"2bdca2d1-ea75-4540-9c54-62f3354d237f"],
-Cell[44797, 1605, 138, 2, 30, "Item",ExpressionUUID->"9fdd2c79-0870-094d-ae11-ec35b6b1b4ca"],
-Cell[44938, 1609, 175, 7, 143, "Text",ExpressionUUID->"1dd09e44-193c-2e43-871a-a3a7acc782c7"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[45150, 1621, 92, 0, 43, "Subsubsection",ExpressionUUID->"9f0854c4-4ef4-e144-a98f-28e9bdd88a3b"],
-Cell[45245, 1623, 457, 41, 33, "Text",ExpressionUUID->"7ef63436-6bc3-2945-bef1-8882c93508ce"],
-Cell[45705, 1666, 192, 3, 30, "Item",ExpressionUUID->"f0ce210b-b7e0-4f41-8b2f-f444e37b84fc"],
-Cell[45900, 1671, 276, 4, 30, "Item",ExpressionUUID->"c2f10915-d107-244d-9116-f54a6864c508"],
-Cell[46179, 1677, 270, 4, 30, "Item",ExpressionUUID->"02a9c7ca-9491-ec4b-8293-09e73bb517b0"],
-Cell[46452, 1683, 223, 15, 33, "Text",ExpressionUUID->"c497627d-08e6-bb46-ad77-6d004290d792"],
-Cell[46678, 1700, 199, 5, 21, InheritFromParent,ExpressionUUID->"ad9282d3-551a-a64b-8275-6757e4eb22cf"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[46926, 1711, 156, 5, 53, "Subsection",ExpressionUUID->"30767002-09a6-044a-9b45-786508208b90"],
-Cell[CellGroupData[{
-Cell[47107, 1720, 88, 0, 43, "Subsubsection",ExpressionUUID->"5035bd33-69f7-4148-b9c0-a44459567977"],
-Cell[47198, 1722, 91, 0, 33, "Text",ExpressionUUID->"e2110273-4f6e-f845-8f68-e600f04ebd65"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[47326, 1727, 92, 0, 43, "Subsubsection",ExpressionUUID->"46042823-03e6-8443-9972-8627efe65c87"],
-Cell[47421, 1729, 263, 17, 33, "Text",ExpressionUUID->"aa3bf362-b40e-bd42-a941-57a01e577eb2"],
-Cell[47687, 1748, 282, 4, 50, "Item",ExpressionUUID->"84fbecdf-00c2-9244-87c2-6150b135d6ca"],
-Cell[47972, 1754, 466, 43, 30, "Item",ExpressionUUID->"f8ef5efa-0169-2a4c-8e9f-cbe3b0f61e6f"],
-Cell[48441, 1799, 415, 37, 30, "Item",ExpressionUUID->"e33be441-0a96-4c49-ba6a-46f8dae1bfe5"],
-Cell[48859, 1838, 878, 85, 50, "Item",ExpressionUUID->"88bca387-ae81-894f-a4f0-4d312fa1ccf4"],
-Cell[49740, 1925, 243, 4, 33, "Text",ExpressionUUID->"d324454d-bb20-0846-94d6-9fcc2c236b9e"],
-Cell[49986, 1931, 314, 8, 33, "Text",ExpressionUUID->"7190f98c-eb79-194f-af19-7d3249d54993"],
-Cell[CellGroupData[{
-Cell[50325, 1943, 295, 6, 85, "Input",ExpressionUUID->"9a1c914a-f409-5045-9f1e-95a3aec35e16"],
-Cell[50623, 1951, 15321, 312, 1022, "Output",ExpressionUUID->"9f75bafa-1d4f-5041-8276-ed5714d9cf62"]
-}, Open  ]],
-Cell[65959, 2266, 199, 5, 21, InheritFromParent,ExpressionUUID->"f6638826-2299-5145-b6c9-b9fffe525c3c"]
+Cell[8989, 422, 199, 5, 21, InheritFromParent,ExpressionUUID->"c7398c1d-2898-e04d-83dd-5a60884f40e6"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[66219, 2278, 102, 0, 96, "Title",ExpressionUUID->"8a0114a5-1f54-a848-b8c6-67a876f2dc93"],
+Cell[9249, 434, 103, 0, 96, "Title",ExpressionUUID->"3e56cf6e-88cf-2544-8af4-d512a0e031d6"],
 Cell[CellGroupData[{
-Cell[66346, 2282, 122, 0, 66, "Section",ExpressionUUID->"28fb5114-e996-a54e-8240-8e09a45df1f6"],
-Cell[66471, 2284, 492, 8, 55, "Text",ExpressionUUID->"bfb3ee6b-1f82-fb4c-9fa9-85189dd1273f"],
-Cell[66966, 2294, 122, 0, 33, "Text",ExpressionUUID->"9643b529-b138-4346-88a7-203856f886a2"],
-Cell[67091, 2296, 170, 3, 30, "Item",ExpressionUUID->"0ae892ff-5dc5-c04d-9307-5e809514eb41"],
-Cell[67264, 2301, 124, 0, 30, "Item",ExpressionUUID->"0cf0ef35-f318-534d-aa49-7e47ef3e85f6"],
-Cell[67391, 2303, 86, 0, 30, "Item",ExpressionUUID->"3eb3e5ed-67ff-fd46-8222-1f2f8df23f28"],
-Cell[67480, 2305, 154, 2, 30, "Item",ExpressionUUID->"b7811bb0-e3ba-1f4b-afed-51445c16e36e"],
-Cell[67637, 2309, 428, 6, 55, "Text",ExpressionUUID->"34563496-65ba-6a40-a326-c53e1aaed41b"],
-Cell[68068, 2317, 109, 0, 33, "Text",ExpressionUUID->"057c3f6a-c22a-2741-9754-48e49f172b5f"],
-Cell[68180, 2319, 199, 5, 21, InheritFromParent,ExpressionUUID->"9ca6ee82-3312-4943-8aad-5ca55575a22b"],
-Cell[CellGroupData[{
-Cell[68404, 2328, 96, 0, 53, "Subsection",ExpressionUUID->"d056e5c8-6d6d-d947-b6be-adcebf66daec"],
-Cell[68503, 2330, 110, 1, 33, "Text",ExpressionUUID->"69e4e41d-4da6-6d42-86f5-ba0db1333247"],
-Cell[68616, 2333, 373, 9, 104, "Input",ExpressionUUID->"d2708292-3eac-5446-b111-ab42b6c872eb"],
-Cell[68992, 2344, 104, 1, 33, "Text",ExpressionUUID->"ac7b19ae-0709-894a-9f9b-bd59d5deaf2a"],
-Cell[69099, 2347, 114, 0, 30, "Item",ExpressionUUID->"d1c90def-cf81-0442-9ae6-6253d6446c71"],
-Cell[69216, 2349, 216, 3, 30, "Item",ExpressionUUID->"2c9363c4-bed3-ac44-adec-07dec116466f"],
-Cell[69435, 2354, 175, 3, 30, "Item",ExpressionUUID->"d3d757d2-4606-3d4e-8add-f1fb9dd42328"],
-Cell[69613, 2359, 310, 4, 55, "Text",ExpressionUUID->"8fd9b618-39b9-4642-85c9-cac1acfbf307"],
-Cell[69926, 2365, 199, 5, 21, InheritFromParent,ExpressionUUID->"c334f95d-7524-8e4f-b44e-f959633e640a"]
+Cell[9377, 438, 154, 2, 53, "Subsection",ExpressionUUID->"7283165d-5125-2d49-a9ba-6f2a2129c5b5"],
+Cell[9534, 442, 628, 42, 55, "Text",ExpressionUUID->"244aa762-ba07-e249-bc63-58260c320e59"],
+Cell[10165, 486, 113, 0, 33, "Text",ExpressionUUID->"46ea7e75-871a-ce4a-842a-49bd816bc7e5"],
+Cell[10281, 488, 405, 37, 30, "Item",ExpressionUUID->"5b8f16f7-4d57-0347-86c6-5fded5b42c1f"],
+Cell[10689, 527, 310, 27, 30, "Item",ExpressionUUID->"de043af8-9cc5-7741-ab7d-6f527554f34a"],
+Cell[11002, 556, 199, 5, 21, InheritFromParent,ExpressionUUID->"8d331d6d-02ed-3f4f-8bbe-da9aa82d12f5"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[70162, 2375, 102, 0, 53, "Subsection",ExpressionUUID->"8f1c9c18-c3e9-a54a-85ed-44f6e858e316"],
-Cell[70267, 2377, 110, 1, 33, "Text",ExpressionUUID->"b5733488-6e27-6047-ad82-7530853e9328"],
-Cell[70380, 2380, 397, 11, 85, "Input",ExpressionUUID->"a2700e1d-aca7-0748-8dba-e4059dfe3b5f"],
-Cell[70780, 2393, 104, 1, 33, "Text",ExpressionUUID->"bfd96e55-e770-044c-b2e7-87d5dc1e95a4"],
-Cell[70887, 2396, 199, 3, 30, "Item",ExpressionUUID->"1d1b9150-4ec1-a047-a3a7-bf5a9308135d"],
-Cell[71089, 2401, 290, 4, 30, "Item",ExpressionUUID->"0a4f699e-ba9b-1447-b907-9649cb8874f0"],
-Cell[71382, 2407, 225, 3, 30, "Item",ExpressionUUID->"498095b1-8606-f74e-91f2-ad5b01735a22"],
-Cell[71610, 2412, 286, 4, 33, "Text",ExpressionUUID->"e8a16508-5d33-bf4c-98e1-42d8e7e32f2d"],
-Cell[71899, 2418, 199, 5, 21, InheritFromParent,ExpressionUUID->"8ec2c32f-cef5-df4b-beba-b277cbad1e15"]
+Cell[11238, 566, 137, 2, 53, "Subsection",ExpressionUUID->"d291ca73-d3a9-8a45-a53c-30ca1099ac75"],
+Cell[11378, 570, 288, 23, 33, "Text",ExpressionUUID->"479181e5-f478-ca41-8a90-34effc2a8f85"],
+Cell[11669, 595, 154, 7, 30, "Item",ExpressionUUID->"53ed5e5c-7cee-4746-b7d3-ea5fe136b589"],
+Cell[11826, 604, 142, 2, 30, "Item",ExpressionUUID->"ae0b5680-9213-5f42-a1e2-5f8b0a52d9dd"],
+Cell[11971, 608, 196, 13, 30, "Item",ExpressionUUID->"d5cec6f8-e5f5-d24a-8358-ccc2242fd7e8"],
+Cell[12170, 623, 123, 1, 30, "Item",ExpressionUUID->"bc908a17-1184-7c4f-85e2-3f17db49788c"],
+Cell[12296, 626, 413, 35, 33, "Text",ExpressionUUID->"c6e1813b-d7c0-f343-8bda-f5e1017d9271"],
+Cell[12712, 663, 265, 19, 33, "Text",ExpressionUUID->"d4a0f0fa-3ed5-1843-8cc6-78681de1ea02"],
+Cell[12980, 684, 199, 5, 21, InheritFromParent,ExpressionUUID->"e8aded77-7ce4-3945-8634-c210721c5e32"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[72135, 2428, 114, 0, 53, "Subsection",ExpressionUUID->"cbe6723e-55bb-e744-90db-52ea67b9c38e"],
-Cell[72252, 2430, 130, 1, 33, "Text",ExpressionUUID->"c1ec44be-6880-4b4a-8798-58699f3d1032"],
-Cell[72385, 2433, 378, 10, 85, "Input",ExpressionUUID->"e77a314f-37f9-0b42-9477-73016f80e288"],
-Cell[72766, 2445, 104, 1, 33, "Text",ExpressionUUID->"4781048b-1aff-9c45-99f5-dc55c684d7af"],
-Cell[72873, 2448, 263, 4, 30, "Item",ExpressionUUID->"b80893af-dbf2-fc48-90b5-04ca4feb8936"],
-Cell[73139, 2454, 273, 4, 30, "Item",ExpressionUUID->"a1d85a2a-659a-ce4e-8d4e-2d4be71dae8a"],
-Cell[73415, 2460, 185, 3, 30, "Item",ExpressionUUID->"45bc84bd-a3ed-ad43-aaa3-1588bb101958"],
-Cell[73603, 2465, 467, 7, 55, "Text",ExpressionUUID->"a2e9c239-7f58-a44d-880f-9f8d3c6d47a3"],
-Cell[74073, 2474, 199, 5, 21, InheritFromParent,ExpressionUUID->"18d1ee9d-3642-2b4a-9cc3-89e85b7da8c1"]
+Cell[13216, 694, 148, 2, 53, "Subsection",ExpressionUUID->"e9c6880b-8e23-4d42-8ec2-000205717343"],
+Cell[13367, 698, 554, 47, 33, "Text",ExpressionUUID->"a3b7466c-cd17-4241-955c-0361ca3a426f"],
+Cell[13924, 747, 78, 0, 33, "Text",ExpressionUUID->"d6275ca5-787f-9f4f-83e5-6708a8750024"],
+Cell[14005, 749, 102, 0, 30, "Item",ExpressionUUID->"cfe417b9-fec4-1f45-aa57-93b49634cc13"],
+Cell[14110, 751, 124, 0, 30, "Item",ExpressionUUID->"4bd776eb-d7e4-e741-99ab-6ba17e79cb80"],
+Cell[14237, 753, 218, 15, 30, "Item",ExpressionUUID->"9450a492-949a-284e-953d-134186374f97"],
+Cell[14458, 770, 199, 5, 21, InheritFromParent,ExpressionUUID->"e24f06bd-ad9a-a541-bb7a-ca07cafe27d8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14694, 780, 146, 5, 53, "Subsection",ExpressionUUID->"a4a36045-7f88-ad4f-a9f9-3319e1ae0ed5"],
+Cell[CellGroupData[{
+Cell[14865, 789, 88, 0, 43, "Subsubsection",ExpressionUUID->"a69cc9d3-cdd7-f842-8826-2f928ab4cac8"],
+Cell[14956, 791, 204, 2, 33, "Text",ExpressionUUID->"df19fa0c-f52c-ff41-94c9-f34e3eb462ba"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15197, 798, 92, 0, 43, "Subsubsection",ExpressionUUID->"532b7eb6-a09b-3940-bb67-ee3a6aa41145"],
+Cell[15292, 800, 322, 21, 33, "Text",ExpressionUUID->"1a4967e9-96cf-c94b-8a69-a38304f5b402"],
+Cell[15617, 823, 567, 51, 50, "Item",ExpressionUUID->"cb5c36a7-7d19-c04d-86d2-8ba2766fc72f"],
+Cell[16187, 876, 882, 87, 50, "Item",ExpressionUUID->"79a4f20c-0042-dd46-921a-b69ed316fc4f"],
+Cell[17072, 965, 458, 43, 30, "Item",ExpressionUUID->"c0a924d3-5f47-544e-bfa9-9830d10b430c"],
+Cell[17533, 1010, 237, 4, 33, "Text",ExpressionUUID->"2fe3def5-bab5-5a41-bcef-95017cea6fdb"],
+Cell[17773, 1016, 390, 35, 33, "Text",ExpressionUUID->"3955881a-c01d-6541-b8c6-5630c9823f90"],
+Cell[18166, 1053, 199, 5, 21, InheritFromParent,ExpressionUUID->"687f2d91-bcbd-af43-9e3f-52b093ffb6a4"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[74321, 2485, 101, 0, 66, "Section",ExpressionUUID->"eb1dafd6-a6ec-b54f-a621-fcc2c981e87f"],
-Cell[74425, 2487, 193, 3, 30, "Item",ExpressionUUID->"aef97184-f0dd-ab43-a8a9-16cccda40dc7"],
-Cell[74621, 2492, 148, 2, 30, "Item",ExpressionUUID->"a1555406-822a-3844-b32b-cd24ca7bdece"],
-Cell[74772, 2496, 291, 4, 30, "Item",ExpressionUUID->"3bd01bdb-919e-0945-b317-574aec67af3c"],
-Cell[75066, 2502, 237, 4, 30, "Item",ExpressionUUID->"e93a8d3a-e77b-dc4f-8640-ab61887aa071"],
-Cell[75306, 2508, 199, 5, 21, InheritFromParent,ExpressionUUID->"e845f2ae-a461-2b47-a861-1bd3419aa25a"],
+Cell[18414, 1064, 163, 5, 53, "Subsection",ExpressionUUID->"ec251c50-6ca2-6d48-9023-3511343b64f0"],
 Cell[CellGroupData[{
-Cell[75530, 2517, 196, 3, 28, "Input",ExpressionUUID->"a5417584-062c-024a-99fe-59968dcc31d4"],
-Cell[75729, 2522, 215842, 3579, 1004, "Output",ExpressionUUID->"baa15787-6b07-be47-92c6-7b674ab574f2"]
+Cell[18602, 1073, 120, 0, 43, "Subsubsection",ExpressionUUID->"c9199649-3966-9e43-a967-7c76c89ab1fe"],
+Cell[18725, 1075, 88, 0, 33, "Text",ExpressionUUID->"185fe25e-33e4-ab45-9a35-d2d937a388a4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18850, 1080, 95, 0, 43, "Subsubsection",ExpressionUUID->"2bdca2d1-ea75-4540-9c54-62f3354d237f"],
+Cell[18948, 1082, 138, 2, 30, "Item",ExpressionUUID->"9fdd2c79-0870-094d-ae11-ec35b6b1b4ca"],
+Cell[19089, 1086, 175, 7, 143, "Text",ExpressionUUID->"1dd09e44-193c-2e43-871a-a3a7acc782c7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19301, 1098, 92, 0, 43, "Subsubsection",ExpressionUUID->"9f0854c4-4ef4-e144-a98f-28e9bdd88a3b"],
+Cell[19396, 1100, 457, 41, 33, "Text",ExpressionUUID->"7ef63436-6bc3-2945-bef1-8882c93508ce"],
+Cell[19856, 1143, 192, 3, 30, "Item",ExpressionUUID->"f0ce210b-b7e0-4f41-8b2f-f444e37b84fc"],
+Cell[20051, 1148, 276, 4, 30, "Item",ExpressionUUID->"c2f10915-d107-244d-9116-f54a6864c508"],
+Cell[20330, 1154, 270, 4, 30, "Item",ExpressionUUID->"02a9c7ca-9491-ec4b-8293-09e73bb517b0"],
+Cell[20603, 1160, 223, 15, 33, "Text",ExpressionUUID->"c497627d-08e6-bb46-ad77-6d004290d792"],
+Cell[20829, 1177, 199, 5, 21, InheritFromParent,ExpressionUUID->"ad9282d3-551a-a64b-8275-6757e4eb22cf"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21077, 1188, 156, 5, 53, "Subsection",ExpressionUUID->"30767002-09a6-044a-9b45-786508208b90"],
+Cell[CellGroupData[{
+Cell[21258, 1197, 88, 0, 43, "Subsubsection",ExpressionUUID->"5035bd33-69f7-4148-b9c0-a44459567977"],
+Cell[21349, 1199, 91, 0, 33, "Text",ExpressionUUID->"e2110273-4f6e-f845-8f68-e600f04ebd65"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21477, 1204, 92, 0, 43, "Subsubsection",ExpressionUUID->"46042823-03e6-8443-9972-8627efe65c87"],
+Cell[21572, 1206, 263, 17, 33, "Text",ExpressionUUID->"aa3bf362-b40e-bd42-a941-57a01e577eb2"],
+Cell[21838, 1225, 282, 4, 50, "Item",ExpressionUUID->"84fbecdf-00c2-9244-87c2-6150b135d6ca"],
+Cell[22123, 1231, 466, 43, 30, "Item",ExpressionUUID->"f8ef5efa-0169-2a4c-8e9f-cbe3b0f61e6f"],
+Cell[22592, 1276, 415, 37, 30, "Item",ExpressionUUID->"e33be441-0a96-4c49-ba6a-46f8dae1bfe5"],
+Cell[23010, 1315, 878, 85, 50, "Item",ExpressionUUID->"88bca387-ae81-894f-a4f0-4d312fa1ccf4"],
+Cell[23891, 1402, 243, 4, 33, "Text",ExpressionUUID->"d324454d-bb20-0846-94d6-9fcc2c236b9e"],
+Cell[24137, 1408, 314, 8, 33, "Text",ExpressionUUID->"7190f98c-eb79-194f-af19-7d3249d54993"],
+Cell[CellGroupData[{
+Cell[24476, 1420, 295, 6, 85, "Input",ExpressionUUID->"9a1c914a-f409-5045-9f1e-95a3aec35e16"],
+Cell[24774, 1428, 15337, 313, 1063, "Output",ExpressionUUID->"9f75bafa-1d4f-5041-8276-ed5714d9cf62"]
+}, Open  ]],
+Cell[40126, 1744, 199, 5, 21, InheritFromParent,ExpressionUUID->"f6638826-2299-5145-b6c9-b9fffe525c3c"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40386, 1756, 102, 0, 96, "Title",ExpressionUUID->"8a0114a5-1f54-a848-b8c6-67a876f2dc93"],
+Cell[CellGroupData[{
+Cell[40513, 1760, 122, 0, 66, "Section",ExpressionUUID->"28fb5114-e996-a54e-8240-8e09a45df1f6"],
+Cell[40638, 1762, 492, 8, 55, "Text",ExpressionUUID->"bfb3ee6b-1f82-fb4c-9fa9-85189dd1273f"],
+Cell[41133, 1772, 122, 0, 33, "Text",ExpressionUUID->"9643b529-b138-4346-88a7-203856f886a2"],
+Cell[41258, 1774, 170, 3, 30, "Item",ExpressionUUID->"0ae892ff-5dc5-c04d-9307-5e809514eb41"],
+Cell[41431, 1779, 124, 0, 30, "Item",ExpressionUUID->"0cf0ef35-f318-534d-aa49-7e47ef3e85f6"],
+Cell[41558, 1781, 86, 0, 30, "Item",ExpressionUUID->"3eb3e5ed-67ff-fd46-8222-1f2f8df23f28"],
+Cell[41647, 1783, 154, 2, 30, "Item",ExpressionUUID->"b7811bb0-e3ba-1f4b-afed-51445c16e36e"],
+Cell[41804, 1787, 428, 6, 55, "Text",ExpressionUUID->"34563496-65ba-6a40-a326-c53e1aaed41b"],
+Cell[42235, 1795, 109, 0, 33, "Text",ExpressionUUID->"057c3f6a-c22a-2741-9754-48e49f172b5f"],
+Cell[42347, 1797, 199, 5, 21, InheritFromParent,ExpressionUUID->"9ca6ee82-3312-4943-8aad-5ca55575a22b"],
+Cell[CellGroupData[{
+Cell[42571, 1806, 96, 0, 53, "Subsection",ExpressionUUID->"d056e5c8-6d6d-d947-b6be-adcebf66daec"],
+Cell[42670, 1808, 110, 1, 33, "Text",ExpressionUUID->"69e4e41d-4da6-6d42-86f5-ba0db1333247"],
+Cell[42783, 1811, 373, 9, 104, "Input",ExpressionUUID->"d2708292-3eac-5446-b111-ab42b6c872eb"],
+Cell[43159, 1822, 104, 1, 33, "Text",ExpressionUUID->"ac7b19ae-0709-894a-9f9b-bd59d5deaf2a"],
+Cell[43266, 1825, 114, 0, 30, "Item",ExpressionUUID->"d1c90def-cf81-0442-9ae6-6253d6446c71"],
+Cell[43383, 1827, 216, 3, 30, "Item",ExpressionUUID->"2c9363c4-bed3-ac44-adec-07dec116466f"],
+Cell[43602, 1832, 175, 3, 30, "Item",ExpressionUUID->"d3d757d2-4606-3d4e-8add-f1fb9dd42328"],
+Cell[43780, 1837, 310, 4, 55, "Text",ExpressionUUID->"8fd9b618-39b9-4642-85c9-cac1acfbf307"],
+Cell[44093, 1843, 199, 5, 21, InheritFromParent,ExpressionUUID->"c334f95d-7524-8e4f-b44e-f959633e640a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44329, 1853, 102, 0, 53, "Subsection",ExpressionUUID->"8f1c9c18-c3e9-a54a-85ed-44f6e858e316"],
+Cell[44434, 1855, 110, 1, 33, "Text",ExpressionUUID->"b5733488-6e27-6047-ad82-7530853e9328"],
+Cell[44547, 1858, 397, 11, 85, "Input",ExpressionUUID->"a2700e1d-aca7-0748-8dba-e4059dfe3b5f"],
+Cell[44947, 1871, 104, 1, 33, "Text",ExpressionUUID->"bfd96e55-e770-044c-b2e7-87d5dc1e95a4"],
+Cell[45054, 1874, 199, 3, 30, "Item",ExpressionUUID->"1d1b9150-4ec1-a047-a3a7-bf5a9308135d"],
+Cell[45256, 1879, 290, 4, 30, "Item",ExpressionUUID->"0a4f699e-ba9b-1447-b907-9649cb8874f0"],
+Cell[45549, 1885, 225, 3, 30, "Item",ExpressionUUID->"498095b1-8606-f74e-91f2-ad5b01735a22"],
+Cell[45777, 1890, 286, 4, 33, "Text",ExpressionUUID->"e8a16508-5d33-bf4c-98e1-42d8e7e32f2d"],
+Cell[46066, 1896, 199, 5, 21, InheritFromParent,ExpressionUUID->"8ec2c32f-cef5-df4b-beba-b277cbad1e15"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46302, 1906, 114, 0, 53, "Subsection",ExpressionUUID->"cbe6723e-55bb-e744-90db-52ea67b9c38e"],
+Cell[46419, 1908, 130, 1, 33, "Text",ExpressionUUID->"c1ec44be-6880-4b4a-8798-58699f3d1032"],
+Cell[46552, 1911, 378, 10, 85, "Input",ExpressionUUID->"e77a314f-37f9-0b42-9477-73016f80e288"],
+Cell[46933, 1923, 104, 1, 33, "Text",ExpressionUUID->"4781048b-1aff-9c45-99f5-dc55c684d7af"],
+Cell[47040, 1926, 263, 4, 30, "Item",ExpressionUUID->"b80893af-dbf2-fc48-90b5-04ca4feb8936"],
+Cell[47306, 1932, 273, 4, 30, "Item",ExpressionUUID->"a1d85a2a-659a-ce4e-8d4e-2d4be71dae8a"],
+Cell[47582, 1938, 185, 3, 30, "Item",ExpressionUUID->"45bc84bd-a3ed-ad43-aaa3-1588bb101958"],
+Cell[47770, 1943, 467, 7, 55, "Text",ExpressionUUID->"a2e9c239-7f58-a44d-880f-9f8d3c6d47a3"],
+Cell[48240, 1952, 199, 5, 21, InheritFromParent,ExpressionUUID->"18d1ee9d-3642-2b4a-9cc3-89e85b7da8c1"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48488, 1963, 101, 0, 66, "Section",ExpressionUUID->"eb1dafd6-a6ec-b54f-a621-fcc2c981e87f"],
+Cell[48592, 1965, 193, 3, 30, "Item",ExpressionUUID->"aef97184-f0dd-ab43-a8a9-16cccda40dc7"],
+Cell[48788, 1970, 148, 2, 30, "Item",ExpressionUUID->"a1555406-822a-3844-b32b-cd24ca7bdece"],
+Cell[48939, 1974, 291, 4, 30, "Item",ExpressionUUID->"3bd01bdb-919e-0945-b317-574aec67af3c"],
+Cell[49233, 1980, 237, 4, 30, "Item",ExpressionUUID->"e93a8d3a-e77b-dc4f-8640-ab61887aa071"],
+Cell[49473, 1986, 199, 5, 21, InheritFromParent,ExpressionUUID->"e845f2ae-a461-2b47-a861-1bd3419aa25a"],
+Cell[CellGroupData[{
+Cell[49697, 1995, 196, 3, 28, "Input",ExpressionUUID->"a5417584-062c-024a-99fe-59968dcc31d4"],
+Cell[49896, 2000, 215860, 3579, 1004, "Output",ExpressionUUID->"baa15787-6b07-be47-92c6-7b674ab574f2"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
