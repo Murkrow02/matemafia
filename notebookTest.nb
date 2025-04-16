@@ -1,0 +1,90 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      3559,         82]
+NotebookOptionsPosition[      3134,         66]
+NotebookOutlinePosition[      3602,         84]
+CellTagsIndexPosition[      3559,         81]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Tutorial", ".", "nb"}], "*)"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "1.", " ", "Imposta", " ", "la", " ", "directory", " ", "corrente", " ", 
+    "come", " ", "quella", " ", "del", " ", "notebook"}], "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"Get", "[", "\"\<PacchettoTest.m\>\"", "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"es", "[", "]"}], "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.952745699409548*^9, 3.952745710570202*^9}, 
+   3.952745952639303*^9, {3.952746078962372*^9, 3.9527460978947487`*^9}, {
+   3.9527461487763844`*^9, 3.9527461687407856`*^9}, 3.952746288894665*^9, {
+   3.9527465146368504`*^9, 3.952746514794716*^9}, {3.9527471025594273`*^9, 
+   3.9527471035393677`*^9}, {3.952747153118515*^9, 3.9527471781166153`*^9}, {
+   3.9527476625473785`*^9, 3.952747677295967*^9}, {3.952748354531*^9, 
+   3.952748355309431*^9}, {3.9527485213354435`*^9, 3.952748530329529*^9}, {
+   3.952748610383648*^9, 3.9527486105739155`*^9}, {3.9527487449342937`*^9, 
+   3.9527487464275265`*^9}, 3.952748990411949*^9, {3.953001158113386*^9, 
+   3.953001176199812*^9}, {3.953001321441963*^9, 3.95300132178294*^9}, {
+   3.9530020274903812`*^9, 3.9530020525688*^9}, {3.9533536924035625`*^9, 
+   3.9533536959645176`*^9}, {3.9533562751556606`*^9, 3.9533562820105705`*^9}, 
+   3.953356346218157*^9, {3.9536074304786797`*^9, 3.953607431807453*^9}, {
+   3.95360748411611*^9, 3.953607484779335*^9}, {3.95360783466951*^9, 
+   3.9536078385375023`*^9}, {3.9536080052568226`*^9, 
+   3.9536080059694214`*^9}, {3.953608088337969*^9, 3.953608091897156*^9}, {
+   3.953608821240795*^9, 3.953608821401579*^9}, {3.953608875639862*^9, 
+   3.9536088757937546`*^9}, {3.953608930549017*^9, 3.953608931271534*^9}, {
+   3.953609160162426*^9, 3.953609162031288*^9}, {3.953609421281225*^9, 
+   3.9536094380774937`*^9}, {3.9536106701294785`*^9, 
+   3.9536106756088924`*^9}, {3.9536148275628357`*^9, 
+   3.9536148278465767`*^9}, {3.953618498903268*^9, 3.9536185000622683`*^9}, {
+   3.9536302324071426`*^9, 3.953630239463503*^9}, {3.953630293550562*^9, 
+   3.9536303041986084`*^9}, {3.953780225753048*^9, 3.9537802259319324`*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
+},
+WindowSize->{1152, 615.6},
+WindowMargins->{{
+  Automatic, -5.399999999999864}, {-5.399999999999977, Automatic}},
+Magnification:>0.75 Inherited,
+FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (March 14, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"ade0dd46-19cc-9646-88a0-87a5414730c0"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 2576, 44, 135, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
+}
+]
+*)
+
