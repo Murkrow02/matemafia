@@ -4,32 +4,20 @@ es::usage =
   "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. \
    Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
 
-esGai::usage = 
-  "esGai[] carica un'immagine di esempio e applica una trasformazione lineare casuale (rotazione, scalatura o \
-   riflessione) mostrando l'immagine originale e quella trasformata.";
-
 Begin["`Private`"]
 
 (* Funzione per creare una trasformazione casuale con valori interi nella matrice *)
 randomTransform[] := Module[{transformTypeChoice, subChoice},
-  
-  (* Scegliamo la categoria di trasformazione in modo uniforme *)
   transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];
-  
   Switch[transformTypeChoice,
-    
     "Rotazione",
-    (* Rotazioni a multipli di 90° con matrici intere *)
     subChoice = RandomChoice[{
       {"Rotazione 0°",    {{1, 0}, {0, 1}}},
       {"Rotazione 90°",   {{0, -1}, {1, 0}}},
       {"Rotazione 180°",  {{-1, 0}, {0, -1}}},
       {"Rotazione 270°",  {{0, 1}, {-1, 0}}}
     }],
-    
     "Scalatura",
-    (* Scalatura con fattori interi scelti da un piccolo insieme: -2, -1, 1, 2. 
-       Se vuoi solo scalature positive, rimuovi i valori negativi. *)
     Module[{sx, sy},
       sx = RandomChoice[{-2, -1, 1, 2}];
       sy = RandomChoice[{-2, -1, 1, 2}];
@@ -38,39 +26,32 @@ randomTransform[] := Module[{transformTypeChoice, subChoice},
         DiagonalMatrix[{sx, sy}]
       };
     ],
-    
     "Riflessione",
-    (* Varie riflessioni “classiche” con matrici integer *)
     subChoice = RandomChoice[{
-      {"Riflessione X",    {{1,  0}, {0, -1}}},   (* riflette intorno all’asse x *)
-      {"Riflessione Y",    {{-1, 0}, {0,  1}}},   (* riflette intorno all’asse y *)
-      {"Riflessione Y=X",  {{0,  1}, {1,  0}}},   (* riflette rispetto alla diagonale y=x *)
-      {"Riflessione Y=-X", {{0, -1}, {-1, 0}}}    (* riflette rispetto alla diagonale y=-x *)
+      {"Riflessione X",    {{1,  0}, {0, -1}}},
+      {"Riflessione Y",    {{-1, 0}, {0,  1}}},
+      {"Riflessione Y=X",  {{0,  1}, {1,  0}}},
+      {"Riflessione Y=-X", {{0, -1}, {-1, 0}}}
     }]
   ];
-  
   subChoice
 ];
 
-(* Funzione principale con supporto al seed *)
+(* Funzione principale con interfaccia migliorata *)
 es[seed_: Automatic] := Module[
   {
     img, dims, center,
     transformations, transformedImgs
   },
   
-  (* Se l'utente specifica un seed, usiamolo per fissare la sequenza random *)
   If[IntegerQ[seed], SeedRandom[seed], SeedRandom[]];
   
-  (* Carica l'immagine di esempio *)
   img = ExampleData[{"TestImage", "House"}];
   dims = ImageDimensions[img];
   center = Mean /@ Transpose[{{1, 1}, dims}];
   
-  (* Genera 5 trasformazioni casuali *)
   transformations = Table[randomTransform[], {5}];
   
-  (* Applica ciascuna trasformazione all'immagine *)
   transformedImgs = Table[
     Module[{matrix = transformations[[i, 2]], transfFun},
       transfFun = Function[p, center + matrix . (p - center)];
@@ -80,30 +61,81 @@ es[seed_: Automatic] := Module[
     {i, 5}
   ];
   
-  (* DynamicModule per navigare tra le trasformazioni con pulsanti *)
-  DynamicModule[{index = 1},
-    Column[{
-      Style[
-        If[IntegerQ[seed],
-          "Seed: " <> ToString[seed],
-          Style["Seed casuale (non riproducibile)", Gray]
+  DynamicModule[{index = 1, userMatrix = ConstantArray[0, {2, 2}]},
+    Panel[
+      Column[{
+        Style[
+          If[IntegerQ[seed],
+            "Seed: " <> ToString[seed],
+            Style["Seed casuale (non riproducibile)", Gray]
+          ],
+          Italic, 12
         ],
-        Italic, 12
+        
+        Framed[
+          Grid[{
+            {
+              Button["⟵ Precedente", If[index > 1, index--], 
+                Appearance -> "Frameless", ImageSize -> 100, Background -> LightBlue],
+              Button["Successivo ⟶", If[index < 5, index++], 
+                Appearance -> "Frameless", ImageSize -> 100, Background -> LightBlue],
+              Button["💡 Suggerimento",
+                CreateDialog[
+                  Column[{
+                    Style["Matrice della trasformazione corrente", Bold, 16, Darker@Blue],
+                    Spacer[10],
+                    Style[MatrixForm[transformations[[index, 2]]], 14],
+                    Spacer[20],
+                    DefaultButton[]
+                  }],
+                  WindowTitle -> "Suggerimento",
+                  WindowSize -> {300, 250}
+                ],
+                Appearance -> "Frameless", Background -> LightYellow
+              ]
+            }
+          }, Spacings -> {2, 2}], 
+          FrameStyle -> Directive[Gray, Thin], RoundingRadius -> 5
+        ],
+        
+        Spacer[10],
+        Style[Dynamic["🔁 Trasformazione: " <> transformations[[index, 1]]], Bold, 14, Blue],
+        
+        Grid[{
+          {
+            Labeled[Framed[img, FrameStyle -> LightGray], "Originale", Top],
+            Spacer[20],
+            Labeled[Framed[Dynamic[transformedImgs[[index]]], FrameStyle -> LightGray], "Trasformata", Top]
+          }
+        }],
+        
+        Spacer[5],
+        Style["🧮 Inserisci la tua matrice 2×2:", Bold, 12],
+        Grid[{
+          {
+            InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 4],
+            InputField[Dynamic[userMatrix[[1, 2]]], Number, FieldSize -> 4]
+          },
+          {
+            InputField[Dynamic[userMatrix[[2, 1]]], Number, FieldSize -> 4],
+            InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 4]
+          }
+        }, Spacings -> {2, 2}],
+        
+        Spacer[5],
+        Button["✅ Verifica",
+          If[
+            userMatrix === transformations[[index, 2]],
+            CreateDialog[{Style["✔️ Corretto!", Bold, 16, Darker[Green]], DefaultButton[]}],
+            CreateDialog[{Style["❌ Sbagliato!", Bold, 16, Red], DefaultButton[]}]
+          ],
+          ImageSize -> Medium, Background -> LightGreen
+        ]
+      },
+      Spacings -> 1.5
       ],
-      Row[{
-        Button["<-- Precedente", If[index > 1, index--], Method -> "Queued"],
-        Spacer[20],
-        Button["Successivo -->", If[index < 5, index++], Method -> "Queued"]
-      }],
-      Style[Dynamic["Trasformazione: " <> transformations[[index, 1]]], Bold, 14],
-      Row[{
-        Labeled[img, "Originale", Top],
-        Spacer[20],
-        Labeled[Dynamic[transformedImgs[[index]]], "Trasformata", Top]
-      }],
-      Style["Matrice applicata:", Bold, 12],
-      Dynamic[MatrixForm[transformations[[index, 2]]]]
-    }]
+      BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
+    ]
   ]
 ];
 
