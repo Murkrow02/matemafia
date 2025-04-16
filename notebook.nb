@@ -10,16 +10,14 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     20398,        421]
-NotebookOptionsPosition[     19786,        402]
-NotebookOutlinePosition[     20213,        419]
-CellTagsIndexPosition[     20170,        416]
+NotebookDataLength[      3328,         80]
+NotebookOptionsPosition[      2938,         65]
+NotebookOutlinePosition[      3371,         82]
+CellTagsIndexPosition[      3328,         79]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
-
-Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", 
@@ -32,10 +30,10 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{"SetDirectory", "[", 
-     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{"(*", 
-    RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"2.", " ", "Carica", " ", "il", " ", "pacchetto"}], "*)"}], "\n", 
    RowBox[{
     RowBox[{"Get", "[", "\"\<Pacchetto.m\>\"", "]"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
@@ -63,347 +61,12 @@ Cell[BoxData[
    3.9536106756088924`*^9}, {3.9536148275628357`*^9, 
    3.9536148278465767`*^9}, {3.953618498903268*^9, 
    3.9536185000622683`*^9}},ExpressionUUID->"a9d445c0-f186-e54d-afa1-\
-eb0fd5770572"],
-
-Cell[BoxData[
- TemplateBox[{
-  "Syntax", "com", 
-   "\"Warning: comma encountered with no adjacent expression. The expression \
-will be treated as Null. \\!\\(\\*RowBox[{\\\"\\\\\\\" (line 311 of \
-\\\\\\\\\\\\\\\"Pacchetto.m\\\\\\\\\\\\\\\")\\\\\\\"\\\"}]\\).\"", 2, 162, 
-   604, 30101421178993081878, "Local"},
-  "MessageTemplate",
-  BaseStyle->"MSG"]], "Message",
- CellChangeTimes->{
-  3.9536161759769993`*^9, 3.953616262435257*^9, 3.953616326210305*^9, 
-   3.953616442807349*^9, {3.9536165875758743`*^9, 3.953616611538406*^9}, 
-   3.953616697513736*^9, {3.953616865893861*^9, 3.9536168786939287`*^9}, {
-   3.953616914009819*^9, 3.953616925155429*^9}, {3.953616964961114*^9, 
-   3.953617024560186*^9}, 3.953617143281864*^9, 3.9536172335559483`*^9, 
-   3.95361737642222*^9, 3.953617682009766*^9, 3.953618020664585*^9, {
-   3.9536181618686934`*^9, 3.953618184280676*^9}, 3.953618222853751*^9, 
-   3.9536182540242653`*^9},
- CellLabel->
-  "During evaluation of \
-In[161]:=",ExpressionUUID->"6ff4d27d-de4e-41b0-8af9-ad10c017ca30"],
-
-Cell[BoxData[
- TagBox[GridBox[{
-    {
-     StyleBox["\<\"Rotazione\"\>",
-      StripOnInput->False,
-      FontSize->14,
-      FontWeight->Bold]},
-    {
-     TagBox[
-      StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`angolo$$ = 188, Typeset`show$$ = 
-        True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
-        Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
-        "\"untitled\"", Typeset`specs$$ = {{{
-           Hold[Pacchetto`Private`angolo$$], 0, "Angolo (gradi)"}, 0, 360, 1, 
-          ControlType -> Manipulator}, {
-          Hold[
-           Row[{
-             Button["0\[Degree]", Pacchetto`Private`angolo$$ = 0], 
-             Button["30\[Degree]", Pacchetto`Private`angolo$$ = 30], 
-             Button["45\[Degree]", Pacchetto`Private`angolo$$ = 45], 
-             Button["60\[Degree]", Pacchetto`Private`angolo$$ = 60], 
-             Button["90\[Degree]", Pacchetto`Private`angolo$$ = 90], 
-             Button["180\[Degree]", Pacchetto`Private`angolo$$ = 180], 
-             Button["270\[Degree]", Pacchetto`Private`angolo$$ = 270], 
-             Button["360\[Degree]", Pacchetto`Private`angolo$$ = 360]}, 
-            Spacer[5]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
-          None}}, Typeset`size$$ = {
-        588.75, {128.1321927509702, 135.2971097431577}}, Typeset`update$$ = 0,
-         Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
-        Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
-        DynamicBox[Manipulate`ManipulateBoxes[
-         1, StandardForm, "Variables" :> {Pacchetto`Private`angolo$$ = 0}, 
-          "ControllerVariables" :> {}, 
-          "OtherVariables" :> {
-           Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
-            Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
-            Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
-            Typeset`initDone$$, Typeset`skipInitDone$$, 
-            Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
-          Module[{Pacchetto`Private`img$, Pacchetto`Private`rotata$, 
-             Pacchetto`Private`matrice$, Pacchetto`Private`grafico$}, 
-            Pacchetto`Private`img$ = ExampleData[{"TestImage", "House"}]; 
-            Pacchetto`Private`rotata$ = 
-             ImageRotate[
-              Pacchetto`Private`img$, Pacchetto`Private`angolo$$ Degree, 
-               Background -> White]; Pacchetto`Private`matrice$ = N[{{
-                 Cos[Pacchetto`Private`angolo$$ Degree], -
-                 Sin[Pacchetto`Private`angolo$$ Degree]}, {
-                 Sin[Pacchetto`Private`angolo$$ Degree], 
-                 Cos[Pacchetto`Private`angolo$$ Degree]}}]; 
-            Pacchetto`Private`grafico$ = Plot[
-               Sin[Pacchetto`Private`x Degree], {Pacchetto`Private`x, 0, 360},
-                PlotStyle -> Red, Epilog -> {Red, 
-                 PointSize[Large], 
-                 Point[{Pacchetto`Private`angolo$$, 
-                   Sin[Pacchetto`Private`angolo$$ Degree]}]}, 
-               AxesLabel -> {"Angolo (\[Degree])", "sin(angolo)"}, 
-               PlotRange -> {{0, 360}, {-1.1, 1.1}}, ImageSize -> 300]; 
-            Grid[{{Pacchetto`Private`rotata$, 
-                Column[{
-                  MatrixForm[Pacchetto`Private`matrice$], 
-                  Pacchetto`Private`grafico$}, Spacings -> 2]}}, 
-              Spacings -> {2, 2}]], 
-          "Specifications" :> {{{
-             Pacchetto`Private`angolo$$, 0, "Angolo (gradi)"}, 0, 360, 1, 
-             Appearance -> "Labeled"}, Delimiter, 
-            Row[{
-              Button["0\[Degree]", Pacchetto`Private`angolo$$ = 0], 
-              Button["30\[Degree]", Pacchetto`Private`angolo$$ = 30], 
-              Button["45\[Degree]", Pacchetto`Private`angolo$$ = 45], 
-              Button["60\[Degree]", Pacchetto`Private`angolo$$ = 60], 
-              Button["90\[Degree]", Pacchetto`Private`angolo$$ = 90], 
-              Button["180\[Degree]", Pacchetto`Private`angolo$$ = 180], 
-              Button["270\[Degree]", Pacchetto`Private`angolo$$ = 270], 
-              Button["360\[Degree]", Pacchetto`Private`angolo$$ = 360]}, 
-             Spacer[5]]}, "Options" :> {}, "DefaultOptions" :> {}],
-         ImageSizeCache->{
-          668.7005334472657, {213.03931631664403`, 220.20423330883153`}},
-         SingleEvaluation->True],
-        Deinitialization:>None,
-        DynamicModuleValues:>{},
-        SynchronousInitialization->True,
-        UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
-        UnsavedVariables:>{Typeset`initDone$$},
-        UntrackedVariables:>{Typeset`size$$}], "Manipulate",
-       Deployed->True,
-       StripOnInput->False],
-      Manipulate`InterpretManipulate[1]]},
-    {
-     StyleBox["\<\"Riflessione\"\>",
-      StripOnInput->False,
-      FontSize->14,
-      FontWeight->Bold]},
-    {
-     TagBox[
-      StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`asse$$ = "X", Typeset`show$$ = 
-        True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
-        Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
-        "\"untitled\"", Typeset`specs$$ = {{{
-           Hold[Pacchetto`Private`asse$$], "X", "Asse di riflessione"}, {
-          "X", "Y"}, ControlType -> SetterBar}}, Typeset`size$$ = {
-        261.4047607421875, {76.41754150390625, 83.58245849609375}}, 
-        Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
-        True, Typeset`keyframeActionsQ$$ = False, 
-        Typeset`keyframeList$$ = {}}, 
-        DynamicBox[Manipulate`ManipulateBoxes[
-         1, StandardForm, "Variables" :> {Pacchetto`Private`asse$$ = "X"}, 
-          "ControllerVariables" :> {}, 
-          "OtherVariables" :> {
-           Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
-            Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
-            Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
-            Typeset`initDone$$, Typeset`skipInitDone$$, 
-            Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
-          Module[{Pacchetto`Private`img$, Pacchetto`Private`riflessa$, 
-             Pacchetto`Private`matrice$}, 
-            Pacchetto`Private`img$ = 
-             ExampleData[{"TestImage", "House"}]; {
-              Pacchetto`Private`riflessa$, Pacchetto`Private`matrice$} = 
-             If[Pacchetto`Private`asse$$ == "X", {
-                ImageReflect[Pacchetto`Private`img$, Top], {{1, 0}, {
-                0, -1}}}, {
-                ImageReflect[Pacchetto`Private`img$, Left], {{-1, 0}, {0, 
-                1}}}]; Grid[{{Pacchetto`Private`riflessa$, 
-                MatrixForm[Pacchetto`Private`matrice$]}}, 
-              Spacings -> {2, 2}]], 
-          "Specifications" :> {{{
-             Pacchetto`Private`asse$$, "X", "Asse di riflessione"}, {
-             "X", "Y"}}}, "Options" :> {}, "DefaultOptions" :> {}],
-         ImageSizeCache->{
-          320.7797607421875, {134.13032913208008`, 141.29524612426758`}},
-         SingleEvaluation->True],
-        Deinitialization:>None,
-        DynamicModuleValues:>{},
-        SynchronousInitialization->True,
-        UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
-        UnsavedVariables:>{Typeset`initDone$$},
-        UntrackedVariables:>{Typeset`size$$}], "Manipulate",
-       Deployed->True,
-       StripOnInput->False],
-      Manipulate`InterpretManipulate[1]]},
-    {
-     StyleBox["\<\"Scala\"\>",
-      StripOnInput->False,
-      FontSize->14,
-      FontWeight->Bold]},
-    {
-     TagBox[
-      StyleBox[
-       DynamicModuleBox[{Pacchetto`Private`sx$$ = 0.6000000000000001, 
-        Pacchetto`Private`sy$$ = 1., Typeset`show$$ = True, 
-        Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
-        Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
-        "\"untitled\"", Typeset`specs$$ = {{{
-           Hold[Pacchetto`Private`sx$$], 1, "Scale X"}, 0., 1.5, 0.1, 
-          ControlType -> Manipulator}, {{
-           Hold[Pacchetto`Private`sy$$], 1, "Scale Y"}, 0., 1.5, 0.1, 
-          ControlType -> Manipulator}, {
-          Hold[
-           Row[{
-             Button[
-             "1:1", {Pacchetto`Private`sx$$ = 1, Pacchetto`Private`sy$$ = 1}], 
-             Button[
-             "2:1", {Pacchetto`Private`sx$$ = 1, Pacchetto`Private`sy$$ = 
-               0.5}], 
-             Button[
-             "1:2", {Pacchetto`Private`sx$$ = 0.5, Pacchetto`Private`sy$$ = 
-               1}], Null}, 
-            Spacer[5]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
-          None}}, Typeset`size$$ = {
-        370., {189.22300048828126`, 196.38791748046876`}}, Typeset`update$$ = 
-        0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
-        Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
-        DynamicBox[Manipulate`ManipulateBoxes[
-         1, StandardForm, 
-          "Variables" :> {
-           Pacchetto`Private`sx$$ = 1, Pacchetto`Private`sy$$ = 1}, 
-          "ControllerVariables" :> {}, 
-          "OtherVariables" :> {
-           Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
-            Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
-            Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
-            Typeset`initDone$$, Typeset`skipInitDone$$, 
-            Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
-          Module[{Pacchetto`Private`img$, Pacchetto`Private`scalata$, 
-             Pacchetto`Private`matrice$, Pacchetto`Private`det$, 
-             Pacchetto`Private`unitSquare$, 
-             Pacchetto`Private`transformedSquare$, Pacchetto`Private`warning$,
-              Pacchetto`Private`plotRange$}, 
-            Pacchetto`Private`img$ = ExampleData[{"TestImage", "House"}]; 
-            Pacchetto`Private`scalata$ = ImageResize[Pacchetto`Private`img$, 
-               Scaled[{Pacchetto`Private`sx$$, Pacchetto`Private`sy$$}]]; 
-            Pacchetto`Private`matrice$ = {{Pacchetto`Private`sx$$, 0}, {
-               0, Pacchetto`Private`sy$$}}; 
-            Pacchetto`Private`det$ = 
-             Pacchetto`Private`sx$$ Pacchetto`Private`sy$$; 
-            Pacchetto`Private`unitSquare$ = 
-             Polygon[{{0, 0}, {1, 0}, {1, 1}, {0, 1}}]; 
-            Pacchetto`Private`transformedSquare$ = 
-             GeometricTransformation[Pacchetto`Private`unitSquare$, 
-               
-               ScalingTransform[{
-                Pacchetto`Private`sx$$, Pacchetto`Private`sy$$}]]; 
-            Pacchetto`Private`plotRange$ = {{-0.5, 
-                Max[1.5, Pacchetto`Private`sx$$ + 0.5]}, {-0.5, 
-                Max[1.5, Pacchetto`Private`sy$$ + 0.5]}}; 
-            Pacchetto`Private`warning$ = Which[Pacchetto`Private`det$ == 0, 
-               Style[
-               "\:26a0\:fe0f Determinant is ZERO (collapsed to a \
-line/point)!", Red, Bold], Pacchetto`Private`det$ < 0.1, 
-               Style[
-               "\:26a0\:fe0f Near-zero determinant (severe distortion)!", 
-                Orange, Bold], True, ""]; Grid[{{Pacchetto`Private`scalata$, 
-                Column[{
-                  Style["Scaling Matrix", Bold, 14], 
-                  MatrixForm[Pacchetto`Private`matrice$], 
-                  Spacer[10], 
-                  Style[
-                  "Determinant: " <> ToString[Pacchetto`Private`det$], Bold, 
-                   Darker[Green]], Pacchetto`Private`warning$, 
-                  Spacer[10], 
-                  Graphics[{{
-                    EdgeForm[Black], LightBlue, 
-                    Pacchetto`Private`unitSquare$}, {
-                    EdgeForm[{Thick, Red}], 
-                    Opacity[0.5], Red, Pacchetto`Private`transformedSquare$}, 
-                    
-                    Text[
-                    Style["1", 12], {0.5, -0.1}], 
-                    Text[
-                    Style["1", 12], {-0.1, 0.5}], 
-                    Text[
-                    Style[
-                    ToString[Pacchetto`Private`sx$$], 12, Red], {
-                    Pacchetto`Private`sx$$/2, -0.1}], 
-                    Text[
-                    Style[
-                    ToString[Pacchetto`Private`sy$$], 12, Red], {-0.1, 
-                    Pacchetto`Private`sy$$/2}], 
-                    Text[
-                    Style["X", 14], {
-                    Part[Pacchetto`Private`plotRange$, 1, 2] - 0.2, -0.3}], 
-                    Text[
-                    Style[
-                    "Y", 14], {-0.3, Part[Pacchetto`Private`plotRange$, 2, 2] - 
-                    0.2}], Gray, Dashed, 
-                    
-                    Line[{{0, Pacchetto`Private`sy$$}, {
-                    Pacchetto`Private`sx$$, Pacchetto`Private`sy$$}}], 
-                    
-                    Line[{{Pacchetto`Private`sx$$, 0}, {
-                    Pacchetto`Private`sx$$, Pacchetto`Private`sy$$}}], Axes -> 
-                    True, AxesStyle -> Thick, PlotLabel -> 
-                    Style["Unit Square \[RightArrow] Transformed", 14], 
-                    ImageSize -> 300, PlotRange -> 
-                    Pacchetto`Private`plotRange$}]}, Alignment -> Center]}}, 
-              Spacings -> 3, Alignment -> Center]], 
-          "Specifications" :> {{{Pacchetto`Private`sx$$, 1, "Scale X"}, 0., 
-             1.5, 0.1, Appearance -> "Labeled"}, {{
-             Pacchetto`Private`sy$$, 1, "Scale Y"}, 0., 1.5, 0.1, Appearance -> 
-             "Labeled"}, Delimiter, 
-            Row[{
-              Button[
-              "1:1", {Pacchetto`Private`sx$$ = 1, Pacchetto`Private`sy$$ = 
-                1}], 
-              Button[
-              "2:1", {Pacchetto`Private`sx$$ = 1, Pacchetto`Private`sy$$ = 
-                0.5}], 
-              Button[
-              "1:2", {Pacchetto`Private`sx$$ = 0.5, Pacchetto`Private`sy$$ = 
-                1}], Null}, 
-             Spacer[5]]}, 
-          "Options" :> {
-           ControlPlacement -> Top, Paneled -> True, FrameMargins -> 10}, 
-          "DefaultOptions" :> {}],
-         ImageSizeCache->{429.375, {292.6301240539551, 299.7950410461426}},
-         SingleEvaluation->True],
-        Deinitialization:>None,
-        DynamicModuleValues:>{},
-        SynchronousInitialization->True,
-        UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
-        UnsavedVariables:>{Typeset`initDone$$},
-        UntrackedVariables:>{Typeset`size$$}], "Manipulate",
-       Deployed->True,
-       StripOnInput->False],
-      Manipulate`InterpretManipulate[1]]}
-   },
-   DefaultBaseStyle->"Column",
-   GridBoxAlignment->{"Columns" -> {{Left}}},
-   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-  "Column"]], "Output",
- CellChangeTimes->{
-  3.9536115947669735`*^9, {3.953614824171452*^9, 3.95361482899949*^9}, 
-   3.95361488506353*^9, {3.953614963593718*^9, 3.953614985164092*^9}, 
-   3.953615031335767*^9, 3.953615100308715*^9, 3.953615150192506*^9, {
-   3.9536152181723537`*^9, 3.953615325591394*^9}, 3.953615412921537*^9, 
-   3.953615488071219*^9, {3.9536155184898663`*^9, 3.953615558780665*^9}, 
-   3.953615781243929*^9, 3.9536159100353603`*^9, 3.9536159879000263`*^9, {
-   3.9536160804941673`*^9, 3.953616118220796*^9}, {3.9536161544825077`*^9, 
-   3.9536161760505753`*^9}, 3.953616262513345*^9, 3.9536163262856073`*^9, 
-   3.95361644288505*^9, {3.953616587654615*^9, 3.953616611684174*^9}, 
-   3.9536166976599894`*^9, {3.9536168659321537`*^9, 3.953616878731307*^9}, {
-   3.953616914049143*^9, 3.953616925193801*^9}, {3.953616965000997*^9, 
-   3.953617024584135*^9}, 3.953617143373494*^9, 3.953617233649036*^9, 
-   3.953617376515583*^9, 3.9536176821053867`*^9, 3.953618020682664*^9, {
-   3.953618161895042*^9, 3.9536181843052387`*^9}, 3.953618222932913*^9, 
-   3.9536182540496492`*^9},
- CellLabel->
-  "Out[163]=",ExpressionUUID->"474b45a9-882d-4256-817a-f02a50e87d14"]
-}, Open  ]]
+eb0fd5770572"]
 },
-WindowSize->{1512, 845},
+WindowSize->{1141.2, 604.8},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 Magnification:>1.25 Inherited,
-FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (December 26, 2024)",
+FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (March 14, 2025)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"ade0dd46-19cc-9646-88a0-87a5414730c0"
 ]
@@ -418,11 +81,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[CellGroupData[{
-Cell[576, 22, 2380, 43, 215, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"],
-Cell[2959, 67, 1029, 20, 32, "Message",ExpressionUUID->"6ff4d27d-de4e-41b0-8af9-ad10c017ca30"],
-Cell[3991, 89, 15779, 310, 1403, "Output",ExpressionUUID->"474b45a9-882d-4256-817a-f02a50e87d14"]
-}, Open  ]]
+Cell[554, 20, 2380, 43, 201, "Input",ExpressionUUID->"a9d445c0-f186-e54d-afa1-eb0fd5770572"]
 }
 ]
 *)

@@ -403,5 +403,70 @@ cUI[] := Column[{
   }]
 
 
+
+
+esUI[] := Module[
+  {
+    houseCoords, targetCoords, transformedCoords,
+    a11 = 1, a12 = 0, a21 = 0, a22 = 1, 
+    userMatrix, resultGraphics, feedback, correctMatrix, seed = 1234
+  },
+
+  SeedRandom[seed];
+
+  (* House di esempio *)
+  houseCoords = {{0, 0}, {1, 0}, {1, 1}, {0, 1}, {0, 0}, {0.5, 1.5}, {1, 1}};
+  
+  (* Trasformazione da indovinare *)
+  correctMatrix = {{0, -1}, {1, 0}}; (* es: rotazione 90° anti-oraria *)
+  
+  targetCoords = (correctMatrix.# & /@ houseCoords);
+  
+  feedback = "";
+
+  Column[{
+    Row[{
+      Graphics[{Thick, Blue, Line[houseCoords]}, PlotRange -> {{-2, 2}, {-2, 2}}, 
+        ImageSize -> 250, Axes -> True, AxesOrigin -> {0, 0}], 
+      Spacer[20],
+      Graphics[{Thick, Green, Line[targetCoords]}, PlotRange -> {{-2, 2}, {-2, 2}}, 
+        ImageSize -> 250, Axes -> True, AxesOrigin -> {0, 0}]
+    }],
+    
+    "Inserisci la matrice di trasformazione (2x2):",
+    
+    Grid[{
+      {
+        InputField[Dynamic[a11], Number, FieldSize -> 4],
+        InputField[Dynamic[a12], Number, FieldSize -> 4]
+      },
+      {
+        InputField[Dynamic[a21], Number, FieldSize -> 4],
+        InputField[Dynamic[a22], Number, FieldSize -> 4]
+      }
+    }, Spacings -> {2, 2}],
+    
+    Button["Applica trasformazione",
+      (
+        userMatrix = {{a11, a12}, {a21, a22}};
+        transformedCoords = (userMatrix.# & /@ houseCoords);
+        If[
+          SameQ[Round[transformedCoords, 0.01], Round[targetCoords, 0.01]],
+          feedback = Style["✅ Corretto!", Darker[Green], 16],
+          feedback = Style["❌ Sbagliato. Riprova!", Red, 16]
+        ];
+      ),
+      ImageSize -> Large
+    ],
+    
+    Dynamic[feedback],
+    
+    Dynamic[
+      Graphics[{Thick, Red, Line[transformedCoords]}, PlotRange -> {{-2, 2}, {-2, 2}}, 
+        ImageSize -> 250, Axes -> True, AxesOrigin -> {0, 0}]
+    ]
+  }]
+]
+
 End[]
 EndPackage[]
