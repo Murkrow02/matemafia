@@ -168,11 +168,13 @@ rotazione[] := Module[{},
     rotata = ImageRotate[img, angolo Degree, Background -> White];
     
     (* Matrice di rotazione *)
-    matrice = N[{
-       {Cos[angolo Degree], -Sin[angolo Degree]},
-       {Sin[angolo Degree], Cos[angolo Degree]}
-       }];
+    matrice = Round[N[{
+      {Cos[angolo Degree], -Sin[angolo Degree]},
+      {Sin[angolo Degree],  Cos[angolo Degree]}
+    }], 0.0001];
     
+    (* Grafico della funzione seno con punto rosso *)
+
     grafico = Plot[
       Sin[x Degree],
       {x, 0, 360},
@@ -181,7 +183,7 @@ rotazione[] := Module[{},
         Red, PointSize[Large],
         Point[{angolo, Sin[angolo Degree]}]
         },
-      AxesLabel -> {"Angolo (°)", "sin(angolo)"},
+      AxesLabel -> {"Angolo (\[Degree])", "sin(angolo)"},
       PlotRange -> {{0, 360}, {-1.1, 1.1}},
       ImageSize -> 300
       ];
@@ -203,14 +205,14 @@ rotazione[] := Module[{},
    
    Delimiter,
    Row[{
-     Button["0°", angolo = 0],
-     Button["30°", angolo = 30],
-     Button["45°", angolo = 45],
-     Button["60°", angolo = 60],
-     Button["90°", angolo = 90],
-     Button["180°", angolo = 180],
-     Button["270°", angolo = 270],
-     Button["360°", angolo = 360]
+     Button["0\[Degree]", angolo = 0],
+     Button["30\[Degree]", angolo = 30],
+     Button["45\[Degree]", angolo = 45],
+     Button["60\[Degree]", angolo = 60],
+     Button["90\[Degree]", angolo = 90],
+     Button["180\[Degree]", angolo = 180],
+     Button["270\[Degree]", angolo = 270],
+     Button["360\[Degree]", angolo = 360]
      }, Spacer[5]]
    ]
  ]
@@ -258,8 +260,8 @@ scala[] := Module[{},
     
     (* Warnings *)
     warning = Which[
-      det == 0, Style["⚠️ Determinant is ZERO (collapsed to a line/point)!", Red, Bold],
-      det < 0.1, Style["⚠️ Near-zero determinant (severe distortion)!", Orange, Bold],
+      det == 0, Style["Il determinante e' ZERO (collassato a una linea/punto)!", Red, Bold],
+      det < 0.1, Style["Determinante quasi zero (distorsione severa)!", Orange, Bold],
       True, ""
     ];
     
@@ -267,10 +269,10 @@ scala[] := Module[{},
     Grid[{
       {scalata, 
        Column[{
-         Style["Scaling Matrix", Bold, 14],
+         Style["Matrice di Scala", Bold, 14],
          MatrixForm[matrice],
          Spacer[10],
-         Style["Determinant: " <> ToString[det], Bold, Darker[Green]],
+         Style["Determinante: " <> ToString[det], Bold, Darker[Green]],
          warning,
          Spacer[10],
          Graphics[{
@@ -299,22 +301,23 @@ scala[] := Module[{},
    ],
    
    (* Controls *)
-   {{sx, 1, "Scale X"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
-   {{sy, 1, "Scale Y"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
+   {{sx, 1, "Scala X"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
+   {{sy, 1, "Scala Y"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
    
    (* Quick-set buttons *)
    Delimiter,
    Row[{
-     Button["1:1", {sx = 1, sy = 1}],
-     Button["2:1", {sx = 1, sy = 0.5}],
-     Button["1:2", {sx = 0.5, sy = 1}],
-   }, Spacer[5]],
-   
-   (* Enlarge the Manipulate window *)
+      Button["1:1", {sx = 1, sy = 1}],
+      Spacer[5],
+      Button["2:1", {sx = 1, sy = 0.5}],
+      Spacer[5],
+      Button["1:2", {sx = 0.5, sy = 1}]
+    }],
    ControlPlacement -> Top,
    Paneled -> True,
-   FrameMargins -> 10  ]
+   FrameMargins -> 10]
 ]
+    
 
 bUI[] := Column[{
   Style["Rotazione", Bold, 14],
@@ -330,8 +333,8 @@ cUI[] := Column[{
   
   Text[
    "Questo esercizio illustra l'effetto di un kernel di sfocatura su un'immagine. " <>
-    "Un kernel è una piccola matrice che viene fatta scorrere su ogni pixel dell'immagine. " <>
-    "Il nuovo valore di ogni pixel è calcolato come la media dei valori dei pixel vicini, pesati dai valori del kernel. " <>
+    "Un kernel e una piccola matrice che viene fatta scorrere su ogni pixel dell'immagine. " <>
+    "Il nuovo valore di ogni pixel e calcolato come la media dei valori dei pixel vicini, pesati dai valori del kernel. " <>
     "Qui, utilizziamo un kernel di media uniforme, dove tutti i pesi sono uguali a 1/(dimensione del kernel)^2."
    ],
   
@@ -418,7 +421,7 @@ esUI[] := Module[
   houseCoords = {{0, 0}, {1, 0}, {1, 1}, {0, 1}, {0, 0}, {0.5, 1.5}, {1, 1}};
   
   (* Trasformazione da indovinare *)
-  correctMatrix = {{0, -1}, {1, 0}}; (* es: rotazione 90° anti-oraria *)
+  correctMatrix = {{0, -1}, {1, 0}}; (* es: rotazione 90\[Degree] anti-oraria *)
   
   targetCoords = (correctMatrix.# & /@ houseCoords);
   
