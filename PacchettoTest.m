@@ -80,7 +80,8 @@ es[seed_: Automatic] := Module[
             Spacer[5],
             Grid[{
               {
-                Button["<-- Precedente",
+                Button[
+                  Style["Precedente", Editable -> False],
                   If[index > 1,
                     index--;
                     userMatrix = ConstantArray[0, {2, 2}];
@@ -89,7 +90,8 @@ es[seed_: Automatic] := Module[
                   ],
                   Appearance -> "Frameless", ImageSize -> 100, Background -> LightBlue
                 ],
-                Button["Successivo -->",
+                Button[
+                  Style["Successivo", Editable -> False],
                   If[index < 5,
                     index++;
                     userMatrix = ConstantArray[0, {2, 2}];
@@ -98,19 +100,36 @@ es[seed_: Automatic] := Module[
                   ],
                   Appearance -> "Frameless", ImageSize -> 100, Background -> LightBlue
                 ],
-                Button["Suggerimento",
+                Button[
+                  Style["Suggerimento", Editable -> False],
                   CreateDialog[
-                    Column[{
-                      Style["Matrice della trasformazione corrente", Bold, 16, Darker@Blue, Editable -> False],
-                      Spacer[10],
-                      Style[MatrixForm[transformations[[index, 2]]], 14],
-                      Spacer[20],
-                      DefaultButton[]
-                    }],
+                    Panel[
+                      Column[{
+                        Style["Matrice della trasformazione corrente", Bold, 16, Darker@Blue, Editable -> False],
+                        Spacer[10],
+                        Framed[
+                          Style[
+                            MatrixForm[transformations[[index, 2]]],
+                            16, Black,
+                            Editable -> False
+                          ],
+                          FrameStyle -> LightGray,
+                          Background -> Lighter[Gray, 0.9],
+                          RoundingRadius -> 5,
+                          FrameMargins -> 15
+                        ],
+                        Spacer[15],
+                        DefaultButton[]
+                      },
+                      Spacings -> 1.5],
+                      BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
+                    ],
                     WindowTitle -> "Suggerimento",
-                    WindowSize -> {300, 250}
+                    WindowSize -> {300, 300},
+                    Background -> White
                   ],
-                  Appearance -> "Frameless", Background -> LightYellow
+                  Appearance -> "Frameless",
+                  Background -> LightYellow
                 ]
               }
             }, Spacings -> {2, 2}]
@@ -157,7 +176,8 @@ es[seed_: Automatic] := Module[
         Spacer[5],
         DynamicModule[{},
           Column[{
-            Button["Verifica",
+            Button[
+              Style["Verifica", Editable -> False],
               Module[{isCorrect, matrixFun},
                 isCorrect = userMatrix === transformations[[index, 2]];
                 resultText = If[isCorrect, "Corretto!", "Sbagliato!"];
@@ -195,7 +215,8 @@ es[seed_: Automatic] := Module[
                 Spacings -> 1.5
                 ],
                 ""
-              ]
+              ],
+              TrackedSymbols :> {resultText}
             ]
           }]
         ]
