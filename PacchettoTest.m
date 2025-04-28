@@ -50,12 +50,15 @@ randomTransform[] := Module[{transformTypeChoice, subChoice},
 es[seed_: Automatic] := Module[
   {
     img, dims, center,
-    transformations, transformedImgs
+    transformations, transformedImgs, seedUsed
   },
   
-  If[IntegerQ[seed], SeedRandom[seed], SeedRandom[]];
+  seedUsed = If[IntegerQ[seed], seed, RandomInteger[10^6]];
+  SeedRandom[seedUsed];
   
-  img = ExampleData[{"TestImage", "House"}];
+  img = ExampleData[{"TestImage", 
+   RandomChoice[{"House", "Mandrill", "Boat", "Peppers", "Girl","Aerial","Airplane","House2","Moon","Tank","Tank2","Tank3"}]}];    
+
   dims = ImageDimensions[img];
   center = Mean /@ Transpose[{{1, 1}, dims}];
   
@@ -75,33 +78,41 @@ es[seed_: Automatic] := Module[
         Framed[
           Column[{
             Dynamic[
-              Style["Esercizio " <> ToString[index] <> "/5", Bold, 14, Darker@Green, Editable -> False]
+              Column[{
+                Style["Esercizio " <> ToString[index] <> "/5", Bold, 16, Darker[Green], Editable -> False],
+                Spacer[5],
+                Style["Seed: " <> ToString[seedUsed], Italic, 12, Darker[Gray], Editable -> False]
+              }]
             ],
             Spacer[5],
             Grid[{
               {
                 Button[
-                  Style["Precedente", Editable -> False],
+                  Style["Precedente", Bold, 14, Darker[Blue]],
                   If[index > 1,
                     index--;
                     userMatrix = ConstantArray[0, {2, 2}];
                     resultText = "";
                     userImage = img;
                   ],
-                  Appearance -> "Frameless", ImageSize -> 100, Background -> LightBlue
+                  Appearance -> "Frameless",
+                  ImageSize -> 120,
+                  Background -> Lighter[Blue, 0.9]
                 ],
                 Button[
-                  Style["Successivo", Editable -> False],
+                  Style["Successivo", Bold, 14, Darker[Blue]],
                   If[index < 5,
                     index++;
                     userMatrix = ConstantArray[0, {2, 2}];
                     resultText = "";
                     userImage = img;
                   ],
-                  Appearance -> "Frameless", ImageSize -> 100, Background -> LightBlue
+                  Appearance -> "Frameless",
+                  ImageSize -> 120,
+                  Background -> Lighter[Blue, 0.9]
                 ],
                 Button[
-                  Style["Suggerimento", Editable -> False],
+                  Style["Suggerimento", Bold, 14, Darker[Yellow]],
                   CreateDialog[
                     Panel[
                       Column[{
@@ -129,7 +140,7 @@ es[seed_: Automatic] := Module[
                     Background -> White
                   ],
                   Appearance -> "Frameless",
-                  Background -> LightYellow
+                  Background -> Lighter[Green, 0.8]
                 ]
               }
             }, Spacings -> {2, 2}]
@@ -177,14 +188,15 @@ es[seed_: Automatic] := Module[
         DynamicModule[{},
           Column[{
             Button[
-              Style["Verifica", Editable -> False],
+              Style["Verifica", Bold, 14, Darker[Red]],
               Module[{isCorrect, matrixFun},
                 isCorrect = userMatrix === transformations[[index, 2]];
                 resultText = If[isCorrect, "Corretto!", "Sbagliato!"];
                 matrixFun = Function[p, center + userMatrix . (p - center)];
                 userImage = ImageTransformation[img, matrixFun, DataRange -> Full, Resampling -> "Linear"];
               ],
-              ImageSize -> Medium, Background -> LightGreen
+              ImageSize -> Medium,
+              Background -> Lighter[Green, 0.8]
             ],
             Spacer[10],
             Dynamic[
