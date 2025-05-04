@@ -1,10 +1,11 @@
 BeginPackage["Pacchetto`"]
 
 aUI::usage = 
-  "aUI rappresenta il componente dell'interfaccia utente dell'applicazione. \
-Fornisce controlli interattivi per modificare una matrice binaria (0/255), \
-visualizzarla in bianco e nero, regolare i canali di colore RGB tramite slider \
-e applicare i valori selezionati a una matrice di colori.";
+  "aUI[] genera un'interfaccia utente interattiva per la manipolazione di matrici. \
+Include due sezioni: la prima consente di modificare manualmente una matrice binaria 5x5 \
+(composta da valori 0 e 255) e di visualizzarla graficamente in scala di grigi; \
+la seconda permette di regolare i valori dei canali RGB tramite slider e di applicare \
+il colore selezionato a tutte le celle di una matrice RGB 5x5, con visualizzazione numerica e cromatica.";
 
 bUI::usage = "
 bUI[] crea una interfaccia grafica composta da tre pannelli per applicare trasformazioni geometriche 
@@ -34,47 +35,47 @@ Begin["`Private`"]
 
 aUI[] := DynamicModule[
   {
-   (* Inizializza una matrice 5x5 con valore 255 (bianco) per rappresentare l'immagine binaria *)
+   (* Inizializza una matrice 5x5 con valore 255 (bianco) per simulare un'immagine binaria *)
    mat = ConstantArray[255, {5, 5}],
    
-   (* Inizializza una matrice 5x5 di triplette RGB, tutte bianche ({255,255,255}) *)
+   (* Inizializza una matrice 5x5 in cui ogni cella è una tripla RGB, inizialmente tutte bianche *)
    rgbMat = ConstantArray[{255, 255, 255}, {5, 5}],
    
-   (* Variabili per i valori RGB controllati tramite slider *)
+   (* Valori iniziali dei canali RGB usati dagli slider *)
    r = 255, g = 255, b = 255
   },
 
-  (* Contenitore principale dell'interfaccia: tutto organizzato in colonne verticali *)
+  (* Contenitore principale dell'interfaccia utente *)
   Column[{
 
-    (* PRIMA SEZIONE: matrice binaria interattiva + visualizzazione grafica *)
-    Row[{
+    (* === SEZIONE 1: MATRICE BINARIA INTERATTIVA === *)
+    Column[{
+      Style["Esempio interattivo 1: Matrici RGB", Bold, 14],
+      Spacer[5],
+      
+      (* Spiegazione testuale dell'esercizio *)
+      Text@Column[{
+        "Questo esercizio consente di interagire con una matrice 5 x 5, dove ciascuna cella puo' assumere valori binari: 0 (nero) o 255 (bianco).",
+        "L'utente puo' modificare i valori delle celle cliccandoci sopra, osservando simultaneamente la rappresentazione numerica e grafica della matrice.",
+        "Ogni cella e' rappresentata da un pulsante che mostra il valore corrente (0 o 255). Cliccando su una cella, il suo valore viene invertito: da 0 a 255 o viceversa.",
+        "Accanto alla matrice numerica, e' presente una rappresentazione grafica che mostra la matrice in scala di grigi: le celle con valore 0 appaiono nere, mentre quelle con valore 255 appaiono bianche."
+      }],
+      Spacer[5],
 
-      (* Colonna con testo esplicativo *)
-      Column[{
-        Style["Esempio interattivo 1: Matrici RGB", Bold, 14],
-        Spacer[5],
-        Text@Column[{"Questo esercizio consente di interagire con una matrice 5 x 5, dove ciascuna cella puo' assumere valori binari: 0 (nero) o 255 (bianco)."}],
-        Spacer[5],
-        Text@Column[{"L'utente puo' modificare i valori delle celle cliccandoci sopra, osservando simultaneamente la rappresentazione numerica e grafica della matrice."}],
-        Spacer[5],
-        Text@Column[{"Ogni cella e' rappresentata da un pulsante che mostra il valore corrente (0 o 255). Cliccando su una cella, il suo valore viene invertito: da 0 a 255 o viceversa."}],
-        Spacer[5],
-        Text@Column[{"Accanto alla matrice numerica, e' presente una rappresentazione grafica che mostra la matrice in scala di grigi: le celle con valore 0 appaiono nere, mentre quelle con valore 255 appaiono bianche."}],
-        Spacer[5],
-        
-        (* Griglia 5x5: ogni cella è un pulsante che alterna 0/255 *)
+      (* Visualizzazione della matrice binaria e della sua rappresentazione grafica *)
+      Row[{
+
+        (* Matrice di pulsanti interattivi che rappresentano valori binari (0 o 255) *)
         Grid[
           Table[
             With[{i = i, j = j},
               Button[
-                Dynamic[mat[[i, j]]], (* Mostra il valore corrente della cella in tempo reale *)
-
-                (* Azione al clic: cambia il valore tra 0 e 255 *)
-                mat[[i, j]] = If[mat[[i, j]] == 0, 255, 0],
-
+                Dynamic[mat[[i, j]]],  (* Testo del pulsante: valore corrente della cella *)
+                mat[[i, j]] = If[mat[[i, j]] == 0, 255, 0],  (* Al click: inverte il valore *)
                 Appearance -> None,
                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold},
+                
+                (* Sfondo cambia dinamicamente in base al valore: grigio chiaro (255) o grigio scuro (0) *)
                 Background -> Dynamic[
                   If[mat[[i, j]] == 0, Gray, LightGray]
                 ],
@@ -85,141 +86,140 @@ aUI[] := DynamicModule[
           ],
           Frame -> All,
           Spacings -> {0, 0}
-        ]
-      }],
+        ],
 
-      Spacer[6], (* Distanza tra griglia e grafico *)
+        Spacer[20],
 
-      (* Visualizzazione scacchiera interattiva *)
-      Dynamic[
-        ArrayPlot[
-          mat,
-          ColorFunction -> (If[# == 0, Black, White] &),
-          PlotRange -> {0, 255},
-          PlotRangePadding -> None,
-          Mesh -> All,
-          MeshStyle -> Black,
-          Frame -> True,
-          FrameTicks -> None,
-          AspectRatio -> 1,
-          ImageSize -> 200
+        (* Visualizzazione grafica della matrice binaria con ArrayPlot *)
+        Dynamic[
+          ArrayPlot[
+            mat,
+            ColorFunction -> (If[# == 0, Black, White] &),  (* 0 = nero, 255 = bianco *)
+            PlotRange -> {0, 255},
+            PlotRangePadding -> None,
+            Mesh -> All,
+            MeshStyle -> Black,
+            Frame -> True,
+            FrameTicks -> None,
+            AspectRatio -> 1,
+            ImageSize -> 200
+          ]
         ]
-      ]
+      }]
     }],
 
-    Spacer[30], (* Distanza verticale tra sezioni *)
+    Spacer[30],
 
-    (* Colonna con testo esplicativo *)
+    (* === SEZIONE 2: MATRICE RGB CON SLIDER === *)
     Column[{
-      Style["Esempio interattivo 1: Colori RGB", Bold, 14],
+      Style["Esempio interattivo 2: Colori RGB", Bold, 14],
       Spacer[5],
-      Text@Column[{"Questo esercizio permette di esplorare la composizione dei colori attraverso i canali RGB (Rosso, Verde, Blu)."}],
-      Spacer[5],
-      Text@Column[{"Tramite gli slider, e' possibile regolare i valori dei tre canali per generare un colore personalizzato."}],
-      Spacer[5],
-      Text@Column[{"Premendo il pulsante \"Applica RGB a tutta la matrice\", il colore selezionato viene applicato a tutte le celle della matrice 5 x 5."}],
-      Spacer[5],
-      Text@Column[{"Ogni cella mostra i suoi valori RGB numerici e la rappresentazione grafica accanto visualizza i colori reali corrispondenti."}],
-      Spacer[5],
-      Text@Column[{"Questo strumento aiuta a comprendere come i diversi livelli di R, G e B si combinano per formare i colori digitali."}],
-      Spacer[5]
-    }],
 
-    (* SECONDA SEZIONE: matrice RGB con valori testuali, visualizzazione colorata, e slider *)
-    Row[{
+      (* Spiegazione testuale dell'esercizio *)
+      Text@Column[{
+        "Questo esercizio permette di esplorare la composizione dei colori attraverso i canali RGB (Rosso, Verde, Blu).",
+        "Tramite gli slider, e' possibile regolare i valori dei tre canali per generare un colore personalizzato.",
+        "Premendo il pulsante \"Applica RGB a tutta la matrice\", il colore selezionato viene applicato a tutte le celle della matrice 5 x 5.",
+        "Ogni cella mostra i suoi valori RGB numerici e la rappresentazione grafica accanto visualizza i colori reali corrispondenti.",
+        "Questo strumento aiuta a comprendere come i diversi livelli di R, G e B si combinano per formare i colori digitali."
+      }],
+      Spacer[10],
 
-      (* Visualizzazione testuale della matrice RGB (ogni cella mostra i valori R, G, B) *)
-      Dynamic[
-        Grid[
-          Table[
-            With[{val = rgbMat[[i, j]]},
-              Pane[
-                Column[
-                  Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> Medium] & /@ val,
-                  Alignment -> Center,
-                  Spacings -> 0.5
-                ],
-                {50, 50},
-                Alignment -> Center
-              ]
+      Row[{
+
+        (* Visualizzazione numerica delle triplette RGB per ogni cella della matrice *)
+        Dynamic[
+          Grid[
+            Table[
+              With[{val = rgbMat[[i, j]]},
+                Pane[
+                  Column[
+                    Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> Medium] & /@ val,
+                    Alignment -> Center,
+                    Spacings -> 0.5
+                  ],
+                  {50, 50},
+                  Alignment -> Center
+                ]
+              ],
+              {i, 5}, {j, 5}
             ],
-            {i, 5}, {j, 5}
-          ],
-          Frame -> All,
-          Spacings -> {0, 0},
-          Alignment -> Center,
-          ItemSize -> All
-        ]
-      ],
+            Frame -> All,
+            Spacings -> {0, 0},
+            Alignment -> Center,
+            ItemSize -> All
+          ]
+        ],
 
-      Spacer[20], (* Spazio tra valori numerici e mappa colorata *)
+        Spacer[20],
 
-      (* Visualizzazione grafica della matrice RGB in colore reale *)
-      Dynamic[
-        ArrayPlot[
-          Map[RGBColor @@ (#/255) &, rgbMat, {2}],
-          Mesh -> All,
-          MeshStyle -> Black,
-          Frame -> True,
-          FrameTicks -> None,
-          AspectRatio -> 1,
-          ImageSize -> 200
-        ]
-      ],
-
-      Spacer[20],
-
-      (* Slider e controlli per modificare e applicare i valori RGB *)
-      Column[{
-        Style["Regola i canali RGB:", Bold],
-
-        (* SLIDER ROSSO *)
-        Row[{
-          Style["R", Bold, Red], 
-          Slider[
-            Dynamic[r, (r = Round[#]) &],
-            {0, 255},
-            ContinuousAction -> False,
+        (* Visualizzazione grafica reale della matrice RGB con colori veri *)
+        Dynamic[
+          ArrayPlot[
+            Map[RGBColor @@ (#/255) &, rgbMat, {2}],  (* Converte le triplette [0-255] in valori RGBColor normalizzati [0-1] *)
+            Mesh -> All,
+            MeshStyle -> Black,
+            Frame -> True,
+            FrameTicks -> None,
+            AspectRatio -> 1,
             ImageSize -> 200
-          ],
-          Spacer[10],
-          Dynamic[Style[r, Red, Bold]]
-        }],
+          ]
+        ],
 
-        (* SLIDER VERDE *)
-        Row[{
-          Style["G", Bold, Darker[Green]], 
-          Slider[
-            Dynamic[g, (g = Round[#]) &],
-            {0, 255},
-            ContinuousAction -> False,
+        Spacer[20],
+
+        (* Controlli per selezionare i valori RGB tramite slider *)
+        Column[{
+          Style["Regola i canali RGB:", Bold],
+
+          (* Slider per il canale Rosso (R) *)
+          Row[{
+            Style["R", Bold, Red], 
+            Slider[
+              Dynamic[r, (r = Round[#]) &],  (* Valore rotondato tra 0 e 255 *)
+              {0, 255},
+              ContinuousAction -> False,
+              ImageSize -> 200
+            ],
+            Spacer[10],
+            Dynamic[Style[r, Red, Bold]]  (* Mostra il valore attuale *)
+          }],
+
+          (* Slider per il canale Verde (G) *)
+          Row[{
+            Style["G", Bold, Darker[Green]], 
+            Slider[
+              Dynamic[g, (g = Round[#]) &],
+              {0, 255},
+              ContinuousAction -> False,
+              ImageSize -> 200
+            ],
+            Spacer[10],
+            Dynamic[Style[g, Darker[Green], Bold]]
+          }],
+
+          (* Slider per il canale Blu (B) *)
+          Row[{
+            Style["B", Bold, Blue], 
+            Slider[
+              Dynamic[b, (b = Round[#]) &],
+              {0, 255},
+              ContinuousAction -> False,
+              ImageSize -> 200
+            ],
+            Spacer[10],
+            Dynamic[Style[b, Blue, Bold]]
+          }],
+
+          Spacer[10],
+
+          (* Pulsante per applicare il colore selezionato a tutta la matrice RGB *)
+          Button[
+            "Applica RGB a tutta la matrice",
+            rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],
             ImageSize -> 200
-          ],
-          Spacer[10],
-          Dynamic[Style[g, Darker[Green], Bold]]
-        }],
-
-        (* SLIDER BLU *)
-        Row[{
-          Style["B", Bold, Blue], 
-          Slider[
-            Dynamic[b, (b = Round[#]) &],
-            {0, 255},
-            ContinuousAction -> False,
-            ImageSize -> 200
-          ],
-          Spacer[10],
-          Dynamic[Style[b, Blue, Bold]]
-        }],
-
-        Spacer[10],
-
-        (* Pulsante per aggiornare l'intera matrice RGB con il colore selezionato *)
-        Button[
-          "Applica RGB a tutta la matrice",
-          rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],
-          ImageSize -> 200
-        ]
+          ]
+        }]
       }]
     }]
   }]
@@ -227,42 +227,116 @@ aUI[] := DynamicModule[
 
 
 (* ============================== SEZIONE B ============================== *)
+
+(* Funzione principale per la rotazione dell'immagine con interfaccia utente *)
+rotazione[] := Module[{},
+  Manipulate[
+    Module[{img, rotata, matrice, grafico},
+      (* Carica l'immagine di esempio "House" dalla libreria *)
+      img = ExampleData[{"TestImage", "House"}];
+      
+      (* Applica la rotazione all'immagine con sfondo bianco *)
+      rotata = ImageRotate[img, angolo Degree, Background -> White];
+      
+      (* Calcola la matrice di rotazione 2x2 con approssimazione a 4 decimali *)
+      matrice = Round[N[{ 
+        {Cos[angolo Degree], -Sin[angolo Degree]},
+        {Sin[angolo Degree],  Cos[angolo Degree]}
+      }], 0.0001];
+      
+      (* Crea un grafico della funzione seno con punto evidenziato *)
+      grafico = Plot[
+        Sin[x Degree],
+        {x, 0, 360},
+        PlotStyle -> Red,
+        Epilog -> {Red, PointSize[Large], Point[{angolo, Sin[angolo Degree]}]},
+        AxesLabel -> {"Angolo (gradi)", "sin(angolo)"},
+        PlotRange -> {{0, 360}, {-1.1, 1.1}},
+        ImageSize -> 300
+      ];
+      
+      (* Costruisce l'interfaccia grafica con griglia *)
+      Grid[{{
+        (* Mostra l'immagine ruotata a sinistra *)
+        rotata,
+        (* Colonna a destra con istruzioni, matrice e grafico *)
+        Column[{
+          Panel[
+            Column[{
+              Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
+              "1. Muovi lo slider per ruotare l'immagine",
+              "2. Clicca i pulsanti per angoli rapidi",
+              "3. La matrice mostra la rotazione applicata",
+              "4. Il grafico mostra l'andamento del seno"
+            }, Alignment -> Left
+          ], Background -> Lighter[Gray, 0.9]],
+          MatrixForm[matrice], 
+          grafico 
+        }, Spacings -> 2]
+      }}, Spacings -> {2, 2}]
+    ],
+    
+    (* Controllo slider per l'angolo di rotazione *)
+    {{angolo, 0, 
+      Column[{"ANGOLO DI ROTAZIONE", 
+              "(0 gradi = originale, 90 gradi = ruota a destra)", 
+              "(180 gradi = sottosopra, 360 gradi = giro completo)"}]}, 
+     0, 360, 1, Appearance -> "Labeled"},
+    
+    Delimiter,
+    (* Pannello con pulsanti per angoli preimpostati *)
+    Panel[Row[{
+      Style["ANGOLI RAPIDI:", Bold, 12, Darker[Blue]], Spacer[10],
+      Button["0 gradi", angolo = 0, Tooltip -> "Riporta all'originale"], 
+      Button["30 gradi", angolo = 30, Tooltip -> "Rotazione 30 gradi destra"],
+      Button["45 gradi", angolo = 45, Tooltip -> "Diagonale principale"], 
+      Button["60 gradi", angolo = 60, Tooltip -> "Rotazione ampia destra"],
+      Button["90 gradi", angolo = 90, Tooltip -> "Rotazione completa destra"],
+      Button["180 gradi", angolo = 180, Tooltip -> "Immagine capovolta"], 
+      Button["270 gradi", angolo = 270, Tooltip -> "Rotazione sinistra"], 
+      Button["360 gradi", angolo = 360, Tooltip -> "Giro completo"]
+    }, Spacer[5]], Background -> Lighter[Yellow, 0.8]]
+  ]
+]
+
 (* Funzione per la riflessione dell'immagine *)
 riflessione[] := Module[{},
   Manipulate[
     Module[{img, riflessa, matrice},
+      (* Carica l'immagine di esempio *)
       img = ExampleData[{"TestImage", "House"}];
       
+      (* Applica la riflessione in base all'asse selezionato *)
       {riflessa, matrice} = If[asse == "X",
+        (* Riflessione verticale (asse X) *)
         {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
+        (* Riflessione orizzontale (asse Y) *)
         {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
       ];
       
+      (* Costruisce l'interfaccia grafica *)
       Grid[{{
+        (* Mostra l'immagine riflessa a sinistra *)
         riflessa,
+        (* Colonna a destra con istruzioni e matrice *)
         Column[{
-          Panel[
-            Column[{
-              Style["ISTRUZIONI:", Bold, 20, Darker[Blue]],
-              Style["1. Scegli l'asse di riflessione dal menu a tendina:", 17],
-              Style["2. X = Specchio verticale (sinistra ↔ destra)", 17],
-              Style["3. Y = Specchio orizzontale (sopra ↕ sotto)", 17]
-            }, Alignment -> Left],
-            Background -> Lighter[Gray, 0.9]
-          ],
+          Panel[Column[{
+            Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
+            "1. Scegli l'asse di riflessione",
+            "2. X = Specchio verticale (sinistra/destra)",
+            "3. Y = Specchio orizzontale (sopra/sotto)"
+          }], Background -> Lighter[Gray, 0.9]],
           Spacer[10],
-          Style["Matrice della Riflessione", Bold, 16], 
+          Style["Matrice della Riflessione", Bold], 
           MatrixForm[matrice]
         }]
       }}, Spacings -> 2]
     ],
+    (* Menu a tendina per selezione asse di riflessione *)
     {{asse, "X", 
-      Column[{
-        Style["RIFLESSIONE", Bold, 20, Darker[Blue]],
-        "(X = ribalta sinistra/destra)", 
-        "(Y = ribalta sopra/sotto)"
-      }]
-    }, {"X", "Y"}}
+      Column[{"SELEZIONA ASSE:", 
+              "(X = Ribalta sinistra/destra)", 
+              "(Y = Ribalta sopra/sotto)"}]}, {"X", "Y"}}
   ]
 ]
 
@@ -270,40 +344,49 @@ riflessione[] := Module[{},
 scala[] := Module[{},
   Manipulate[
     Module[{img, scalata, matrice, det, unitSquare, transformedSquare, warning, plotRange},
+      (* Carica l'immagine di esempio *)
       img = ExampleData[{"TestImage", "House"}];
+      
+      (* Ridimensiona l'immagine in base ai fattori di scala *)
       scalata = ImageResize[img, Scaled[{sx, sy}]];
       
+      (* Calcola la matrice di trasformazione e il determinante *)
       matrice = {{sx, 0}, {0, sy}};
       det = sx * sy;
       
+      (* Crea un quadrato unitario e la sua versione trasformata *)
       unitSquare = Polygon[{{0, 0}, {1, 0}, {1, 1}, {0, 1}}];
       transformedSquare = GeometricTransformation[unitSquare, ScalingTransform[{sx, sy}]];
       
+      (* Determina l'area di visualizzazione del grafico *)
       plotRange = {{-0.5, Max[1.5, sx + 0.5]}, {-0.5, Max[1.5, sy + 0.5]}};
       
+      (* Genera avvisi in base al valore del determinante *)
       warning = Which[
         det == 0, Style["ATTENZIONE: Immagine appiattita!", Red, Bold],
         det < 0.1, Style["Attenzione: Distorsione estrema!", Orange, Bold],
         True, ""
       ];
       
+      (* Costruisce l'interfaccia grafica *)
       Grid[{{ 
+        (* Mostra l'immagine scalata a sinistra *)
         scalata,
+        (* Colonna a destra con controlli e visualizzazione *)
         Column[{
-          Panel[
-            Column[{
-              Style["ISTRUZIONI:", Bold, 20, Darker[Blue]],
-              Style["• Usa i due slider per regolare l'ingrandimento lungo gli assi X e Y.", 17],
-              Style["• Valore 1 = dimensione originale", 17],
-              Style["• Valore < 1 = rimpicciolisce l'immagine", 17],
-              Style["• Valore > 1 = ingrandisce l'immagine", 17]
-            }, Alignment -> Left],
-            Background -> Lighter[Gray, 0.9]
-          ],
-          Style["Matrice di Scala", Bold, 16], 
-          MatrixForm[matrice],
+          Panel[Column[{
+            Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
+            "• Scala X: Allarga/restringe orizzontalmente",
+            "• Scala Y: Allunga/accorcia verticalmente",
+            "• 1 = dimensione originale",
+            "• <1 = rimpicciolisci",
+            "• >1 = ingrandisci"
+          }], Background -> Lighter[Gray, 0.9]],
+          Spacer[10],
+          Style["Matrice di Scala", Bold], MatrixForm[matrice],
           Style["Fattore di Ingrandimento (Determinante): " <> ToString[det], Bold, Darker[Green]],
           warning,
+          (* Mostra la trasformazione geometrica applicata *)
           Graphics[{
             {EdgeForm[Black], LightBlue, unitSquare},
             {EdgeForm[{Thick, Red}], Opacity[0.5], Red, transformedSquare},
@@ -317,29 +400,33 @@ scala[] := Module[{},
         }, Alignment -> Center]
       }}, Spacings -> 3]
     ],
-
-{{sx, 1, 
-  Column[{
-    Style["SCALA", Bold, 20, Darker[Blue]],
-    "Scala Orizzontale (X)"
-  }]
-}, 0.0, 1.5, 0.1, Appearance -> "Labeled", ImageSize -> Small},
-
-{{sy, 1, "Scala Verticale (Y)"}, 0.0, 1.5, 0.1, 
- Appearance -> "Labeled", ImageSize -> Small},
+    (* Slider per il fattore di scala orizzontale *)
+    {{sx, 1, "Scala Orizzontale (X)"}, 0.0, 1.5, 0.1, 
+     Appearance -> "Labeled", ImageSize -> Small},
+     
+    (* Slider per il fattore di scala verticale *)
+    {{sy, 1, "Scala Verticale (Y)"}, 0.0, 1.5, 0.1, 
+     Appearance -> "Labeled", ImageSize -> Small},
      
     Delimiter,
+    (* Pannello con preset di scala predefiniti *)
     Panel[Row[{
       Style["PRESET:", Bold, 12, Darker[Blue]], Spacer[10],
       Button["1:1", {sx = 1, sy = 1}, Tooltip -> "Ripristina dimensioni originali"],
-      Button["1.5:1", {sx = 1.5, sy = 1}, Tooltip -> "50% più largo"],
-      Button["1:1.5", {sx = 1, sy = 1.5}, Tooltip -> "50% più alto"],
-      Button["0.5:1", {sx = 0.5, sy = 1}, Tooltip -> "Metà larghezza"],
-      Button["1:0.5", {sx = 1, sy = 0.5}, Tooltip -> "Metà altezza"]
+      Button["1.5:1", {sx = 1.5, sy = 1}, Tooltip -> "50% piu largo"],
+      Button["1:1.5", {sx = 1, sy = 1.5}, Tooltip -> "50% piu alto"],
+      Button["0.5:1", {sx = 0.5, sy = 1}, Tooltip -> "Meta larghezza"],
+      Button["1:0.5", {sx = 1, sy = 0.5}, Tooltip -> "Meta altezza"]
     }], Background -> Lighter[Yellow, 0.8]]
   ]
 ]
 
+(* Interfaccia utente combinata per tutte le trasformazioni *)
+bUI[] := Column[{
+  Style["Rotazione", Bold, 14], rotazione[],
+  Style["Riflessione", Bold, 14], riflessione[],
+  Style["Scala", Bold, 14], scala[]
+}]
 
 
 (* ============================== SEZIONE C ============================== *)
