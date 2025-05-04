@@ -760,39 +760,53 @@ es[seed_: Automatic] := Module[
     img, dims, center,
     transformations, transformedImgs, seedUsed
   },
-  
+
+  (* Se seed è un numero intero, lo usa; altrimenti ne genera uno casuale *)
   seedUsed = If[IntegerQ[seed], seed, RandomInteger[10^6]];
   SeedRandom[seedUsed];
-  
-  img = ExampleData[{"TestImage", 
-   RandomChoice[{"House", "Mandrill", "Boat", "Peppers", "Girl","Aerial","Airplane","House2","Moon","Tank","Tank2","Tank3"}]}];    
 
+  (* Seleziona un'immagine casuale tra quelle disponibili come test *)
+  img = ExampleData[{"TestImage", 
+    RandomChoice[{"House", "Mandrill", "Boat", "Peppers", "Girl", 
+      "Aerial", "Airplane", "House2", "Moon", "Tank", "Tank2", "Tank3"}]}];
+
+  (* Calcola le dimensioni e il centro dell'immagine *)
   dims = ImageDimensions[img];
   center = Mean /@ Transpose[{{1, 1}, dims}];
-  
+
+  (* Genera 5 trasformazioni casuali 2x2 *)
   transformations = Table[randomTransform[], {5}];
-  
+
+  (* Applica le trasformazioni all'immagine originale *)
   transformedImgs = Table[
     Module[{matrix = transformations[[i, 2]], transfFun},
       transfFun = Function[p, center + matrix . (p - center)];
-      ImageTransformation[img, transfFun, DataRange -> Full, Resampling -> "Linear"]
+      ImageTransformation[img, transfFun, DataRange -> Full, 
+        Resampling -> "Linear"]
     ],
     {i, 5}
   ];
-  
-  DynamicModule[{index = 1, userMatrix = ConstantArray[0, {2, 2}], resultText = "", userImage = img},
+
+  (* Costruisce l'interfaccia utente interattiva *)
+  DynamicModule[
+    {index = 1, userMatrix = ConstantArray[0, {2, 2}], resultText = "", 
+     userImage = img},
+    
     Panel[
       Column[{
+        (* Intestazione con numero esercizio e seed *)
         Framed[
           Column[{
             Dynamic[
               Column[{
-                Style["Esercizio " <> ToString[index] <> "/5", Bold, 16, Darker[Green], Editable -> False],
+                Style["Esercizio " <> ToString[index] <> "/5", Bold, 16, Darker[Green]],
                 Spacer[5],
-                Style["Seed: " <> ToString[seedUsed], Italic, 12, Darker[Gray], Editable -> False]
+                Style["Seed: " <> ToString[seedUsed], Italic, 12, Darker[Gray]]
               }]
             ],
             Spacer[5],
+
+            (* Pulsanti di navigazione ed aiuto *)
             Grid[{
               {
                 Button[
@@ -805,8 +819,7 @@ es[seed_: Automatic] := Module[
                   ],
                   Appearance -> "Frameless",
                   ImageSize -> 120,
-                  Background -> Lighter[Blue, 0.9],
-                  Editable -> False
+                  Background -> Lighter[Blue, 0.9]
                 ],
                 Button[
                   Style["Successivo", Bold, 14, Darker[Blue]],
@@ -818,27 +831,24 @@ es[seed_: Automatic] := Module[
                   ],
                   Appearance -> "Frameless",
                   ImageSize -> 120,
-                  Background -> Lighter[Blue, 0.9],
-                  Editable -> False
+                  Background -> Lighter[Blue, 0.9]
                 ],
                 Button[
                   Style["Suggerimento", Bold, 14, Darker[Yellow]],
                   CreateDialog[
                     Panel[
                       Column[{
-                        Style["Matrice della trasformazione corrente", Bold, 16, Darker@Blue, Editable -> False],
+                        Style["Matrice della trasformazione corrente", Bold, 16, Darker@Blue],
                         Spacer[10],
                         Framed[
                           Style[
                             MatrixForm[transformations[[index, 2]]],
-                            16, Black,
-                            Editable -> False
+                            16, Black
                           ],
                           FrameStyle -> LightGray,
                           Background -> Lighter[Gray, 0.9],
                           RoundingRadius -> 5,
-                          FrameMargins -> 15,
-                          Editable -> False
+                          FrameMargins -> 15
                         ],
                         Spacer[15],
                         DefaultButton[]
@@ -858,32 +868,35 @@ es[seed_: Automatic] := Module[
           }],
           FrameStyle -> Directive[Gray, Thin], RoundingRadius -> 5
         ],
-        
+
         Spacer[10],
+        (* Visualizza la descrizione della trasformazione *)
         Style[
           Dynamic["Trasformazione: " <> transformations[[index, 1]]],
-          Bold, 14, Blue, Editable -> False
+          Bold, 14, Blue
         ],
-        
+
+        (* Confronto tra immagine originale e trasformata *)
         Grid[{
           {
             Labeled[
               Framed[img, FrameStyle -> LightGray],
-              Style["Originale", Bold, Editable -> False],
+              Style["Originale", Bold],
               Top
             ],
             Spacer[20],
             Labeled[
               Framed[Dynamic[transformedImgs[[index]]], FrameStyle -> LightGray],
-              Style["Trasformata", Bold, Editable -> False],
+              Style["Trasformata", Bold],
               Top
             ]
           }
         }],
-        
+
         Spacer[5],
-        Style["Inserisci la tua matrice 2x2:", Bold, 12, Editable -> False],
-        
+        Style["Inserisci la tua matrice 2x2:", Bold, 12],
+
+        (* Campi di input per la matrice dell'utente *)
         Grid[{
           {
             InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 4],
@@ -894,10 +907,11 @@ es[seed_: Automatic] := Module[
             InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 4]
           }
         }, Spacings -> {2, 2}],
-        
+
         Spacer[5],
         DynamicModule[{},
           Column[{
+            (* Pulsante per verificare la matrice *)
             Button[
               Style["Verifica", Bold, 14, Darker[Red]],
               Module[{isCorrect, matrixFun},
@@ -909,27 +923,28 @@ es[seed_: Automatic] := Module[
               ImageSize -> Medium,
               Background -> Lighter[Green, 0.8]
             ],
+
             Spacer[10],
+            (* Risultato della verifica: messaggio e immagini *)
             Dynamic[
               If[resultText =!= "",
                 Column[{
                   Style[
                     resultText,
                     Bold, 14,
-                    If[resultText === "Corretto!", Darker[Green], Red],
-                    Editable -> False
+                    If[resultText === "Corretto!", Darker[Green], Red]
                   ],
                   Grid[{
                     {
                       Labeled[
                         Framed[img, FrameStyle -> LightGray],
-                        Style["Originale", Bold, Editable -> False],
+                        Style["Originale", Bold],
                         Top
                       ],
                       Spacer[20],
                       Labeled[
                         Framed[userImage, FrameStyle -> LightGray],
-                        Style["Tua trasformazione", Bold, Editable -> False],
+                        Style["Tua trasformazione", Bold],
                         Top
                       ]
                     }
@@ -950,6 +965,7 @@ es[seed_: Automatic] := Module[
     ]
   ]
 ];
+
 
 End[]
 EndPackage[]
