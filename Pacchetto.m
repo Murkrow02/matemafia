@@ -1,39 +1,78 @@
 BeginPackage["Pacchetto`"]
 
+aUI::usage = 
+  "aUI rappresenta il componente dell'interfaccia utente dell'applicazione. \
+Fornisce controlli interattivi per modificare una matrice binaria (0/255), \
+visualizzarla in bianco e nero, regolare i canali di colore RGB tramite slider \
+e applicare i valori selezionati a una matrice di colori.";
 
+bUI::usage = "
+bUI[] crea una interfaccia grafica composta da tre pannelli per applicare trasformazioni geometriche 
+su un'immagine di esempio (ruotazione, riflessione e scala). 
 
+Ogni pannello utilizza Manipulate[] per:
+  – ruotare l'immagine di un angolo variabile in gradi, mostrando anche la matrice di rotazione e il 
+    grafico di sin(angolo) con indicazione del punto corrente;
+  – riflettere l'immagine rispetto all'asse X o all'asse Y, visualizzando la matrice di riflessione;
+  – scalare l'immagine con fattori sx e sy, calcolando la matrice di scala, il determinante, evidenziando 
+    eventuali avvisi e mostrando l'effetto sul quadrato unitario.
 
-aUI::usage = "aUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
-bUI::usage = "bUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
+Uso:
+  bUI[]
+
+Non modifica le variabili globali e si basa su ExampleData[{\"TestImage\",\"House\"}].";
+
 cUI::usage = "cUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
-
-
-
+es::usage  = "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
 
 Begin["`Private`"]
 
 aUI[] := DynamicModule[
   {
+   (* Inizializza una matrice 5x5 con valore 255 (bianco) per rappresentare l'immagine binaria *)
    mat = ConstantArray[255, {5, 5}],
+   
+   (* Inizializza una matrice 5x5 di triplette RGB, tutte bianche ({255,255,255}) *)
    rgbMat = ConstantArray[{255, 255, 255}, {5, 5}],
+   
+   (* Variabili per i valori RGB controllati tramite slider *)
    r = 255, g = 255, b = 255
   },
 
+  (* Contenitore principale dell'interfaccia: tutto organizzato in colonne verticali *)
   Column[{
 
-    (* RIGA 1: matrice 0/255 + ArrayPlot *)
+    (* PRIMA SEZIONE: matrice binaria interattiva + visualizzazione grafica *)
     Row[{
+
+      (* Colonna con testo esplicativo *)
       Column[{
-        Text["Clicca su una cella per passare da 0 a 255 e viceversa:"],
+        Style["Esempio interattivo 1: Matrici RGB", Bold, 14],
+        Spacer[5],
+        Text@Column[{"Questo esercizio consente di interagire con una matrice 5 x 5, dove ciascuna cella puo' assumere valori binari: 0 (nero) o 255 (bianco)."}],
+        Spacer[5],
+        Text@Column[{"L'utente puo' modificare i valori delle celle cliccandoci sopra, osservando simultaneamente la rappresentazione numerica e grafica della matrice."}],
+        Spacer[5],
+        Text@Column[{"Ogni cella e' rappresentata da un pulsante che mostra il valore corrente (0 o 255). Cliccando su una cella, il suo valore viene invertito: da 0 a 255 o viceversa."}],
+        Spacer[5],
+        Text@Column[{"Accanto alla matrice numerica, e' presente una rappresentazione grafica che mostra la matrice in scala di grigi: le celle con valore 0 appaiono nere, mentre quelle con valore 255 appaiono bianche."}],
+        Spacer[5],
+        
+        (* Griglia 5x5: ogni cella è un pulsante che alterna 0/255 *)
         Grid[
           Table[
             With[{i = i, j = j},
               Button[
-                Dynamic[mat[[i, j]]],
+                Dynamic[mat[[i, j]]], (* Mostra il valore corrente della cella in tempo reale *)
+
+                (* Azione al clic: cambia il valore tra 0 e 255 *)
                 mat[[i, j]] = If[mat[[i, j]] == 0, 255, 0],
+
                 Appearance -> None,
                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold},
-                Background -> Dynamic[If[mat[[i, j]] == 0, Gray, LightGray]],
+                Background -> Dynamic[
+                  If[mat[[i, j]] == 0, Gray, LightGray]
+                ],
                 ImageSize -> {40, 40}
               ]
             ],
@@ -44,8 +83,9 @@ aUI[] := DynamicModule[
         ]
       }],
 
-      Spacer[20],
+      Spacer[6], (* Distanza tra griglia e grafico *)
 
+      (* Visualizzazione scacchiera interattiva *)
       Dynamic[
         ArrayPlot[
           mat,
@@ -62,12 +102,28 @@ aUI[] := DynamicModule[
       ]
     }],
 
-    Spacer[30],
+    Spacer[30], (* Distanza verticale tra sezioni *)
 
-    
+    (* Colonna con testo esplicativo *)
+    Column[{
+      Style["Esempio interattivo 1: Colori RGB", Bold, 14],
+      Spacer[5],
+      Text@Column[{"Questo esercizio permette di esplorare la composizione dei colori attraverso i canali RGB (Rosso, Verde, Blu)."}],
+      Spacer[5],
+      Text@Column[{"Tramite gli slider, e' possibile regolare i valori dei tre canali per generare un colore personalizzato."}],
+      Spacer[5],
+      Text@Column[{"Premendo il pulsante \"Applica RGB a tutta la matrice\", il colore selezionato viene applicato a tutte le celle della matrice 5 x 5."}],
+      Spacer[5],
+      Text@Column[{"Ogni cella mostra i suoi valori RGB numerici e la rappresentazione grafica accanto visualizza i colori reali corrispondenti."}],
+      Spacer[5],
+      Text@Column[{"Questo strumento aiuta a comprendere come i diversi livelli di R, G e B si combinano per formare i colori digitali."}],
+      Spacer[5]
+    }],
+
+    (* SECONDA SEZIONE: matrice RGB con valori testuali, visualizzazione colorata, e slider *)
     Row[{
 
-      (* RGB VALUES GRID *)
+      (* Visualizzazione testuale della matrice RGB (ogni cella mostra i valori R, G, B) *)
       Dynamic[
         Grid[
           Table[
@@ -91,9 +147,9 @@ aUI[] := DynamicModule[
         ]
       ],
 
-      Spacer[20],
+      Spacer[20], (* Spazio tra valori numerici e mappa colorata *)
 
-      (* COLOR MATRIX *)
+      (* Visualizzazione grafica della matrice RGB in colore reale *)
       Dynamic[
         ArrayPlot[
           Map[RGBColor @@ (#/255) &, rgbMat, {2}],
@@ -108,10 +164,11 @@ aUI[] := DynamicModule[
 
       Spacer[20],
 
-      (* SLIDERS CON VALORI A DESTRA *)
+      (* Slider e controlli per modificare e applicare i valori RGB *)
       Column[{
         Style["Regola i canali RGB:", Bold],
 
+        (* SLIDER ROSSO *)
         Row[{
           Style["R", Bold, Red], 
           Slider[
@@ -124,6 +181,7 @@ aUI[] := DynamicModule[
           Dynamic[Style[r, Red, Bold]]
         }],
 
+        (* SLIDER VERDE *)
         Row[{
           Style["G", Bold, Darker[Green]], 
           Slider[
@@ -136,6 +194,7 @@ aUI[] := DynamicModule[
           Dynamic[Style[g, Darker[Green], Bold]]
         }],
 
+        (* SLIDER BLU *)
         Row[{
           Style["B", Bold, Blue], 
           Slider[
@@ -150,6 +209,7 @@ aUI[] := DynamicModule[
 
         Spacer[10],
 
+        (* Pulsante per aggiornare l'intera matrice RGB con il colore selezionato *)
         Button[
           "Applica RGB a tutta la matrice",
           rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],
@@ -160,250 +220,497 @@ aUI[] := DynamicModule[
   }]
 ]
 
+
+
+(* ============================== SEZIONE B ============================== *)
+
+(* Funzione principale per la rotazione dell'immagine con interfaccia utente *)
 rotazione[] := Module[{},
   Manipulate[
-   Module[{img, rotata, matrice, grafico},
-    
-    img = ExampleData[{"TestImage", "House"}];
-    rotata = ImageRotate[img, angolo Degree, Background -> White];
-    
-    (* Matrice di rotazione *)
-    matrice = Round[N[{
-      {Cos[angolo Degree], -Sin[angolo Degree]},
-      {Sin[angolo Degree],  Cos[angolo Degree]}
-    }], 0.0001];
-    
-    (* Grafico della funzione seno con punto rosso *)
-
-    grafico = Plot[
-      Sin[x Degree],
-      {x, 0, 360},
-      PlotStyle -> Red,
-      Epilog -> {
-        Red, PointSize[Large],
-        Point[{angolo, Sin[angolo Degree]}]
-        },
-      AxesLabel -> {"Angolo (\[Degree])", "sin(angolo)"},
-      PlotRange -> {{0, 360}, {-1.1, 1.1}},
-      ImageSize -> 300
+    Module[{img, rotata, matrice, grafico},
+      (* Carica l'immagine di esempio "House" dalla libreria *)
+      img = ExampleData[{"TestImage", "House"}];
+      
+      (* Applica la rotazione all'immagine con sfondo bianco *)
+      rotata = ImageRotate[img, angolo Degree, Background -> White];
+      
+      (* Calcola la matrice di rotazione 2x2 con approssimazione a 4 decimali *)
+      matrice = Round[N[{ 
+        {Cos[angolo Degree], -Sin[angolo Degree]},
+        {Sin[angolo Degree],  Cos[angolo Degree]}
+      }], 0.0001];
+      
+      (* Crea un grafico della funzione seno con punto evidenziato *)
+      grafico = Plot[
+        Sin[x Degree],
+        {x, 0, 360},
+        PlotStyle -> Red,
+        Epilog -> {Red, PointSize[Large], Point[{angolo, Sin[angolo Degree]}]},
+        AxesLabel -> {"Angolo (gradi)", "sin(angolo)"},
+        PlotRange -> {{0, 360}, {-1.1, 1.1}},
+        ImageSize -> 300
       ];
-    
-    Grid[{
-      {
-       rotata,
-       Column[{
-        MatrixForm[matrice],
-         grafico
-         }, Spacings -> 2]
-       }
-      }, Spacings -> {2, 2}]
+      
+      (* Costruisce l'interfaccia grafica con griglia *)
+      Grid[{{
+        (* Mostra l'immagine ruotata a sinistra *)
+        rotata,
+        (* Colonna a destra con istruzioni, matrice e grafico *)
+        Column[{
+          Panel[
+            Column[{
+              Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
+              "1. Muovi lo slider per ruotare l'immagine",
+              "2. Clicca i pulsanti per angoli rapidi",
+              "3. La matrice mostra la rotazione applicata",
+              "4. Il grafico mostra l'andamento del seno"
+            }, Alignment -> Left
+          ], Background -> Lighter[Gray, 0.9]],
+          MatrixForm[matrice], 
+          grafico 
+        }, Spacings -> 2]
+      }}, Spacings -> {2, 2}]
     ],
-   
-   {{angolo, 0, "Angolo (gradi)"}, 
-    0, 360, 1, 
-    Appearance -> "Labeled"},
-   
-   Delimiter,
-   Row[{
-     Button["0\[Degree]", angolo = 0],
-     Button["30\[Degree]", angolo = 30],
-     Button["45\[Degree]", angolo = 45],
-     Button["60\[Degree]", angolo = 60],
-     Button["90\[Degree]", angolo = 90],
-     Button["180\[Degree]", angolo = 180],
-     Button["270\[Degree]", angolo = 270],
-     Button["360\[Degree]", angolo = 360]
-     }, Spacer[5]]
-   ]
- ]
-
-riflessione[] := Module[{},
-
- Manipulate[
-  Module[{img, riflessa, matrice},
-   img = ExampleData[{"TestImage", "House"}];
-   {riflessa, matrice} =
-    If[asse == "X",
-     {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
-     {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
-     ];
-   Grid[{
-     {riflessa, MatrixForm[matrice]}
-     }, Spacings -> {2, 2}]
-   ],
-  {{asse, "X", "Asse di riflessione"}, {"X", "Y"}}
+    
+    (* Controllo slider per l'angolo di rotazione *)
+    {{angolo, 0, 
+      Column[{"ANGOLO DI ROTAZIONE", 
+              "(0 gradi = originale, 90 gradi = ruota a destra)", 
+              "(180 gradi = sottosopra, 360 gradi = giro completo)"}]}, 
+     0, 360, 1, Appearance -> "Labeled"},
+    
+    Delimiter,
+    (* Pannello con pulsanti per angoli preimpostati *)
+    Panel[Row[{
+      Style["ANGOLI RAPIDI:", Bold, 12, Darker[Blue]], Spacer[10],
+      Button["0 gradi", angolo = 0, Tooltip -> "Riporta all'originale"], 
+      Button["30 gradi", angolo = 30, Tooltip -> "Rotazione 30 gradi destra"],
+      Button["45 gradi", angolo = 45, Tooltip -> "Diagonale principale"], 
+      Button["60 gradi", angolo = 60, Tooltip -> "Rotazione ampia destra"],
+      Button["90 gradi", angolo = 90, Tooltip -> "Rotazione completa destra"],
+      Button["180 gradi", angolo = 180, Tooltip -> "Immagine capovolta"], 
+      Button["270 gradi", angolo = 270, Tooltip -> "Rotazione sinistra"], 
+      Button["360 gradi", angolo = 360, Tooltip -> "Giro completo"]
+    }, Spacer[5]], Background -> Lighter[Yellow, 0.8]]
   ]
- ]
+]
 
+(* Funzione per la riflessione dell'immagine *)
+riflessione[] := Module[{},
+  Manipulate[
+    Module[{img, riflessa, matrice},
+      (* Carica l'immagine di esempio *)
+      img = ExampleData[{"TestImage", "House"}];
+      
+      (* Applica la riflessione in base all'asse selezionato *)
+      {riflessa, matrice} = If[asse == "X",
+        (* Riflessione verticale (asse X) *)
+        {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
+        (* Riflessione orizzontale (asse Y) *)
+        {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
+      ];
+      
+      (* Costruisce l'interfaccia grafica *)
+      Grid[{{
+        (* Mostra l'immagine riflessa a sinistra *)
+        riflessa,
+        (* Colonna a destra con istruzioni e matrice *)
+        Column[{
+          Panel[Column[{
+            Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
+            "1. Scegli l'asse di riflessione",
+            "2. X = Specchio verticale (sinistra/destra)",
+            "3. Y = Specchio orizzontale (sopra/sotto)"
+          }], Background -> Lighter[Gray, 0.9]],
+          Spacer[10],
+          Style["Matrice della Riflessione", Bold], 
+          MatrixForm[matrice]
+        }]
+      }}, Spacings -> 2]
+    ],
+    (* Menu a tendina per selezione asse di riflessione *)
+    {{asse, "X", 
+      Column[{"SELEZIONA ASSE:", 
+              "(X = Ribalta sinistra/destra)", 
+              "(Y = Ribalta sopra/sotto)"}]}, {"X", "Y"}}
+  ]
+]
 
+(* Funzione per il ridimensionamento dell'immagine *)
 scala[] := Module[{},
   Manipulate[
-   Module[{img, scalata, matrice, det, unitSquare, transformedSquare, 
-     warning, plotRange},
-    
-    (* Original image with dynamic padding to prevent clipping *)
-    img = ExampleData[{"TestImage", "House"}];
-    
-    (* Apply scaling *)
-    scalata = ImageResize[img, Scaled[{sx, sy}]];
-    
-    (* Transformation matrix and determinant *)
-    matrice = {{sx, 0}, {0, sy}};
-    det = sx * sy;
-    
-    (* Visualize the transformation on a unit square *)
-    unitSquare = Polygon[{{0, 0}, {1, 0}, {1, 1}, {0, 1}}];
-    transformedSquare = GeometricTransformation[unitSquare, ScalingTransform[{sx, sy}]];
-    
-    (* Determine plot range based on scaling *)
-    plotRange = {{-0.5, Max[1.5, sx + 0.5]}, {-0.5, Max[1.5, sy + 0.5]}};
-    
-    (* Warnings *)
-    warning = Which[
-      det == 0, Style["Il determinante e' ZERO (collassato a una linea/punto)!", Red, Bold],
-      det < 0.1, Style["Determinante quasi zero (distorsione severa)!", Orange, Bold],
-      True, ""
-    ];
-    
-    (* Grid layout *)
-    Grid[{
-      {scalata, 
-       Column[{
-         Style["Matrice di Scala", Bold, 14],
-         MatrixForm[matrice],
-         Spacer[10],
-         Style["Determinante: " <> ToString[det], Bold, Darker[Green]],
-         warning,
-         Spacer[10],
-         Graphics[{
-           {EdgeForm[Black], LightBlue, unitSquare},
-          {EdgeForm[{Thick, Red}], Opacity[0.5], Red, transformedSquare},
-           (* Add dimension labels *)
-           Text[Style["1", 12], {0.5, -0.1}],
-           Text[Style["1", 12], {-0.1, 0.5}],
-           Text[Style[ToString[sx], 12, Red], {sx/2, -0.1}],
-           Text[Style[ToString[sy], 12, Red], {-0.1, sy/2}],
-           (* Add axis labels *)
-           Text[Style["X", 14], {plotRange[[1, 2]] - 0.2, -0.3}],
-           Text[Style["Y", 14], {-0.3, plotRange[[2, 2]] - 0.2}],
-           (* Add grid lines *)
-           Gray, Dashed,
-           Line[{{0, sy}, {sx, sy}}], 
-           Line[{{sx, 0}, {sx, sy}}],
-           Axes -> True,
-           AxesStyle -> Thick,
-           PlotLabel -> Style["Unit Square → Transformed", 14],
-           ImageSize -> 300,
-           PlotRange -> plotRange
-         }]
-       }, Alignment -> Center]}
-    }, Spacings -> 3, Alignment -> Center]
-   ],
-   
-   (* Controls *)
-   {{sx, 1, "Scala X"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
-   {{sy, 1, "Scala Y"}, 0.0, 1.5, 0.1, Appearance -> "Labeled"},
-   
-   (* Quick-set buttons *)
-   Delimiter,
-   Row[{
-      Button["1:1", {sx = 1, sy = 1}],
-      Spacer[5],
-      Button["2:1", {sx = 1, sy = 0.5}],
-      Spacer[5],
-      Button["1:2", {sx = 0.5, sy = 1}]
-    }],
-   ControlPlacement -> Top,
-   Paneled -> True,
-   FrameMargins -> 10]
-]
-    
-
-bUI[] := Column[{
-  Style["Rotazione", Bold, 14],
-  rotazione[],
-  Style["Riflessione", Bold, 14],
-  riflessione[],
-  Style["Scala", Bold, 14],
-  scala[]
-  }]
-
-cUI[] := Column[{
-  Style["Esercizio 1: Sfocatura con Kernel", Bold, 16],
-  
-  Text[
-   "Questo esercizio illustra l'effetto di un kernel di sfocatura su un'immagine. " <>
-    "Un kernel e una piccola matrice che viene fatta scorrere su ogni pixel dell'immagine. " <>
-    "Il nuovo valore di ogni pixel e calcolato come la media dei valori dei pixel vicini, pesati dai valori del kernel. " <>
-    "Qui, utilizziamo un kernel di media uniforme, dove tutti i pesi sono uguali a 1/(dimensione del kernel)^2."
-   ],
-  
-  DynamicModule[{kernelSize = 3, locatorPosition = {50, 50}, 
-    img = ExampleData[{"TestImage", "House"}]},
-   Column[{
-    Slider[Dynamic[kernelSize], {3, 9, 2}, Appearance -> "Labeled", 
-     ImageSize -> Full],
-    
-    DynamicModule[{imageDimensions = ImageDimensions[img]},
-     Dynamic[
-      Module[{kSize = kernelSize, kernel, locX, locY, imageData, 
-        neighborhood, convolvedValue, padding, blurredImg},
-       kernel = ConstantArray[1/kSize^2, {kSize, kSize}];
-       locX = Round[locatorPosition[[1]]];
-       locY = Round[imageDimensions[[2]] - locatorPosition[[2]] + 1];
-       imageData = ImageData[img];
-       padding = Floor[kSize/2];
-       blurredImg = ImageConvolve[img, kernel];
-       
-       neighborhood = 
-        Table[imageData[[Clip[locY + i - padding, {1, imageDimensions[[2]]}], 
-           Clip[locX + j - padding, {1, imageDimensions[[1]]}]]], 
-         {i, 1, kSize}, {j, 1, kSize}];
-       
-       convolvedValue = Sum[neighborhood[[i, j]] * kernel[[i, j]], 
-         {i, 1, kSize}, {j, 1, kSize}];
-       
-       Column[{
-        Row[{
-         Column[{
-          Style["Immagine Originale", Bold],
-          LocatorPane[Dynamic[locatorPosition], 
-           Dynamic[
-            Show[img, 
-             Graphics[{Red, Thickness[0.01], 
-               Rectangle[{locatorPosition[[1]] - kSize/2, 
-                 locatorPosition[[2]] - kSize/2}, 
-                {locatorPosition[[1]] + kSize/2, 
-                 locatorPosition[[2]] + kSize/2}]}]]], 
-           LocatorShape -> Graphics[{Circle[{0, 0}, 5]}], 
-           ImageSize -> 300]
-          }],
-         Spacer[20],
-         Column[{
-          Style["Immagine Sfocata", Bold],
-          Image[blurredImg, ImageSize -> 300]
-          }],
-         Spacer[20],
-         Column[{
-          Style["Kernel (Dimensione: " <> ToString[kSize] <> ")", Bold],
-          MatrixForm[kernel]
+    Module[{img, scalata, matrice, det, unitSquare, transformedSquare, warning, plotRange},
+      (* Carica l'immagine di esempio *)
+      img = ExampleData[{"TestImage", "House"}];
+      
+      (* Ridimensiona l'immagine in base ai fattori di scala *)
+      scalata = ImageResize[img, Scaled[{sx, sy}]];
+      
+      (* Calcola la matrice di trasformazione e il determinante *)
+      matrice = {{sx, 0}, {0, sy}};
+      det = sx * sy;
+      
+      (* Crea un quadrato unitario e la sua versione trasformata *)
+      unitSquare = Polygon[{{0, 0}, {1, 0}, {1, 1}, {0, 1}}];
+      transformedSquare = GeometricTransformation[unitSquare, ScalingTransform[{sx, sy}]];
+      
+      (* Determina l'area di visualizzazione del grafico *)
+      plotRange = {{-0.5, Max[1.5, sx + 0.5]}, {-0.5, Max[1.5, sy + 0.5]}};
+      
+      (* Genera avvisi in base al valore del determinante *)
+      warning = Which[
+        det == 0, Style["ATTENZIONE: Immagine appiattita!", Red, Bold],
+        det < 0.1, Style["Attenzione: Distorsione estrema!", Orange, Bold],
+        True, ""
+      ];
+      
+      (* Costruisce l'interfaccia grafica *)
+      Grid[{{ 
+        (* Mostra l'immagine scalata a sinistra *)
+        scalata,
+        (* Colonna a destra con controlli e visualizzazione *)
+        Column[{
+          Panel[Column[{
+            Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
+            "• Scala X: Allarga/restringe orizzontalmente",
+            "• Scala Y: Allunga/accorcia verticalmente",
+            "• 1 = dimensione originale",
+            "• <1 = rimpicciolisci",
+            "• >1 = ingrandisci"
+          }], Background -> Lighter[Gray, 0.9]],
+          Spacer[10],
+          Style["Matrice di Scala", Bold], MatrixForm[matrice],
+          Style["Fattore di Ingrandimento (Determinante): " <> ToString[det], Bold, Darker[Green]],
+          warning,
+          (* Mostra la trasformazione geometrica applicata *)
+          Graphics[{
+            {EdgeForm[Black], LightBlue, unitSquare},
+            {EdgeForm[{Thick, Red}], Opacity[0.5], Red, transformedSquare},
+            Text[Style["1", 12], {0.5, -0.1}], Text[Style["1", 12], {-0.1, 0.5}],
+            Text[Style[ToString[sx], 12, Red], {sx/2, -0.1}], 
+            Text[Style[ToString[sy], 12, Red], {-0.1, sy/2}],
+            Gray, Dashed, Line[{{0, sy}, {sx, sy}}], Line[{{sx, 0}, {sx, sy}}],
+            Axes -> True, PlotLabel -> Style["Trasformazione Geometrica", 14],
+            ImageSize -> 300, PlotRange -> plotRange
           }]
-         }, Alignment -> Top],
-        
-        Style["Dettagli Locali (Intorno al Locatore)", Bold],
-        Row[{Style["Neighborhood:", Bold], 
-          Image[neighborhood, ImageSize -> Scaled[0.5]]}],
-        Row[{Style["Valore Pixel Originale (centro): ", Bold], 
-          PaddedForm[imageData[[locY, locX]], {3, 3}]}],
-        Row[{Style["Valore Pixel Convoluto: ", Bold], 
-          PaddedForm[convolvedValue, {3, 3}]}]
-        }]
-       ]
-      ]
-     ]
-    }]
-   ]
-  }]
+        }, Alignment -> Center]
+      }}, Spacings -> 3]
+    ],
+    (* Slider per il fattore di scala orizzontale *)
+    {{sx, 1, "Scala Orizzontale (X)"}, 0.0, 1.5, 0.1, 
+     Appearance -> "Labeled", ImageSize -> Small},
+     
+    (* Slider per il fattore di scala verticale *)
+    {{sy, 1, "Scala Verticale (Y)"}, 0.0, 1.5, 0.1, 
+     Appearance -> "Labeled", ImageSize -> Small},
+     
+    Delimiter,
+    (* Pannello con preset di scala predefiniti *)
+    Panel[Row[{
+      Style["PRESET:", Bold, 12, Darker[Blue]], Spacer[10],
+      Button["1:1", {sx = 1, sy = 1}, Tooltip -> "Ripristina dimensioni originali"],
+      Button["1.5:1", {sx = 1.5, sy = 1}, Tooltip -> "50% piu largo"],
+      Button["1:1.5", {sx = 1, sy = 1.5}, Tooltip -> "50% piu alto"],
+      Button["0.5:1", {sx = 0.5, sy = 1}, Tooltip -> "Meta larghezza"],
+      Button["1:0.5", {sx = 1, sy = 0.5}, Tooltip -> "Meta altezza"]
+    }], Background -> Lighter[Yellow, 0.8]]
+  ]
+]
+
+(* Interfaccia utente combinata per tutte le trasformazioni *)
+bUI[] := Column[{
+  Style["Rotazione", Bold, 14], rotazione[],
+  Style["Riflessione", Bold, 14], riflessione[],
+  Style["Scala", Bold, 14], scala[]
+}]
+
+(* ============================== SEZIONE C ============================== *)
+
+
+
+ClearAll[cUI]
+
+cUI[] :=  (* Definisce la funzione senza argomenti *)
+ Deploy @   (* Deploy rende l'espressione non editabile dall'utente *)
+ Module[
+  {
+    (* Variabili locali del modulo --------------------------------- *)
+    imageDisplaySize  = 300,   (* lato in pixel per le immagini principali *)
+    neighborhoodDisplaySize = 250 (* lato per la preview del vicinato *)
+  },
+
+  (* Layout principale: una colonna di elementi -------------------- *)
+  Column[{
+
+    (* ===== 1. Intestazione ===== *)
+    Style["Esempio interattivo 3: Sfocatura con Kernel (Box Blur)", Bold, 14],
+    Spacer[5],   (* piccola distanza verticale *)
+
+    (* Blocco di testo descrittivo, organizzato a colonne *)
+    Text @ Column[{
+      "Come funziona:",
+      " - Muovi lo slider per cambiare la dimensione del kernel (3, 5, 7, 9).",
+      " - Clicca sull'immagine originale per scegliere il pixel centrale (non serve trascinare).",
+      " - L'immagine sfocata a destra si aggiorna automaticamente.",
+      " - Il pannello in basso mostra il vicinato e il valore calcolato."
+    }],
+    Spacer[10],
+
+    (* ===== 2. Area interattiva ===== *)
+    DynamicModule[{
+      kernelSize = 3,                 (* valore iniziale dello slider *)
+      locatorPosition = {50, 50},     (* posizione iniziale del cursore rosso *)
+      img = ExampleData[{"TestImage", "House"}]  (* immagine di esempio *)
+    },
+
+      Column[{
+        (* 2a. Slider per scegliere la dimensione del kernel -------- *)
+        Slider[ Dynamic[kernelSize], {3, 9, 2}, Appearance -> "Labeled", ImageSize -> Full],
+        Spacer[5],
+
+        (* 2b. Sotto‑modulo che tiene le dimensioni dell'immagine ---- *)
+        DynamicModule[{ imageDimensions = ImageDimensions[img] },
+
+          (* Contenuto dinamico: si aggiorna quando kernelSize o locatorPosition cambiano *)
+          Dynamic[
+            Module[
+              {
+                (* Variabili interne alla convoluzione -------------- *)
+                kSize, kernel, locX, locY, imageData,
+                neighborhood, convolvedValue, padding, blurredImg,
+                originalImgWithRect
+              },
+
+              (* ---------- Pre‑calcoli ----------------------------- *)
+              kSize  = kernelSize;                                      (* dimensione corrente del kernel *)
+              kernel = ConstantArray[ 1 / kSize^2, {kSize, kSize} ];    (* kernel uniforme *)
+
+              (* Converte la posizione del Locator da coordinate grafiche a indici di matrice *)
+              locX = Round[ locatorPosition[[1]] ];
+              locY = Round[ imageDimensions[[2]] - locatorPosition[[2]] + 1 ];
+
+              imageData = ImageData[ img ];    (* matrice (riga, colonna, canale) con i pixel *)
+              padding   = Floor[ kSize / 2 ];  (* raggio del kernel intorno al centro *)
+
+              (* Applica la convoluzione e ridimensiona l'immagine sfocata *)
+              blurredImg = ImageResize[ ImageConvolve[ img, kernel ], imageDisplaySize ];
+
+              (* Disegna il rettangolo sul punto scelto, poi rasterizza in immagine *)
+              originalImgWithRect = Rasterize[
+                Show[
+                  img,
+                  Graphics[{
+                    Red, Thickness[0.01],
+                    Rectangle[ {locatorPosition[[1]] - kSize/2, locatorPosition[[2]] - kSize/2},
+                               {locatorPosition[[1]] + kSize/2, locatorPosition[[2]] + kSize/2} ]
+                  }]
+                ],
+                RasterSize -> imageDisplaySize
+              ];
+
+              (* Estrae il vicinato del pixel centrale -------------- *)
+              neighborhood = Table[
+                imageData[[ Clip[locY + i - padding, {1, imageDimensions[[2]]}],
+                            Clip[locX + j - padding, {1, imageDimensions[[1]]}] ]],
+                {i, 1, kSize}, {j, 1, kSize}
+              ];
+
+              (* Calcola il valore convoluto (media pesata) *)
+              convolvedValue = Total[ Flatten[ neighborhood * kernel ] ];
+
+              (* ========== Layout visivo dei risultati ============= *)
+              Column[{
+
+                (* --- Blocchi in alto: originale, sfocata, kernel --- *)
+                Row[{
+
+                  (* Immagine originale con Locator *)
+                  Column[{
+                    Style["Immagine originale", Bold],
+                    LocatorPane[
+                      Dynamic[ locatorPosition ],
+                      Image[ originalImgWithRect, ImageSize -> imageDisplaySize ],
+                      LocatorShape -> Graphics[{ Circle[{0, 0}, 5] }]
+                    ]
+                  }],
+
+                  Spacer[20],
+
+                  (* Immagine sfocata *)
+                  Column[{
+                    Style["Immagine sfocata", Bold],
+                    Image[ blurredImg, ImageSize -> imageDisplaySize ]
+                  }],
+
+                  Spacer[20],
+
+                  (* Matrice del kernel *)
+                  Column[{
+                    Style["Kernel " <> ToString[kSize] <> " x " <> ToString[kSize], Bold],
+                    MatrixForm[ kernel ]
+                  }]
+
+                }, Alignment -> Top],
+
+                Spacer[10],
+                Style[ StringRepeat["-", 60], Gray ],   (* linea di separazione *)
+                Spacer[5],
+
+                (* --- Dettagli locali (vicinato) ------------------- *)
+                Style["Dettagli locali", Bold],
+                Row[{
+                  Style["Neighborhood: ", Bold],
+                  Image[ ImageResize[ Image[ neighborhood ], neighborhoodDisplaySize ],
+                        ImageSize -> neighborhoodDisplaySize ]
+                }]
+              }]
+            ]   
+          ]      
+        ]       
+      }]        
+    ]           
+  }]           
+ ];            
+
+
+
+(* ========= 1. PULIZIA DI SYMBOL RESIDUI ========= *)
+ClearAll[randomTransform, esUI];   (* elimina vecchie definizioni *)
+Remove[Pacchetto"`Private`*"];              (* rimuove simboli privati stantii *)
+
+(* ========= 2. TRASFORMAZIONI CASUALI ========= *)
+randomTransform[] := Module[{lista},
+  lista = {
+    {"Identita",       IdentityMatrix[2]},
+    {"Rotazione 90",   {{0, -1}, {1, 0}}},
+    {"Rotazione 180",  {{-1, 0}, {0, -1}}},
+    {"Rotazione 270",  {{0, 1}, {-1, 0}}},
+    {"Riflessione X",  {{1, 0}, {0, -1}}},
+    {"Riflessione Y",  {{-1, 0}, {0, 1}}},
+    {"Shear Orizz.",   {{1, 1}, {0, 1}}},
+    {"Shear Vert.",    {{1, 0}, {1, 1}}},
+    {"Scala x2",       {{2, 0}, {0, 2}}},
+    {"Scala 1/2",      {{1/2, 0}, {0, 1/2}}}
+  };
+  RandomChoice[lista]   (* sempre {descrizione, matrice 2x2} *)
+];
+
+(* ========= 3. FUNZIONE PRINCIPALE ========= *)
+esUI[seed_: Automatic] := Module[
+  {img, dims, centro, transfs, imgT, seme},
+
+  (* seed riproducibile ------------------------------------------- *)
+  seme  = If[IntegerQ[seed], seed, RandomInteger[10^6]];
+  SeedRandom[seme];
+
+  (* immagine di partenza ----------------------------------------- *)
+  img = ExampleData[{"TestImage",
+     RandomChoice[{
+       "House", "Mandrill", "Boat", "Peppers", "Girl",
+       "Aerial", "Airplane", "House2", "Moon", "Tank",
+       "Tank2", "Tank3"}]}];
+
+  dims   = ImageDimensions[img];
+  centro = Mean /@ Transpose[{{1, 1}, dims}];
+
+  (* 5 trasformazioni casuali ------------------------------------- *)
+  transfs = Table[randomTransform[], {5}];
+
+  (* immagini trasformate precalcolate ---------------------------- *)
+  imgT = Table[
+    With[{m = transfs[[i, 2]]},
+      ImageTransformation[
+        img,
+        Function[p, centro + m.(p - centro)],
+        DataRange -> Full, Resampling -> "Linear"]
+    ],
+    {i, 5}
+  ];
+
+  (* ================= INTERFACCIA ================================= *)
+  DynamicModule[
+    {idx = 1, matrUtente = ConstantArray[0, {2, 2}],
+     esito = "", imgUtente = img},
+
+    Deploy @ Panel @ Column[{
+
+      (* intestazione + pulsanti ---------------------------------- *)
+      Framed[
+        Column[{
+          Dynamic@Style["Esercizio " <> ToString[idx] <> "/5", Bold, 16, Darker@Green],
+          Style["Seed: " <> ToString[seme], Italic, 12, Gray],
+          Grid[{{
+            Button["Precedente",
+              If[idx > 1,
+                idx--; matrUtente = ConstantArray[0, {2, 2}]; esito = ""; imgUtente = img;],
+              Appearance -> "Frameless", ImageSize -> 100,
+              Background -> Lighter[Blue, .9]],
+            Button["Successivo",
+              If[idx < 5,
+                idx++; matrUtente = ConstantArray[0, {2, 2}]; esito = ""; imgUtente = img;],
+              Appearance -> "Frameless", ImageSize -> 100,
+              Background -> Lighter[Blue, .9]],
+            Button["Suggerimento",
+              CreateDialog[
+                Deploy @ Column[{
+                  Style["Matrice corretta", Bold, 14],
+                  MatrixForm[transfs[[idx, 2]]],
+                  DefaultButton[]
+                }],
+                WindowTitle -> "Suggerimento"],
+              Appearance -> "Frameless",
+              Background -> Lighter[Green, .8]]
+          }}]
+        }],
+        FrameStyle -> LightGray, RoundingRadius -> 5
+      ],
+
+      Spacer[8],
+      Style[Dynamic["Trasformazione: " <> transfs[[idx, 1]]], Bold, 14, Blue],
+
+      (* immagini -------------------------------------------------- *)
+      Grid[{{
+        Labeled[img, "Originale", Top],
+        Spacer[10],
+        Labeled[Dynamic[imgT[[idx]]], "Trasformata", Top]
+      }}],
+
+      Spacer[6],
+      Style["Inserisci la tua matrice 2x2:", Bold],
+      Grid[{
+        {InputField[Dynamic[matrUtente[[1, 1]]], Number, FieldSize -> 4],
+         InputField[Dynamic[matrUtente[[1, 2]]], Number, FieldSize -> 4]},
+        {InputField[Dynamic[matrUtente[[2, 1]]], Number, FieldSize -> 4],
+         InputField[Dynamic[matrUtente[[2, 2]]], Number, FieldSize -> 4]}
+      }],
+
+      Button["Verifica",
+        Module[{ok, f},
+          ok    = matrUtente === transfs[[idx, 2]];
+          esito = If[ok, "Corretto!", "Sbagliato!"];
+          f     = Function[p, centro + matrUtente.(p - centro)];
+          imgUtente = ImageTransformation[img, f, DataRange -> Full, Resampling -> "Linear"];
+        ],
+        ImageSize -> Medium, Background -> Lighter[Green, .8]],
+
+      Spacer[8],
+      Dynamic[
+        If[esito =!= "",
+          Column[{
+            Style[esito, Bold, 14, If[esito === "Corretto!", Darker@Green, Red]],
+            Grid[{{ Labeled[img, "Originale", Top],
+                    Spacer[10],
+                    Labeled[imgUtente, "Tua trasformazione", Top] }}]
+          }, Spacings -> 1.2],
+          ""],
+        TrackedSymbols :> {esito}]
+    }, Spacings -> 1.2]
+  ]
+];
+
+
+
+
 
 
 
