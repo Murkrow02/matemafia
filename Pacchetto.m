@@ -1,10 +1,11 @@
 BeginPackage["Pacchetto`"]
 
 aUI::usage = 
-  "aUI rappresenta il componente dell'interfaccia utente dell'applicazione. \
-Fornisce controlli interattivi per modificare una matrice binaria (0/255), \
-visualizzarla in bianco e nero, regolare i canali di colore RGB tramite slider \
-e applicare i valori selezionati a una matrice di colori.";
+  "aUI[] genera un'interfaccia utente interattiva per la manipolazione di matrici. \
+Include due sezioni: la prima consente di modificare manualmente una matrice binaria 5x5 \
+(composta da valori 0 e 255) e di visualizzarla graficamente in scala di grigi; \
+la seconda permette di regolare i valori dei canali RGB tramite slider e di applicare \
+il colore selezionato a tutte le celle di una matrice RGB 5x5, con visualizzazione numerica e cromatica.";
 
 bUI::usage = "
 bUI[] crea una interfaccia grafica composta da tre pannelli per applicare trasformazioni geometriche 
@@ -33,47 +34,47 @@ Begin["`Private`"]
 
 aUI[] := DynamicModule[
   {
-   (* Inizializza una matrice 5x5 con valore 255 (bianco) per rappresentare l'immagine binaria *)
+   (* Inizializza una matrice 5x5 con valore 255 (bianco) per simulare un'immagine binaria *)
    mat = ConstantArray[255, {5, 5}],
    
-   (* Inizializza una matrice 5x5 di triplette RGB, tutte bianche ({255,255,255}) *)
+   (* Inizializza una matrice 5x5 in cui ogni cella è una tripla RGB, inizialmente tutte bianche *)
    rgbMat = ConstantArray[{255, 255, 255}, {5, 5}],
    
-   (* Variabili per i valori RGB controllati tramite slider *)
+   (* Valori iniziali dei canali RGB usati dagli slider *)
    r = 255, g = 255, b = 255
   },
 
-  (* Contenitore principale dell'interfaccia: tutto organizzato in colonne verticali *)
+  (* Contenitore principale dell'interfaccia utente *)
   Column[{
 
-    (* PRIMA SEZIONE: matrice binaria interattiva + visualizzazione grafica *)
-    Row[{
+    (* === SEZIONE 1: MATRICE BINARIA INTERATTIVA === *)
+    Column[{
+      Style["Esempio interattivo 1: Matrici RGB", Bold, 14],
+      Spacer[5],
+      
+      (* Spiegazione testuale dell'esercizio *)
+      Text@Column[{
+        "Questo esercizio consente di interagire con una matrice 5 x 5, dove ciascuna cella puo' assumere valori binari: 0 (nero) o 255 (bianco).",
+        "L'utente puo' modificare i valori delle celle cliccandoci sopra, osservando simultaneamente la rappresentazione numerica e grafica della matrice.",
+        "Ogni cella e' rappresentata da un pulsante che mostra il valore corrente (0 o 255). Cliccando su una cella, il suo valore viene invertito: da 0 a 255 o viceversa.",
+        "Accanto alla matrice numerica, e' presente una rappresentazione grafica che mostra la matrice in scala di grigi: le celle con valore 0 appaiono nere, mentre quelle con valore 255 appaiono bianche."
+      }],
+      Spacer[5],
 
-      (* Colonna con testo esplicativo *)
-      Column[{
-        Style["Esempio interattivo 1: Matrici RGB", Bold, 14],
-        Spacer[5],
-        Text@Column[{"Questo esercizio consente di interagire con una matrice 5 x 5, dove ciascuna cella puo' assumere valori binari: 0 (nero) o 255 (bianco)."}],
-        Spacer[5],
-        Text@Column[{"L'utente puo' modificare i valori delle celle cliccandoci sopra, osservando simultaneamente la rappresentazione numerica e grafica della matrice."}],
-        Spacer[5],
-        Text@Column[{"Ogni cella e' rappresentata da un pulsante che mostra il valore corrente (0 o 255). Cliccando su una cella, il suo valore viene invertito: da 0 a 255 o viceversa."}],
-        Spacer[5],
-        Text@Column[{"Accanto alla matrice numerica, e' presente una rappresentazione grafica che mostra la matrice in scala di grigi: le celle con valore 0 appaiono nere, mentre quelle con valore 255 appaiono bianche."}],
-        Spacer[5],
-        
-        (* Griglia 5x5: ogni cella è un pulsante che alterna 0/255 *)
+      (* Visualizzazione della matrice binaria e della sua rappresentazione grafica *)
+      Row[{
+
+        (* Matrice di pulsanti interattivi che rappresentano valori binari (0 o 255) *)
         Grid[
           Table[
             With[{i = i, j = j},
               Button[
-                Dynamic[mat[[i, j]]], (* Mostra il valore corrente della cella in tempo reale *)
-
-                (* Azione al clic: cambia il valore tra 0 e 255 *)
-                mat[[i, j]] = If[mat[[i, j]] == 0, 255, 0],
-
+                Dynamic[mat[[i, j]]],  (* Testo del pulsante: valore corrente della cella *)
+                mat[[i, j]] = If[mat[[i, j]] == 0, 255, 0],  (* Al click: inverte il valore *)
                 Appearance -> None,
                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold},
+                
+                (* Sfondo cambia dinamicamente in base al valore: grigio chiaro (255) o grigio scuro (0) *)
                 Background -> Dynamic[
                   If[mat[[i, j]] == 0, Gray, LightGray]
                 ],
@@ -84,141 +85,140 @@ aUI[] := DynamicModule[
           ],
           Frame -> All,
           Spacings -> {0, 0}
-        ]
-      }],
+        ],
 
-      Spacer[6], (* Distanza tra griglia e grafico *)
+        Spacer[20],
 
-      (* Visualizzazione scacchiera interattiva *)
-      Dynamic[
-        ArrayPlot[
-          mat,
-          ColorFunction -> (If[# == 0, Black, White] &),
-          PlotRange -> {0, 255},
-          PlotRangePadding -> None,
-          Mesh -> All,
-          MeshStyle -> Black,
-          Frame -> True,
-          FrameTicks -> None,
-          AspectRatio -> 1,
-          ImageSize -> 200
+        (* Visualizzazione grafica della matrice binaria con ArrayPlot *)
+        Dynamic[
+          ArrayPlot[
+            mat,
+            ColorFunction -> (If[# == 0, Black, White] &),  (* 0 = nero, 255 = bianco *)
+            PlotRange -> {0, 255},
+            PlotRangePadding -> None,
+            Mesh -> All,
+            MeshStyle -> Black,
+            Frame -> True,
+            FrameTicks -> None,
+            AspectRatio -> 1,
+            ImageSize -> 200
+          ]
         ]
-      ]
+      }]
     }],
 
-    Spacer[30], (* Distanza verticale tra sezioni *)
+    Spacer[30],
 
-    (* Colonna con testo esplicativo *)
+    (* === SEZIONE 2: MATRICE RGB CON SLIDER === *)
     Column[{
-      Style["Esempio interattivo 1: Colori RGB", Bold, 14],
+      Style["Esempio interattivo 2: Colori RGB", Bold, 14],
       Spacer[5],
-      Text@Column[{"Questo esercizio permette di esplorare la composizione dei colori attraverso i canali RGB (Rosso, Verde, Blu)."}],
-      Spacer[5],
-      Text@Column[{"Tramite gli slider, e' possibile regolare i valori dei tre canali per generare un colore personalizzato."}],
-      Spacer[5],
-      Text@Column[{"Premendo il pulsante \"Applica RGB a tutta la matrice\", il colore selezionato viene applicato a tutte le celle della matrice 5 x 5."}],
-      Spacer[5],
-      Text@Column[{"Ogni cella mostra i suoi valori RGB numerici e la rappresentazione grafica accanto visualizza i colori reali corrispondenti."}],
-      Spacer[5],
-      Text@Column[{"Questo strumento aiuta a comprendere come i diversi livelli di R, G e B si combinano per formare i colori digitali."}],
-      Spacer[5]
-    }],
 
-    (* SECONDA SEZIONE: matrice RGB con valori testuali, visualizzazione colorata, e slider *)
-    Row[{
+      (* Spiegazione testuale dell'esercizio *)
+      Text@Column[{
+        "Questo esercizio permette di esplorare la composizione dei colori attraverso i canali RGB (Rosso, Verde, Blu).",
+        "Tramite gli slider, e' possibile regolare i valori dei tre canali per generare un colore personalizzato.",
+        "Premendo il pulsante \"Applica RGB a tutta la matrice\", il colore selezionato viene applicato a tutte le celle della matrice 5 x 5.",
+        "Ogni cella mostra i suoi valori RGB numerici e la rappresentazione grafica accanto visualizza i colori reali corrispondenti.",
+        "Questo strumento aiuta a comprendere come i diversi livelli di R, G e B si combinano per formare i colori digitali."
+      }],
+      Spacer[10],
 
-      (* Visualizzazione testuale della matrice RGB (ogni cella mostra i valori R, G, B) *)
-      Dynamic[
-        Grid[
-          Table[
-            With[{val = rgbMat[[i, j]]},
-              Pane[
-                Column[
-                  Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> Medium] & /@ val,
-                  Alignment -> Center,
-                  Spacings -> 0.5
-                ],
-                {50, 50},
-                Alignment -> Center
-              ]
+      Row[{
+
+        (* Visualizzazione numerica delle triplette RGB per ogni cella della matrice *)
+        Dynamic[
+          Grid[
+            Table[
+              With[{val = rgbMat[[i, j]]},
+                Pane[
+                  Column[
+                    Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> Medium] & /@ val,
+                    Alignment -> Center,
+                    Spacings -> 0.5
+                  ],
+                  {50, 50},
+                  Alignment -> Center
+                ]
+              ],
+              {i, 5}, {j, 5}
             ],
-            {i, 5}, {j, 5}
-          ],
-          Frame -> All,
-          Spacings -> {0, 0},
-          Alignment -> Center,
-          ItemSize -> All
-        ]
-      ],
+            Frame -> All,
+            Spacings -> {0, 0},
+            Alignment -> Center,
+            ItemSize -> All
+          ]
+        ],
 
-      Spacer[20], (* Spazio tra valori numerici e mappa colorata *)
+        Spacer[20],
 
-      (* Visualizzazione grafica della matrice RGB in colore reale *)
-      Dynamic[
-        ArrayPlot[
-          Map[RGBColor @@ (#/255) &, rgbMat, {2}],
-          Mesh -> All,
-          MeshStyle -> Black,
-          Frame -> True,
-          FrameTicks -> None,
-          AspectRatio -> 1,
-          ImageSize -> 200
-        ]
-      ],
-
-      Spacer[20],
-
-      (* Slider e controlli per modificare e applicare i valori RGB *)
-      Column[{
-        Style["Regola i canali RGB:", Bold],
-
-        (* SLIDER ROSSO *)
-        Row[{
-          Style["R", Bold, Red], 
-          Slider[
-            Dynamic[r, (r = Round[#]) &],
-            {0, 255},
-            ContinuousAction -> False,
+        (* Visualizzazione grafica reale della matrice RGB con colori veri *)
+        Dynamic[
+          ArrayPlot[
+            Map[RGBColor @@ (#/255) &, rgbMat, {2}],  (* Converte le triplette [0-255] in valori RGBColor normalizzati [0-1] *)
+            Mesh -> All,
+            MeshStyle -> Black,
+            Frame -> True,
+            FrameTicks -> None,
+            AspectRatio -> 1,
             ImageSize -> 200
-          ],
-          Spacer[10],
-          Dynamic[Style[r, Red, Bold]]
-        }],
+          ]
+        ],
 
-        (* SLIDER VERDE *)
-        Row[{
-          Style["G", Bold, Darker[Green]], 
-          Slider[
-            Dynamic[g, (g = Round[#]) &],
-            {0, 255},
-            ContinuousAction -> False,
+        Spacer[20],
+
+        (* Controlli per selezionare i valori RGB tramite slider *)
+        Column[{
+          Style["Regola i canali RGB:", Bold],
+
+          (* Slider per il canale Rosso (R) *)
+          Row[{
+            Style["R", Bold, Red], 
+            Slider[
+              Dynamic[r, (r = Round[#]) &],  (* Valore rotondato tra 0 e 255 *)
+              {0, 255},
+              ContinuousAction -> False,
+              ImageSize -> 200
+            ],
+            Spacer[10],
+            Dynamic[Style[r, Red, Bold]]  (* Mostra il valore attuale *)
+          }],
+
+          (* Slider per il canale Verde (G) *)
+          Row[{
+            Style["G", Bold, Darker[Green]], 
+            Slider[
+              Dynamic[g, (g = Round[#]) &],
+              {0, 255},
+              ContinuousAction -> False,
+              ImageSize -> 200
+            ],
+            Spacer[10],
+            Dynamic[Style[g, Darker[Green], Bold]]
+          }],
+
+          (* Slider per il canale Blu (B) *)
+          Row[{
+            Style["B", Bold, Blue], 
+            Slider[
+              Dynamic[b, (b = Round[#]) &],
+              {0, 255},
+              ContinuousAction -> False,
+              ImageSize -> 200
+            ],
+            Spacer[10],
+            Dynamic[Style[b, Blue, Bold]]
+          }],
+
+          Spacer[10],
+
+          (* Pulsante per applicare il colore selezionato a tutta la matrice RGB *)
+          Button[
+            "Applica RGB a tutta la matrice",
+            rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],
             ImageSize -> 200
-          ],
-          Spacer[10],
-          Dynamic[Style[g, Darker[Green], Bold]]
-        }],
-
-        (* SLIDER BLU *)
-        Row[{
-          Style["B", Bold, Blue], 
-          Slider[
-            Dynamic[b, (b = Round[#]) &],
-            {0, 255},
-            ContinuousAction -> False,
-            ImageSize -> 200
-          ],
-          Spacer[10],
-          Dynamic[Style[b, Blue, Bold]]
-        }],
-
-        Spacer[10],
-
-        (* Pulsante per aggiornare l'intera matrice RGB con il colore selezionato *)
-        Button[
-          "Applica RGB a tutta la matrice",
-          rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],
-          ImageSize -> 200
-        ]
+          ]
+        }]
       }]
     }]
   }]
