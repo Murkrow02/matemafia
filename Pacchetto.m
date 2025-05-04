@@ -263,11 +263,11 @@ rotazione[] := Module[{},
         Column[{
           Panel[
             Column[{
-              Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
-              "1. Muovi lo slider per ruotare l'immagine",
-              "2. Clicca i pulsanti per angoli rapidi",
-              "3. La matrice mostra la rotazione applicata",
-              "4. Il grafico mostra l'andamento del seno"
+             Style["ISTRUZIONI:", Bold, 20, Darker[Blue]],
+            Style["1. Scegli l'asse di riflessione", 15],
+            Style["2. X = Specchio verticale (sinistra/destra)", 15],
+            Style["3. Y = Specchio orizzontale (sopra/sotto)", 15],
+            Style["4. La matrice mostra la trasformazione", 15]
             }, Alignment -> Left
           ], Background -> Lighter[Gray, 0.9]],
           MatrixForm[matrice], 
@@ -321,10 +321,10 @@ riflessione[] := Module[{},
         (* Colonna a destra con istruzioni e matrice *)
         Column[{
           Panel[Column[{
-            Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
-            "1. Scegli l'asse di riflessione",
-            "2. X = Specchio verticale (sinistra/destra)",
-            "3. Y = Specchio orizzontale (sopra/sotto)"
+                   Style["RIFLESSIONE", Bold, 20, Darker[Blue]],
+        Style["Seleziona l'asse di simmetria:", 15],
+        "(X = Ribalta verticalmente)",
+        "(Y = Ribalta orizzontalmente)"
           }], Background -> Lighter[Gray, 0.9]],
           Spacer[10],
           Style["Matrice della Riflessione", Bold], 
@@ -375,12 +375,12 @@ scala[] := Module[{},
         (* Colonna a destra con controlli e visualizzazione *)
         Column[{
           Panel[Column[{
-            Style["ISTRUZIONI:", Bold, 12, Darker[Blue]],
-            "• Scala X: Allarga/restringe orizzontalmente",
-            "• Scala Y: Allunga/accorcia verticalmente",
-            "• 1 = dimensione originale",
-            "• <1 = rimpicciolisci",
-            "• >1 = ingrandisci"
+            Style["ISTRUZIONI:", Bold, 20, Darker[Blue]],
+            Style["1. Regola i fattori di scala X e Y", 15],
+            Style["2. 1 = dimensione originale", 15],
+            Style["3. <1 = rimpicciolisci", 15],
+            Style["4. >1 = ingrandisci", 15],
+            Style["5. La matrice mostra la trasformazione", 15]
           }], Background -> Lighter[Gray, 0.9]],
           Spacer[10],
           Style["Matrice di Scala", Bold], MatrixForm[matrice],
