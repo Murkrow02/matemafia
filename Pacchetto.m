@@ -7,15 +7,21 @@ Include due sezioni: la prima consente di modificare manualmente una matrice bin
 la seconda permette di regolare i valori dei canali RGB tramite slider e di applicare \
 il colore selezionato a tutte le celle di una matrice RGB 5x5, con visualizzazione numerica e cromatica.";
 
+
+aUIButton::usage =
+  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
+al clic carica l'interfaccia aUI[].";
+
+
 bUI::usage = "
 bUI[] crea una interfaccia grafica composta da tre pannelli per applicare trasformazioni geometriche 
 su un'immagine di esempio (ruotazione, riflessione e scala). 
 
 Ogni pannello utilizza Manipulate[] per:
-  – ruotare l'immagine di un angolo variabile in gradi, mostrando anche la matrice di rotazione e il 
+  - ruotare l'immagine di un angolo variabile in gradi, mostrando anche la matrice di rotazione e il 
     grafico di sin(angolo) con indicazione del punto corrente;
-  – riflettere l'immagine rispetto all'asse X o all'asse Y, visualizzando la matrice di riflessione;
-  – scalare l'immagine con fattori sx e sy, calcolando la matrice di scala, il determinante, evidenziando 
+  - riflettere l'immagine rispetto all'asse X o all'asse Y, visualizzando la matrice di riflessione;
+  - scalare l'immagine con fattori sx e sy, calcolando la matrice di scala, il determinante, evidenziando 
     eventuali avvisi e mostrando l'effetto sul quadrato unitario.
 
 Uso:
@@ -23,7 +29,21 @@ Uso:
 
 Non modifica le variabili globali e si basa su ExampleData[{\"TestImage\",\"House\"}].";
 
+
+
+bUIButton::usage =
+  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
+al clic carica l'interfaccia bUI[].";
+
 cUI::usage = "cUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
+
+
+
+cUIButton::usage =
+  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
+al clic carica l'interfaccia cUI[].";
+
+
 
 es::usage = 
   "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
@@ -818,7 +838,7 @@ es[seed_: Automatic] := Module[
   (* Crea l'interfaccia utente interattiva tramite DynamicModule *)
   DynamicModule[
     {
-      index = 1,                         (* numero dell'esercizio corrente: 1–5 *)
+      index = 1,                         (* numero dell'esercizio corrente: 1-5 *)
       userMatrix = ConstantArray[0, {2, 2}], (* matrice inserita dall'utente *)
       resultText = "",                  (* testo con risultato "Corretto!" o "Sbagliato!" *)
       userImage = img                   (* immagine trasformata dall'utente *)
@@ -1029,6 +1049,95 @@ es[seed_: Automatic] := Module[
     ]
   ]
 ];
+
+
+(* -------------------------------------------------------------- *)
+(* aUIButton : semplice launcher che richiama aUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+aUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà aUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = aUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra aUI[] solo dopo il click *)
+   }]
+ ];
+
+
+
+ (* -------------------------------------------------------------- *)
+(* bUIButton : semplice launcher che richiama bUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+bUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà bUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = bUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra bUI[] solo dopo il click *)
+   }]
+ ];
+
+
+
+
+
+(* -------------------------------------------------------------- *)
+(* cUIButton : semplice launcher che richiama aUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+cUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà cUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica cUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = cUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra cUI[] solo dopo il click *)
+   }]
+ ];
+
 
 
 
