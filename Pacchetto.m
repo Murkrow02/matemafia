@@ -9,31 +9,36 @@ il colore selezionato a tutte le celle di una matrice RGB 5x5, con visualizzazio
 
 
 aUIButton::usage =
-  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
-al clic carica l'interfaccia aUI[].";
+  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo» al clic carica l'interfaccia aUI[].";
+
 
 
 bUI::usage = "
-bUI[] crea una interfaccia grafica composta da tre pannelli per applicare trasformazioni geometriche 
-su un'immagine di esempio (ruotazione, riflessione e scala). 
+  bUI[] crea una interfaccia grafica composta da tre pannelli per applicare trasformazioni geometriche 
+  su un'immagine di esempio (ruotazione, riflessione e scala). 
 
-Ogni pannello utilizza Manipulate[] per:
-  - ruotare l'immagine di un angolo variabile in gradi, mostrando anche la matrice di rotazione e il 
-    grafico di sin(angolo) con indicazione del punto corrente;
-  - riflettere l'immagine rispetto all'asse X o all'asse Y, visualizzando la matrice di riflessione;
-  - scalare l'immagine con fattori sx e sy, calcolando la matrice di scala, il determinante, evidenziando 
-    eventuali avvisi e mostrando l'effetto sul quadrato unitario.
+  Ogni pannello utilizza Manipulate[] per:
+    - ruotare l'immagine di un angolo variabile in gradi, mostrando anche la matrice di rotazione e il 
+      grafico di sin(angolo) con indicazione del punto corrente;
+    - riflettere l'immagine rispetto all'asse X o all'asse Y, visualizzando la matrice di riflessione;
+    - scalare l'immagine con fattori sx e sy, calcolando la matrice di scala, il determinante, evidenziando 
+      eventuali avvisi e mostrando l'effetto sul quadrato unitario.
 
-Uso:
-  bUI[]
+  Uso:
+    bUI[]
 
-Non modifica le variabili globali e si basa su ExampleData[{\"TestImage\",\"House\"}].";
+  Non modifica le variabili globali e si basa su ExampleData[{\"TestImage\",\"House\"}].";
+
+
 
 
 
 bUIButton::usage =
-  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
-al clic carica l'interfaccia bUI[].";
+  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo» al clic carica l'interfaccia bUI[].";
+
+
+
+
 
 cUI::usage = "cUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
 
@@ -48,7 +53,11 @@ es::usage =
   "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
 
 TrigUI::usage = "TrigUI[] avvia un'interfaccia per calcolare seno e coseno di un angolo specifico in gradi."
-esUI2::usage = "esUI2[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
+esUI::usage = "esUI2[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
+
+esUIButton::usage =
+  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
+al clic carica l'interfaccia cUI[].";
 
 Begin["`Private`"]
 
@@ -595,143 +604,11 @@ cUI[] :=  (* Definisce la funzione senza argomenti *)
       }]        
     ]           
   }]           
- ];            
+];            
 
 
 
-(* ========= 1. PULIZIA DI SYMBOL RESIDUI ========= *)
-ClearAll[randomTransform, esUI];   (* elimina vecchie definizioni *)
-Remove[Pacchetto"`Private`*"];              (* rimuove simboli privati stantii *)
 
-(* ========= 2. TRASFORMAZIONI CASUALI ========= *)
-randomTransform[] := Module[{lista},
-  lista = {
-    {"Identita",       IdentityMatrix[2]},
-    {"Rotazione 90",   {{0, -1}, {1, 0}}},
-    {"Rotazione 180",  {{-1, 0}, {0, -1}}},
-    {"Rotazione 270",  {{0, 1}, {-1, 0}}},
-    {"Riflessione X",  {{1, 0}, {0, -1}}},
-    {"Riflessione Y",  {{-1, 0}, {0, 1}}},
-    {"Shear Orizz.",   {{1, 1}, {0, 1}}},
-    {"Shear Vert.",    {{1, 0}, {1, 1}}},
-    {"Scala x2",       {{2, 0}, {0, 2}}},
-    {"Scala 1/2",      {{1/2, 0}, {0, 1/2}}}
-  };
-  RandomChoice[lista]   (* sempre {descrizione, matrice 2x2} *)
-];
-
-(* ========= 3. FUNZIONE PRINCIPALE ========= *)
-esUI[seed_: Automatic] := Module[
-  {img, dims, centro, transfs, imgT, seme},
-
-  (* seed riproducibile ------------------------------------------- *)
-  seme  = If[IntegerQ[seed], seed, RandomInteger[10^6]];
-  SeedRandom[seme];
-
-  (* immagine di partenza ----------------------------------------- *)
-  img = ExampleData[{"TestImage",
-     RandomChoice[{
-       "House", "Mandrill", "Boat", "Peppers", "Girl",
-       "Aerial", "Airplane", "House2", "Moon", "Tank",
-       "Tank2", "Tank3"}]}];
-
-  dims   = ImageDimensions[img];
-  centro = Mean /@ Transpose[{{1, 1}, dims}];
-
-  (* 5 trasformazioni casuali ------------------------------------- *)
-  transfs = Table[randomTransform[], {5}];
-
-  (* immagini trasformate precalcolate ---------------------------- *)
-  imgT = Table[
-    With[{m = transfs[[i, 2]]},
-      ImageTransformation[
-        img,
-        Function[p, centro + m.(p - centro)],
-        DataRange -> Full, Resampling -> "Linear"]
-    ],
-    {i, 5}
-  ];
-
-  (* ================= INTERFACCIA ================================= *)
-  DynamicModule[
-    {idx = 1, matrUtente = ConstantArray[0, {2, 2}],
-     esito = "", imgUtente = img},
-
-    Deploy @ Panel @ Column[{
-
-      (* intestazione + pulsanti ---------------------------------- *)
-      Framed[
-        Column[{
-          Dynamic@Style["Esercizio " <> ToString[idx] <> "/5", Bold, 16, Darker@Green],
-          Style["Seed: " <> ToString[seme], Italic, 12, Gray],
-          Grid[{{
-            Button["Precedente",
-              If[idx > 1,
-                idx--; matrUtente = ConstantArray[0, {2, 2}]; esito = ""; imgUtente = img;],
-              Appearance -> "Frameless", ImageSize -> 100,
-              Background -> Lighter[Blue, .9]],
-            Button["Successivo",
-              If[idx < 5,
-                idx++; matrUtente = ConstantArray[0, {2, 2}]; esito = ""; imgUtente = img;],
-              Appearance -> "Frameless", ImageSize -> 100,
-              Background -> Lighter[Blue, .9]],
-            Button["Suggerimento",
-              CreateDialog[
-                Deploy @ Column[{
-                  Style["Matrice corretta", Bold, 14],
-                  MatrixForm[transfs[[idx, 2]]],
-                  DefaultButton[]
-                }],
-                WindowTitle -> "Suggerimento"],
-              Appearance -> "Frameless",
-              Background -> Lighter[Green, .8]]
-          }}]
-        }],
-        FrameStyle -> LightGray, RoundingRadius -> 5
-      ],
-
-      Spacer[8],
-      Style[Dynamic["Trasformazione: " <> transfs[[idx, 1]]], Bold, 14, Blue],
-
-      (* immagini -------------------------------------------------- *)
-      Grid[{{
-        Labeled[img, "Originale", Top],
-        Spacer[10],
-        Labeled[Dynamic[imgT[[idx]]], "Trasformata", Top]
-      }}],
-
-      Spacer[6],
-      Style["Inserisci la tua matrice 2x2:", Bold],
-      Grid[{
-        {InputField[Dynamic[matrUtente[[1, 1]]], Number, FieldSize -> 4],
-         InputField[Dynamic[matrUtente[[1, 2]]], Number, FieldSize -> 4]},
-        {InputField[Dynamic[matrUtente[[2, 1]]], Number, FieldSize -> 4],
-         InputField[Dynamic[matrUtente[[2, 2]]], Number, FieldSize -> 4]}
-      }],
-
-      Button["Verifica",
-        Module[{ok, f},
-          ok    = matrUtente === transfs[[idx, 2]];
-          esito = If[ok, "Corretto!", "Sbagliato!"];
-          f     = Function[p, centro + matrUtente.(p - centro)];
-          imgUtente = ImageTransformation[img, f, DataRange -> Full, Resampling -> "Linear"];
-        ],
-        ImageSize -> Medium, Background -> Lighter[Green, .8]],
-
-      Spacer[8],
-      Dynamic[
-        If[esito =!= "",
-          Column[{
-            Style[esito, Bold, 14, If[esito === "Corretto!", Darker@Green, Red]],
-            Grid[{{ Labeled[img, "Originale", Top],
-                    Spacer[10],
-                    Labeled[imgUtente, "Tua trasformazione", Top] }}]
-          }, Spacings -> 1.2],
-          ""],
-        TrackedSymbols :> {esito}]
-    }, Spacings -> 1.2]
-  ]
-];
 
 
 (* ============================== SEZIONE ESERCIZIO ============================== *)
@@ -739,14 +616,14 @@ esUI[seed_: Automatic] := Module[
 (* Troncamento a 4 decimali *)
 Tronca4[x_] := N[Floor[x*10^4]/10.^4]
 
-esUI2[] := Row[{es[], Spacer[10], TrigUI[]}]
+esUI[] := Row[{es[], Spacer[10], TrigUI[]}]
 
 (* Interfaccia utente orizzontale, senza grafico *)
 TrigUI[] := DynamicModule[{θ = 0, input = "0", output = ""},
   Column[{
     Column[{
       Row[{
-        "Angolo (°): ",
+        "Angolo in gradi: ",
         InputField[Dynamic[input], String, FieldSize -> 10],
         Spacer[10],
         Button["Conferma",
@@ -1094,6 +971,115 @@ es[seed_: Automatic] := Module[
 ];
 
 
+
+
+(* -------------------------------------------------------------- *)
+(* aUIButton : semplice launcher che richiama aUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+aUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà aUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = aUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra aUI[] solo dopo il click *)
+   }]
+ ];
+
+
+
+ (* -------------------------------------------------------------- *)
+(* bUIButton : semplice launcher che richiama bUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+bUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà bUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = bUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra bUI[] solo dopo il click *)
+   }]
+ ];
+
+
+
+
+
+(* -------------------------------------------------------------- *)
+(* cUIButton : semplice launcher che richiama aUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+cUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà cUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica cUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = cUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra cUI[] solo dopo il click *)
+   }]
+ ];
+ 
+esUIButton[] :=
+ Deploy @                                               (* Impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* `content` conterrà `es[]` al primo click *)
+  Column[{
+    Framed[
+     Deploy @ Button[                                (* Pulsante singolo che carica `es[]` *)
+      Style["Avvia esercizio interattivo", 16, Bold, Darker @ Blue],
+      content = esUI[],                              (* Quando premuto, genera la UI vera *)
+      ImageSize   -> {280, 55},
+      Appearance  -> "Frameless"
+     ],
+     Background     -> LightYellow,                 (* Sfondo del pulsante *)
+     FrameStyle     -> Directive[Thick, Gray],      (* Stile del bordo del pulsante *)
+     RoundingRadius -> 10,                          (* Arrotondamento degli angoli del pulsante *)
+     FrameMargins   -> 10                           (* Margini interni del pulsante *)
+    ],
+    Spacer[20],                                       (* Spazio verticale tra il pulsante e il contenuto *)
+    Dynamic[ If[content === None, "", content] ]      (* Mostra `es[]` solo dopo il click *)
+  }]
+ ];
 
 End[]
 EndPackage[]
