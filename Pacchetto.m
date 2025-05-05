@@ -44,9 +44,11 @@ cUIButton::usage =
 al clic carica l'interfaccia cUI[].";
 
 
-
 es::usage = 
   "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
+
+TrigUI::usage = "TrigUI[] avvia un'interfaccia per calcolare seno e coseno di un angolo specifico in gradi."
+esUI2::usage = "esUI2[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
 
 Begin["`Private`"]
 
@@ -734,6 +736,47 @@ esUI[seed_: Automatic] := Module[
 
 (* ============================== SEZIONE ESERCIZIO ============================== *)
 
+(* Troncamento a 4 decimali *)
+Tronca4[x_] := N[Floor[x*10^4]/10.^4]
+
+esUI2[] := Row[{es[], Spacer[10], TrigUI[]}]
+
+(* Interfaccia utente orizzontale, senza grafico *)
+TrigUI[] := DynamicModule[{θ = 0, input = "0", output = ""},
+  Column[{
+    Column[{
+      Row[{
+        "Angolo (°): ",
+        InputField[Dynamic[input], String, FieldSize -> 10],
+        Spacer[10],
+        Button["Conferma",
+          Module[{parsed = ToExpression[input]},
+            If[NumericQ[parsed],
+              θ = parsed;
+              output = "",
+              output = "Errore: inserisci un numero valido."
+            ]
+          ],
+          Method -> "Queued"
+        ]
+      }]
+    }],
+    
+    Spacer[30],
+    
+    Dynamic[
+      If[output =!= "",
+        Style[output, Red],
+        Column[{
+          Row[{"Seno: ", Tronca4[Sin[θ Degree]]}],
+          Row[{"Coseno: ", Tronca4[Cos[θ Degree]]}]
+        }]
+      ]
+    ]
+  }]
+]
+
+
 (* Funzione aggiornata per creare una trasformazione casuale più ricca *)
 randomTransform[] := Module[{transformTypeChoice, subChoice},
   transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];
@@ -838,7 +881,7 @@ es[seed_: Automatic] := Module[
   (* Crea l'interfaccia utente interattiva tramite DynamicModule *)
   DynamicModule[
     {
-      index = 1,                         (* numero dell'esercizio corrente: 1-5 *)
+      index = 1,                         (* numero dell'esercizio corrente: 1–5 *)
       userMatrix = ConstantArray[0, {2, 2}], (* matrice inserita dall'utente *)
       resultText = "",                  (* testo con risultato "Corretto!" o "Sbagliato!" *)
       userImage = img                   (* immagine trasformata dall'utente *)
@@ -1049,95 +1092,6 @@ es[seed_: Automatic] := Module[
     ]
   ]
 ];
-
-
-(* -------------------------------------------------------------- *)
-(* aUIButton : semplice launcher che richiama aUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
-(* -------------------------------------------------------------- *)
-
-aUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà aUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = aUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
-       ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
-     ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra aUI[] solo dopo il click *)
-   }]
- ];
-
-
-
- (* -------------------------------------------------------------- *)
-(* bUIButton : semplice launcher che richiama bUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
-(* -------------------------------------------------------------- *)
-
-bUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà bUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = bUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
-       ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
-     ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra bUI[] solo dopo il click *)
-   }]
- ];
-
-
-
-
-
-(* -------------------------------------------------------------- *)
-(* cUIButton : semplice launcher che richiama aUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
-(* -------------------------------------------------------------- *)
-
-cUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà cUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica cUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = cUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
-       ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
-     ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra cUI[] solo dopo il click *)
-   }]
- ];
-
 
 
 
