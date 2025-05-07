@@ -58,7 +58,7 @@ es::usage =
   "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
 
 SenCosCalcUI::usage = "SenCosCalcUI[] avvia un'interfaccia per calcolare seno e coseno di un angolo specifico in gradi."
-esUI::usage = "esUI2[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
+esUI::usage = "esUI[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
 
 esUIButton::usage =
   "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
@@ -228,7 +228,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
           Button[                                (* Pulsante per aggiornare l'intera matrice RGB con il colore scelto *)
             "Applica RGB a tutta la matrice",
             rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],  (* Crea una matrice 5x5 in cui ogni cella contiene la tripla RGB corrente arrotondata, replicata in tutte le posizioni *)
-            ImageSize -> 200 ,                   (* Dimensione del pulsante *)
+            ImageSize -> 200                     (* Dimensione del pulsante *)
           ]
         }]
       }]
@@ -785,7 +785,7 @@ Tronca4[x_] := N[Floor[x*10^4]/10.^4]
 (* UI dell’esercizio, prende direttamente il seed intero *)
 esUI[seed_Integer] := Row[{
   es[seed],
-  Spacer[10],
+  Spacer[90],
   SenCosCalcUI[]
 }]
 
@@ -808,7 +808,6 @@ SenCosCalcUI[] :=
          ImageSize -> 100]
        },
        {
-        SpanFromLeft,
         Button[
          Style["Calcola", 14, White],
          Module[{val = Quiet@Check[ToExpression[input], $Failed]},
@@ -1152,8 +1151,8 @@ es[seed_: Automatic] := Module[
                 }, Spacings -> 1.5],
                 "" (* se nessun risultato, mostra stringa vuota *)
               ],
-              TrackedSymbols :> {resultText}
-            ]
+                TrackedSymbols :> {resultText, userImage}
+              ]
           }]
         ]
       },
