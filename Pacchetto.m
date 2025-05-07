@@ -609,6 +609,116 @@ cUI[] :=  (* Definisce la funzione senza argomenti *)
 
 
 
+(* -------------------------------------------------------------- *)
+(* aUIButton : semplice launcher che richiama aUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+aUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà aUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = aUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra aUI[] solo dopo il click *)
+   }]
+ ];
+
+
+
+ (* -------------------------------------------------------------- *)
+(* bUIButton : semplice launcher che richiama bUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+bUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà bUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = bUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra bUI[] solo dopo il click *)
+   }]
+ ];
+
+
+
+
+
+(* -------------------------------------------------------------- *)
+(* cUIButton : semplice launcher che richiama aUI[]               *)
+(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
+(* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
+(* -------------------------------------------------------------- *)
+
+cUIButton[] :=
+ Deploy @                                               (* impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* content conterrà cUI[] al primo click *)
+   Column[{
+     Framed[
+       Deploy @ Button[                                (* pulsante singolo che carica cUI[] *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
+         content = cUI[],                              (* quando premuto, genera la UI vera *)
+         ImageSize   -> {280, 55},
+         Appearance  -> "Frameless"
+       ],
+       Background     -> LightYellow,
+       FrameStyle     -> Directive[Thick, Gray],
+       RoundingRadius -> 10,
+       FrameMargins   -> 10
+     ],
+     Spacer[20],
+     Dynamic[ If[content === None, "", content] ]      (* mostra cUI[] solo dopo il click *)
+   }]
+ ];
+ 
+esUIButton[] :=
+ Deploy @                                               (* Impedisce all’utente di modificare l’UI *)
+ DynamicModule[{content = None},                       (* `content` conterrà `es[]` al primo click *)
+  Column[{
+    Framed[
+     Deploy @ Button[                                (* Pulsante singolo che carica `es[]` *)
+      Style["Avvia esercizio interattivo", 16, Bold, Darker @ Blue],
+      content = esUI[],                              (* Quando premuto, genera la UI vera *)
+      ImageSize   -> {280, 55},
+      Appearance  -> "Frameless"
+     ],
+     Background     -> LightYellow,                 (* Sfondo del pulsante *)
+     FrameStyle     -> Directive[Thick, Gray],      (* Stile del bordo del pulsante *)
+     RoundingRadius -> 10,                          (* Arrotondamento degli angoli del pulsante *)
+     FrameMargins   -> 10                           (* Margini interni del pulsante *)
+    ],
+    Spacer[20],                                       (* Spazio verticale tra il pulsante e il contenuto *)
+    Dynamic[ If[content === None, "", content] ]      (* Mostra `es[]` solo dopo il click *)
+  }]
+ ];
+
+
+
 
 
 (* ============================== SEZIONE ESERCIZIO ============================== *)
@@ -972,114 +1082,6 @@ es[seed_: Automatic] := Module[
 
 
 
-
-(* -------------------------------------------------------------- *)
-(* aUIButton : semplice launcher che richiama aUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
-(* -------------------------------------------------------------- *)
-
-aUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà aUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = aUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
-       ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
-     ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra aUI[] solo dopo il click *)
-   }]
- ];
-
-
-
- (* -------------------------------------------------------------- *)
-(* bUIButton : semplice launcher che richiama bUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
-(* -------------------------------------------------------------- *)
-
-bUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà bUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = bUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
-       ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
-     ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra bUI[] solo dopo il click *)
-   }]
- ];
-
-
-
-
-
-(* -------------------------------------------------------------- *)
-(* cUIButton : semplice launcher che richiama aUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
-(* -------------------------------------------------------------- *)
-
-cUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà cUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica cUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = cUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
-       ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
-     ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra cUI[] solo dopo il click *)
-   }]
- ];
- 
-esUIButton[] :=
- Deploy @                                               (* Impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* `content` conterrà `es[]` al primo click *)
-  Column[{
-    Framed[
-     Deploy @ Button[                                (* Pulsante singolo che carica `es[]` *)
-      Style["Avvia esercizio interattivo", 16, Bold, Darker @ Blue],
-      content = esUI[],                              (* Quando premuto, genera la UI vera *)
-      ImageSize   -> {280, 55},
-      Appearance  -> "Frameless"
-     ],
-     Background     -> LightYellow,                 (* Sfondo del pulsante *)
-     FrameStyle     -> Directive[Thick, Gray],      (* Stile del bordo del pulsante *)
-     RoundingRadius -> 10,                          (* Arrotondamento degli angoli del pulsante *)
-     FrameMargins   -> 10                           (* Margini interni del pulsante *)
-    ],
-    Spacer[20],                                       (* Spazio verticale tra il pulsante e il contenuto *)
-    Dynamic[ If[content === None, "", content] ]      (* Mostra `es[]` solo dopo il click *)
-  }]
- ];
 
 End[]
 EndPackage[]
