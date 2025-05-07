@@ -1,3 +1,18 @@
+(* :Title: Matemafia: introduzione a ... )
+( :Context: context da fare )
+( :Author: Davide De Rosa, Marco Coppola, Valerio Pio De Nicola, Marco Miozza )
+( :Summary:  )
+( :Copyright: Matemafia2025 )
+( :Package Version: 1 )
+( :Mathematica Version: 14.2 )
+( :History: last modified 08/05/2025 )
+( :Keywords: matrix, rgb, img, trans, scale, rotation )
+( :Sources: biblio/sitog )
+( :Limitations: this is for educational purposes only. )
+( :Discussion: da fare )
+( :Requirements: da fare )
+( :Warning: package Context is not defined *)
+
 BeginPackage["Pacchetto`"]
 
 aUI::usage = 
@@ -469,10 +484,10 @@ scala[] := Module[{},  (* Module crea un contenitore con ambito locale. Anche se
     Panel[Row[{  (* Pannello con bottoni di preset rapidi *)
       Style["PRESET:", Bold, 12, Darker[Blue]], Spacer[10],
       Button["1:1", {sx = 1, sy = 1}, Tooltip -> "Ripristina dimensioni originali"],
-      Button["1.5:1", {sx = 1.5, sy = 1}, Tooltip -> "50% più largo"],
-      Button["1:1.5", {sx = 1, sy = 1.5}, Tooltip -> "50% più alto"],
-      Button["0.5:1", {sx = 0.5, sy = 1}, Tooltip -> "Metà larghezza"],
-      Button["1:0.5", {sx = 1, sy = 0.5}, Tooltip -> "Metà altezza"]
+      Button["1.5:1", {sx = 1.5, sy = 1}, Tooltip -> "50% piu' largo"],
+      Button["1:1.5", {sx = 1, sy = 1.5}, Tooltip -> "50% piu' alto"],
+      Button["0.5:1", {sx = 0.5, sy = 1}, Tooltip -> "Meta' larghezza"],
+      Button["1:0.5", {sx = 1, sy = 0.5}, Tooltip -> "Meta' altezza"]
     }], Background -> Lighter[Yellow, 0.8]]  (* Sfondo per distinguere visivamente la sezione preset *)
   ]
 ]
@@ -738,21 +753,47 @@ esUIButton[] :=
        Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],
        Module[{seed},
         seed = DialogInput[
-          DynamicModule[{s = RandomInteger[{1, 9999}]}, (* seed random di default *)
-           Column[{
-             Style["Inserisci un seed (numero intero):", Bold],
-             InputField[Dynamic[s], Number, FieldSize -> 10],
-             Row[{
-               DefaultButton["OK",    DialogReturn[s]],
-               Spacer[20],
-               CancelButton["Annulla", DialogReturn[None]]
-             }]
-           }, Spacings -> 1.5]
-          ]
-        ];
+            DynamicModule[{s = RandomInteger[{1, 9999}]},
+            Panel[
+              Column[{
+                Style["Personalizzazione esercizio con Seed", 18, Bold, 
+                  Darker@Gray],
+                Style[
+                "Inserisci un numero intero che fungerà da 'seed': questo valore determinerà la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
+                12, GrayLevel[0.3], LineSpacing -> 1.5],
+                Item[
+                InputField[Dynamic[s], Number, FieldSize -> 12],
+                Alignment -> Center
+                ],
+                Spacer[15],
+                Row[{
+                  Button["Annulla",
+                  DialogReturn[None],
+                  ImageSize -> {130, 40},
+                  Appearance -> {"Cancel", "DialogBox"},
+                  BaseStyle -> {12}
+                  ],
+                  Spacer[20],
+                  Button["Invio",
+                  DialogReturn[s],
+                  ImageSize -> {130, 40},
+                  Appearance -> {"Default", "DialogBox"},
+                  BaseStyle -> {Bold, 12}
+                  ],
+                }, Alignment -> Center]
+              },
+              Spacings -> 2
+              ],
+              Background -> White,
+              FrameMargins -> 20,
+              AppearanceElements -> {"CloseBox"},
+              ImageSize -> 400
+            ]
+            ]
+          ];
         Which[
          seed === None,
-          MessageDialog["Operazione annullata."],
+          2+2 == 4, (* non fa nulla *)
 
          ! IntegerQ[seed],
           MessageDialog["Seed non valido. Inserisci un intero."],
@@ -814,8 +855,8 @@ SenCosCalcUI[] :=
           If[NumericQ[val],
            theta = val;
            errMsg = "";
-           sinVal = NumberForm[Sin[theta Degree], {5, 4}];
-           cosVal = NumberForm[Cos[theta Degree], {5, 4}];
+           sinVal = ToString[NumberForm[N[Sin[theta Degree]], {5, 4}]];
+           cosVal = ToString[NumberForm[N[Cos[theta Degree]], {5, 4}]];
            calculated = True;,
            errMsg = "Inserisci un numero valido!";
            sinVal = cosVal = "";
@@ -987,66 +1028,62 @@ es[seed_: Automatic] := Module[
               {
                 (* Pulsante: passa all'esercizio precedente *)
                 Button[
-                  Style["Precedente", Bold, 14, Darker[Blue]],
+                  Style["< Precedente", Bold, 12, Gray],
                   If[index > 1,
                     index--;
-                    userMatrix = ConstantArray[0, {2, 2}]; (* resetta la matrice utente *)
-                    resultText = "";                       (* resetta il testo del risultato *)
-                    userImage = img                        (* resetta immagine utente *)
-                  ],
-                  Appearance -> "Frameless",
-                  ImageSize -> 120,
-                  Background -> Lighter[Blue, 0.9]
-                ],
-
-                (* Pulsante: passa all'esercizio successivo *)
-                Button[
-                  Style["Successivo", Bold, 14, Darker[Blue]],
-                  If[index < 5,
-                    index++;
                     userMatrix = ConstantArray[0, {2, 2}];
                     resultText = "";
                     userImage = img
                   ],
-                  Appearance -> "Frameless",
-                  ImageSize -> 120,
-                  Background -> Lighter[Blue, 0.9]
+                  Appearance -> {"DialogBox"},
+                  ImageSize -> {110, 25},
+                  BaseStyle -> {FontFamily -> "Helvetica"}
                 ],
 
                 (* Pulsante: mostra la matrice corretta dell'esercizio corrente *)
                 Button[
-                  Style["Suggerimento", Bold, 14, Darker[Yellow]],
+                  Style["Suggerimento", Bold, 12, Black],
                   CreateDialog[
                     Panel[
                       Column[{
-                        Style[
-                          "Matrice della trasformazione corrente", 
-                          Bold, 16, Darker@Blue
-                        ],
+                        Style["Matrice della trasformazione corrente", Bold, 14, Darker@Gray],
                         Spacer[10],
                         Framed[
-                          Style[
-                            MatrixForm[transformations[[index, 2]]], 
-                            16, Black
-                          ],
+                          Style[MatrixForm[transformations[[index, 2]]], 14, Black],
                           FrameStyle -> LightGray,
-                          Background -> Lighter[Gray, 0.9],
+                          Background -> GrayLevel[0.97],
                           RoundingRadius -> 5,
-                          FrameMargins -> 15
+                          FrameMargins -> 10
                         ],
                         Spacer[15],
-                        DefaultButton[] (* pulsante OK *)
-                      },
-                      Spacings -> 1.5],
+                        DefaultButton[]
+                      }, Spacings -> 1.5],
                       BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
                     ],
                     WindowTitle -> "Suggerimento",
                     WindowSize -> {300, 300},
                     Background -> White
                   ],
-                  Appearance -> "Frameless",
-                  Background -> Lighter[Green, 0.8]
+                  Appearance -> {"DialogBox"},
+                  ImageSize -> {130, 25},
+                  BaseStyle -> {FontFamily -> "Helvetica"}
+                ],
+
+                (* Pulsante: passa all'esercizio successivo *)
+                Button[
+                  Style["Successivo >", Bold, 12, Gray],
+                  If[index < 5,
+                    index++;
+                    userMatrix = ConstantArray[0, {2, 2}];
+                    resultText = "";
+                    userImage = img
+                  ],
+                  Appearance -> {"DialogBox"},
+                  ImageSize -> {110, 25},
+                  BaseStyle -> {FontFamily -> "Helvetica"}
                 ]
+
+                
               }
             }, Spacings -> {2, 2}]
           }],
@@ -1105,11 +1142,11 @@ es[seed_: Automatic] := Module[
 
             (* Pulsante "Verifica" che controlla se la matrice inserita è corretta *)
             Button[
-              Style["Verifica", Bold, 14, Darker[Red]],
+              Style["Verifica", Bold, 12, Gray],
               Module[
                 {
-                  isCorrect,  (* vero se la matrice è uguale a quella target *)
-                  matrixFun  (* funzione geometrica basata sulla matrice utente *)
+                  isCorrect,
+                  matrixFun
                 },
                 isCorrect = userMatrix === transformations[[index, 2]];
                 resultText = If[isCorrect, "Corretto!", "Sbagliato!"];
@@ -1118,9 +1155,11 @@ es[seed_: Automatic] := Module[
                   img, matrixFun, DataRange -> Full, Resampling -> "Linear"
                 ];
               ],
-              ImageSize -> Medium,
-              Background -> Lighter[Green, 0.8]
-            ],
+              Appearance -> {"DialogBox"},
+              ImageSize -> {400, 35},
+              BaseStyle -> {FontFamily -> "Helvetica"}
+            ]
+
 
             Spacer[10],
 
