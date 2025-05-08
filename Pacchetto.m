@@ -510,152 +510,163 @@ bUI[] := Column[{  (* Column organizza verticalmente gli elementi elencati: tito
 
 (* ============================== SEZIONE C ============================== *)
 
-ClearAll[cUI]
+ClearAll[cUI]  
+(* Pulisce ogni definizione precedente della funzione cUI, utile per evitare conflitti o risultati obsoleti *)
 
-cUI[] :=  (* Definisce la funzione senza argomenti *)
- Deploy @   (* Deploy rende l'espressione non editabile dall'utente *)
+cUI[] :=  (* Definisce la funzione cUI senza parametri *)
+ Deploy @  (* Deploy impedisce modifiche accidentali all’interfaccia grafica da parte dell’utente *)
  Module[
+
   {
-    (* Variabili locali del modulo --------------------------------- *)
-    imageDisplaySize  = 300,   (* lato in pixel per le immagini principali *)
-    neighborhoodDisplaySize = 250 (* lato per la preview del vicinato *)
+    (* Variabili locali usate nel modulo -------------------------------------- *)
+    imageDisplaySize  = 300,   (* Dimensione in pixel per la visualizzazione dell'immagine principale *)
+    neighborhoodDisplaySize = 250  (* Dimensione per la visualizzazione del vicinato dei pixel *)
   },
 
-  (* Layout principale: una colonna di elementi -------------------- *)
+  (* Layout principale dell’interfaccia, strutturato verticalmente ----------- *)
   Column[{
 
-    (* ===== 1. Intestazione ===== *)
-    Style["Esempio interattivo 3: Sfocatura con Kernel (Box Blur)", Bold, 14],
-    Spacer[5],   (* piccola distanza verticale *)
+    (* ======= 1. Intestazione dell'esercizio ================================ *)
+    Style["Esempio interattivo 3: Sfocatura con Kernel (Box Blur)", Bold, 14],  
+    (* Titolo con stile in grassetto e font size 14 *)
 
-    (* Blocco di testo descrittivo, organizzato a colonne *)
-    Text @ Column[{
-      "Come funziona:",
-      " - Muovi lo slider per cambiare la dimensione del kernel (3, 5, 7, 9).",
-      " - Clicca sull'immagine originale per scegliere il pixel centrale (non serve trascinare).",
-      " - L'immagine sfocata a destra si aggiorna automaticamente.",
+    Spacer[5],  (* Piccolo spazio verticale di separazione *)
+
+    Text @ Column[{  (* Blocco descrittivo con spiegazioni su come usare l'interfaccia *)
+      "Come funziona:",  (* Introduzione alle istruzioni *)
+      " - Muovi lo slider per cambiare la dimensione del kernel (3, 5, 7, 9).",  
+      " - Clicca sull'immagine originale per scegliere il pixel centrale (non serve trascinare).",  
+      " - L'immagine sfocata a destra si aggiorna automaticamente.",  
       " - Il pannello in basso mostra il vicinato e il valore calcolato."
     }],
-    Spacer[10],
 
-    (* ===== 2. Area interattiva ===== *)
-    DynamicModule[{
-      kernelSize = 3,                 (* valore iniziale dello slider *)
-      locatorPosition = {50, 50},     (* posizione iniziale del cursore rosso *)
-      img = ExampleData[{"TestImage", "House"}]  (* immagine di esempio *)
+    Spacer[10],  (* Altro spazio verticale per separare le sezioni *)
+
+    (* ======= 2. Area Interattiva: Slider + Immagini + Output =============== *)
+    DynamicModule[{  (* DynamicModule crea uno scope locale e mantiene stato tra aggiornamenti *)
+      kernelSize = 3,  (* Valore iniziale per la dimensione del kernel *)
+      locatorPosition = {50, 50},  (* Posizione iniziale del puntatore rosso nell’immagine *)
+      img = ExampleData[{"TestImage", "House"}]  (* Carica un'immagine di esempio integrata in Mathematica *)
     },
 
-      Column[{
-        (* 2a. Slider per scegliere la dimensione del kernel -------- *)
-        Slider[ Dynamic[kernelSize], {3, 9, 2}, Appearance -> "Labeled", ImageSize -> Full],
-        Spacer[5],
+      Column[{  (* Colonna principale per organizzare gli elementi in verticale *)
 
-        (* 2b. Sotto‑modulo che tiene le dimensioni dell'immagine ---- *)
+        (* === 2a. Slider per la dimensione del kernel ======================= *)
+        Slider[Dynamic[kernelSize], {3, 9, 2}, Appearance -> "Labeled", ImageSize -> Full],
+        (* Slider che permette solo valori dispari (3,5,7,9) con etichetta visiva *)
+
+        Spacer[5],  (* Spazio verticale *)
+
+        (* === 2b. Parte dinamica: convoluzione e interfaccia grafica ======== *)
         DynamicModule[{ imageDimensions = ImageDimensions[img] },
+        (* Cattura le dimensioni dell’immagine una sola volta all’avvio *)
 
-          (* Contenuto dinamico: si aggiorna quando kernelSize o locatorPosition cambiano *)
-          Dynamic[
-            Module[
-              {
-                (* Variabili interne alla convoluzione -------------- *)
-                kSize, kernel, locX, locY, imageData,
-                neighborhood, convolvedValue, padding, blurredImg,
-                originalImgWithRect
-              },
+          Dynamic[  (* Blocca che si aggiorna automaticamente se kernelSize o locatorPosition cambiano *)
+            Module[{
+              (* Variabili locali interne al blocco dinamico ---------------- *)
+              kSize, kernel, locX, locY, imageData,
+              neighborhood, convolvedValue, padding, blurredImg,
+              originalImgWithRect
+            }, (* Dichiarazione delle variabili locali per la convoluzione e visualizzazione *)
 
-              (* ---------- Pre‑calcoli ----------------------------- *)
-              kSize  = kernelSize;                                      (* dimensione corrente del kernel *)
-              kernel = ConstantArray[ 1 / kSize^2, {kSize, kSize} ];    (* kernel uniforme *)
+              (* ========== Trasformazione dell'immagine ===================== *)
 
-              (* Converte la posizione del Locator da coordinate grafiche a indici di matrice *)
-              locX = Round[ locatorPosition[[1]] ];
-              locY = Round[ imageDimensions[[2]] - locatorPosition[[2]] + 1 ];
+              (* Pre-calcoli della trasformazione -------------------------- *)
+              kSize = kernelSize;  (* Copia del valore corrente del kernel *)
+              kernel = ConstantArray[1 / kSize^2, {kSize, kSize}];  
+              (* Crea una matrice uniforme: tutti i valori uguali, somma = 1 *)
 
-              imageData = ImageData[ img ];    (* matrice (riga, colonna, canale) con i pixel *)
-              padding   = Floor[ kSize / 2 ];  (* raggio del kernel intorno al centro *)
+              locX = Round[locatorPosition[[1]]];  (* Converte la coordinata X cliccata in indice *)
+              locY = Round[imageDimensions[[2]] - locatorPosition[[2]] + 1];  
+              (* Converte Y, invertendo l’asse (grafico -> matrice) *)
 
-              (* Applica la convoluzione e ridimensiona l'immagine sfocata *)
-              blurredImg = ImageResize[ ImageConvolve[ img, kernel ], imageDisplaySize ];
+              imageData = ImageData[img];  (* Estrae la matrice RGB dei pixel *)
+              padding = Floor[kSize / 2];  (* Raggio del kernel, serve per determinare il vicinato *)
 
-              (* Disegna il rettangolo sul punto scelto, poi rasterizza in immagine *)
-              originalImgWithRect = Rasterize[
-                Show[
-                  img,
-                  Graphics[{
-                    Red, Thickness[0.01],
-                    Rectangle[ {locatorPosition[[1]] - kSize/2, locatorPosition[[2]] - kSize/2},
-                               {locatorPosition[[1]] + kSize/2, locatorPosition[[2]] + kSize/2} ]
+              blurredImg = ImageResize[ImageConvolve[img, kernel], imageDisplaySize];  
+              (* Applica la convoluzione e ridimensiona il risultato *)
+
+              originalImgWithRect = Rasterize[  (* Visualizza il rettangolo sul pixel scelto *)
+                Show[ (* Mostra l’immagine originale con il rettangolo rosso *)
+                  img, 
+                  Graphics[{ (* Grafica per il rettangolo rosso attorno al pixel scelto *)
+                    Red, Thickness[0.01], (* Colore e spessore del bordo *)
+                    (* Rectangle[ {x1, y1}, {x2, y2} ] disegna un rettangolo con i due angoli opposti *)
+                    (* Le coordinate sono espresse in pixel, quindi non serve convertire *) 
+                    Rectangle[ 
+                      {locatorPosition[[1]] - kSize/2, locatorPosition[[2]] - kSize/2},  (* Calcola il vertice in basso a sinistra del rettangolo centrato sul pixel scelto *)
+                      {locatorPosition[[1]] + kSize/2, locatorPosition[[2]] + kSize/2}  (* Calcola il vertice in alto a destra del rettangolo centrato sul pixel scelto *)  
+                    ]
                   }]
                 ],
-                RasterSize -> imageDisplaySize
+                RasterSize -> imageDisplaySize  (* Specifica le dimensioni finali *)
               ];
 
-              (* Estrae il vicinato del pixel centrale -------------- *)
+              (* Estrazione del vicinato attorno al pixel scelto ------------ *)
               neighborhood = Table[
-                imageData[[ Clip[locY + i - padding, {1, imageDimensions[[2]]}],
-                            Clip[locX + j - padding, {1, imageDimensions[[1]]}] ]],
+                imageData[[  (* Applica Clip per evitare di uscire dai bordi *)
+                  Clip[locY + i - padding, {1, imageDimensions[[2]]}],  (* Calcola la coordinata Y limitata entro i bordi immagine, evitando indici fuori scala *)
+                  Clip[locX + j - padding, {1, imageDimensions[[1]]}]   (* Calcola la coordinata Y limitata entro i bordi immagine, evitando indici fuori scala *)
+                ]],
                 {i, 1, kSize}, {j, 1, kSize}
               ];
 
-              (* Calcola il valore convoluto (media pesata) *)
-              convolvedValue = Total[ Flatten[ neighborhood * kernel ] ];
+              convolvedValue = Total[Flatten[neighborhood * kernel]];  
+              (* Moltiplica elemento per elemento e somma: valore del pixel sfocato *)
 
-              (* ========== Layout visivo dei risultati ============= *)
+              (* ========== Layout visivo dei risultati ===================== *)
               Column[{
 
-                (* --- Blocchi in alto: originale, sfocata, kernel --- *)
+                (* === Immagini principali e kernel ======================== *)
                 Row[{
 
-                  (* Immagine originale con Locator *)
-                  Column[{
+                  Column[{  (* Colonna: immagine originale *)
                     Style["Immagine originale", Bold],
                     LocatorPane[
-                      Dynamic[ locatorPosition ],
-                      Image[ originalImgWithRect, ImageSize -> imageDisplaySize ],
-                      LocatorShape -> Graphics[{ Circle[{0, 0}, 5] }]
+                      Dynamic[locatorPosition],  (* Permette di cliccare sull’immagine *)
+                      Image[originalImgWithRect, ImageSize -> imageDisplaySize],
+                      LocatorShape -> Graphics[{Circle[{0, 0}, 5]}]  (* Indicatore rosso *)
                     ]
                   }],
 
-                  Spacer[20],
+                  Spacer[20],  (* Spazio tra le immagini *)
 
-                  (* Immagine sfocata *)
-                  Column[{
-                    Style["Immagine sfocata", Bold],
-                    Image[ blurredImg, ImageSize -> imageDisplaySize ]
+                  Column[{  (* Colonna: immagine sfocata *)
+                    Style["Immagine sfocata", Bold],  (* Intestazione in grassetto per la sezione che mostra l'immagine convoluta *)
+                    Image[blurredImg, ImageSize -> imageDisplaySize]  (* Mostra l'immagine sfocata ottenuta tramite convoluzione con kernel *)
                   }],
 
-                  Spacer[20],
+                  Spacer[20],  (* Spazio tra le colonne *)
 
-                  (* Matrice del kernel *)
-                  Column[{
+                  Column[{  (* Colonna: visualizza il kernel *)
                     Style["Kernel " <> ToString[kSize] <> " x " <> ToString[kSize], Bold],
-                    MatrixForm[ kernel ]
+                    MatrixForm[kernel]  (* Mostra la matrice in formato leggibile *)
                   }]
 
-                }, Alignment -> Top],
+                }, Alignment -> Top],  (* Allinea verticalmente in alto le tre colonne *)
 
                 Spacer[10],
-                Style[ StringRepeat["-", 60], Gray ],   (* linea di separazione *)
+                Style[StringRepeat["-", 60], Gray],  (* Linea divisoria grigia *)
                 Spacer[5],
 
-                (* --- Dettagli locali (vicinato) ------------------- *)
-                Style["Dettagli locali", Bold],
+                (* === Dettagli locali: visualizzazione del vicinato ========= *)
+                Style["Dettagli locali", Bold], (* Intestazione in grassetto per la sezione che mostra il vicinato *)
                 Row[{
-                  Style["Neighborhood: ", Bold],
-                  Image[ ImageResize[ Image[ neighborhood ], neighborhoodDisplaySize ],
-                        ImageSize -> neighborhoodDisplaySize ]
+                  Style["Neighborhood: ", Bold], (* Intestazione per la matrice del vicinato *)
+                  Image[ 
+                    ImageResize[Image[neighborhood], neighborhoodDisplaySize],  (* Crea un’immagine dal vicinato e la ridimensiona alla dimensione desiderata *)
+                    ImageSize -> neighborhoodDisplaySize  (* Imposta la dimensione finale dell’immagine del vicinato nella GUI *)
+
+                  ]
                 }]
               }]
-            ]   
-          ]      
-        ]       
-      }]        
-    ]           
-  }]           
-];            
-
-
-
+            ]
+          ]
+        ]
+      }]
+    ]
+  }]
+];           
 
 (* -------------------------------------------------------------- *)
 (* aUIButton : semplice launcher che richiama aUI[]               *)
@@ -663,28 +674,29 @@ cUI[] :=  (* Definisce la funzione senza argomenti *)
 (* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
 (* -------------------------------------------------------------- *)
 
-aUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà aUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = aUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
+aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'interfaccia iniziale con bottone *)
+ Deploy @  (* Impedisce all’utente di modificare l’interfaccia generata, rendendola solo visualizzabile *)
+ DynamicModule[{content = None},  (* Inizializza la variabile locale 'content', vuota fino al primo click *)
+   Column[{  (* Organizza verticalmente il pulsante e il contenuto caricato *)
+   
+     Framed[  (* Inserisce il pulsante in una cornice decorativa *)
+       Deploy @ Button[  (* Crea un pulsante che al click assegna aUI[] alla variabile content *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Testo del pulsante con stile visivo *)
+         content = aUI[],  (* Azione eseguita al click: carica e assegna l'interfaccia interattiva aUI[] *)
+         ImageSize   -> {280, 55},  (* Dimensione del pulsante: larghezza 280px, altezza 55px *)
+         Appearance  -> "Frameless"  (* Rimuove il bordo standard del pulsante per un look personalizzato *)
        ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
+       Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
+       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso attorno al pulsante *)
+       RoundingRadius -> 10,  (* Angoli arrotondati per la cornice *)
+       FrameMargins   -> 10  (* Margine interno tra cornice e contenuto *)
      ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra aUI[] solo dopo il click *)
+     
+     Spacer[20],  (* Spazio verticale tra il pulsante e il contenuto caricato *)
+     
+     Dynamic[ If[content === None, "", content] ]  (* Mostra aUI[] solo dopo il click: se 'content' è vuoto, non mostra nulla *)
    }]
  ];
-
-
 
  (* -------------------------------------------------------------- *)
 (* bUIButton : semplice launcher che richiama bUI[]               *)
@@ -692,30 +704,29 @@ aUIButton[] :=
 (* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
 (* -------------------------------------------------------------- *)
 
-bUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà bUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica aUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = bUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
+bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l’interfaccia con pulsante per avviare bUI[] *)
+ Deploy @  (* Impedisce modifiche da parte dell’utente all’interfaccia grafica generata *)
+ DynamicModule[{content = None},  (* Crea una variabile locale 'content' che inizialmente è vuota *)
+   Column[{  (* Dispone verticalmente pulsante e contenuto *)
+
+     Framed[  (* Crea una cornice attorno al pulsante per evidenziarlo graficamente *)
+       Deploy @ Button[  (* Genera un pulsante che all’attivazione esegue bUI[] e lo assegna a 'content' *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Stile grafico del testo del pulsante *)
+         content = bUI[],  (* Azione eseguita al click: genera e memorizza l’interfaccia bUI[] *)
+         ImageSize   -> {280, 55},  (* Imposta le dimensioni del pulsante *)
+         Appearance  -> "Frameless"  (* Elimina la cornice standard del pulsante per un aspetto personalizzato *)
        ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
+       Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
+       FrameStyle     -> Directive[Thick, Gray],  (* Stile della cornice: grigia e spessa *)
+       RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto più moderno *)
+       FrameMargins   -> 10  (* Spazio interno tra bordo e contenuto della cornice *)
      ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra bUI[] solo dopo il click *)
+
+     Spacer[20],  (* Aggiunge spazio verticale tra pulsante e contenuto *)
+
+     Dynamic[ If[content === None, "", content] ]  (* Mostra bUI[] solo dopo il click sul pulsante, altrimenti resta vuoto *)
    }]
  ];
-
-
-
-
 
 (* -------------------------------------------------------------- *)
 (* cUIButton : semplice launcher che richiama aUI[]               *)
@@ -723,96 +734,123 @@ bUIButton[] :=
 (* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
 (* -------------------------------------------------------------- *)
 
-cUIButton[] :=
- Deploy @                                               (* impedisce all’utente di modificare l’UI *)
- DynamicModule[{content = None},                       (* content conterrà cUI[] al primo click *)
-   Column[{
-     Framed[
-       Deploy @ Button[                                (* pulsante singolo che carica cUI[] *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],
-         content = cUI[],                              (* quando premuto, genera la UI vera *)
-         ImageSize   -> {280, 55},
-         Appearance  -> "Frameless"
+cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con pulsante per attivare cUI[] *)
+ Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata rendendola statica *)
+ DynamicModule[{content = None},  (* Inizializza la variabile locale 'content' che conterrà cUI[] dopo il click *)
+   Column[{  (* Dispone verticalmente il pulsante e il contenuto caricato *)
+
+     Framed[  (* Incornicia il pulsante con stile grafico definito *)
+       Deploy @ Button[  (* Crea un pulsante che al click assegna cUI[] alla variabile 'content' *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Testo del pulsante con dimensione, colore e grassetto *)
+         content = cUI[],  (* Azione al click: assegna a 'content' l'interfaccia interattiva generata da cUI[] *)
+         ImageSize   -> {280, 55},  (* Imposta larghezza e altezza del pulsante *)
+         Appearance  -> "Frameless"  (* Rimuove i bordi standard del pulsante per uno stile personalizzato *)
        ],
-       Background     -> LightYellow,
-       FrameStyle     -> Directive[Thick, Gray],
-       RoundingRadius -> 10,
-       FrameMargins   -> 10
+       Background     -> LightYellow,  (* Imposta lo sfondo giallo chiaro alla cornice del pulsante *)
+       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso per evidenziare il pulsante *)
+       RoundingRadius -> 10,  (* Arrotonda gli angoli della cornice per un aspetto più morbido *)
+       FrameMargins   -> 10  (* Aggiunge margine interno tra bordo e pulsante *)
      ],
-     Spacer[20],
-     Dynamic[ If[content === None, "", content] ]      (* mostra cUI[] solo dopo il click *)
+
+     Spacer[20],  (* Inserisce uno spazio verticale tra il pulsante e il contenuto *)
+
+     Dynamic[ If[content === None, "", content] ]  (* Visualizza cUI[] solo dopo il click; altrimenti non mostra nulla *)
    }]
  ];
+esUIButton[] :=  (* Definisce la funzione esUIButton senza argomenti: genera l'interfaccia con pulsante e gestione del seed *)
+ Deploy@  (* Rende l'interfaccia non modificabile dall’utente: blocca l’interattività sull’aspetto strutturale *)
 
-esUIButton[] :=
- Deploy@
-  DynamicModule[{content = None},
-   Column[{
-     Framed[
-      Button[
-       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],
-       Module[{seed},
-        seed = DialogInput[
-            DynamicModule[{s = RandomInteger[{1, 9999}]},
-            Panel[
-              Column[{
-                Style["Personalizzazione esercizio con Seed", 18, Bold, 
-                  Darker@Gray],
-                Style[
+  DynamicModule[{content = None},  (* Definisce un modulo dinamico con variabile locale 'content' inizialmente vuota *)
+   Column[{  (* Organizza verticalmente gli elementi dell’interfaccia: pulsante + contenuto *)
+
+     Framed[  (* Inserisce il pulsante all'interno di una cornice decorativa *)
+
+      Button[  (* Crea il pulsante principale per avviare l'esercizio interattivo *)
+      
+       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  
+       (* Testo del pulsante con font size 16, grassetto, colore blu scuro *)
+
+       Module[{seed},  (* Quando il pulsante viene cliccato, esegue questo blocco Module *)
+       
+        seed = DialogInput[  (* Apre un dialogo modale per l’inserimento del seed *)
+            DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Modulo dinamico interno con variabile s inizializzata a un intero casuale *)
+            
+            Panel[  (* Contenitore grafico del contenuto del dialogo *)
+              Column[{  (* Organizza il contenuto del dialogo verticalmente *)
+
+                Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  
+                (* Titolo del pannello con stile visivo *)
+
+                Style[  (* Testo descrittivo dell'utilità del seed *)
                 "Inserisci un numero intero che fungerà da 'seed': questo valore determinerà la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
-                12, GrayLevel[0.3], LineSpacing -> 1.5],
-                Item[
-                InputField[Dynamic[s], Number, FieldSize -> 12],
-                Alignment -> Center
+                12, GrayLevel[0.3], LineSpacing -> 1.5  (* Imposta dimensione, colore e interlinea del testo *)
                 ],
-                Spacer[15],
-                Row[{
-                  Button["Annulla",
-                  DialogReturn[None],
-                  ImageSize -> {130, 40},
-                  Appearance -> {"Cancel", "DialogBox"},
-                  BaseStyle -> {12}
+
+                Item[  (* Campo di input per inserire il seed *)
+                InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico collegato dinamicamente a s *)
+                Alignment -> Center  (* Centra il campo di input all’interno del dialogo *)
+                ],
+
+                Spacer[15],  (* Spazio verticale *)
+
+                Row[{  (* Riga con i due pulsanti 'Annulla' e 'Invio' *)
+                
+                  Button["Annulla",  (* Pulsante per chiudere il dialogo senza fare nulla *)
+                  DialogReturn[None],  (* Restituisce None e chiude il dialogo *)
+                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
+                  Appearance -> {"Cancel", "DialogBox"},  (* Aspetto coerente con finestre di dialogo *)
+                  BaseStyle -> {12}  (* Dimensione del font *)
                   ],
-                  Spacer[20],
-                  Button["Invio",
-                  DialogReturn[s],
+
+                  Spacer[20],  (* Spazio orizzontale tra i pulsanti *)
+
+                  Button["Invio",  (* Pulsante per confermare il seed inserito *)
+                  DialogReturn[s],  (* Restituisce il valore del seed e chiude il dialogo *)
                   ImageSize -> {130, 40},
                   Appearance -> {"Default", "DialogBox"},
-                  BaseStyle -> {Bold, 12}
-                  ],
-                }, Alignment -> Center]
+                  BaseStyle -> {Bold, 12}  (* Grassetto e dimensione font *)
+                  ]
+
+                }, Alignment -> Center]  (* Centra la riga dei pulsanti *)
               },
-              Spacings -> 2
+              Spacings -> 2  (* Spaziatura verticale tra gli elementi della Column *)
               ],
-              Background -> White,
-              FrameMargins -> 20,
-              AppearanceElements -> {"CloseBox"},
-              ImageSize -> 400
-            ]
+
+              Background -> White,  (* Sfondo bianco per il pannello *)
+              FrameMargins -> 20,  (* Margine interno tra bordo e contenuto *)
+              AppearanceElements -> {"CloseBox"},  (* Aggiunge pulsante di chiusura in alto *)
+              ImageSize -> 400  (* Dimensione fissa del pannello in pixel *)
             ]
           ];
+
+        (* Verifica il valore restituito dal DialogInput *)
         Which[
-         seed === None,
-          2+2 == 4, (* non fa nulla *)
 
-         ! IntegerQ[seed],
-          MessageDialog["Seed non valido. Inserisci un intero."],
+         seed === None,  (* Se l’utente ha cliccato Annulla *)
+          2 + 2 == 4,  (* Operazione fittizia che non produce effetti *)
 
-         True,
-          content = esUI[seed]
+         ! IntegerQ[seed],  (* Se il valore restituito non è un intero valido *)
+          MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra messaggio d’errore *)
+
+         True,  (* Altrimenti, tutto ok: si può generare l’interfaccia *)
+          content = esUI[seed]  (* Genera l’interfaccia interattiva esUI[] con il seed passato *)
         ]
        ],
-       ImageSize    -> {280, 55},
-       Appearance   -> "Frameless",
-       Method       -> "Queued"
-      ] // Deploy,
-      Background     -> LightYellow,
-      FrameStyle     -> Directive[Thick, Gray],
-      RoundingRadius -> 10,
-      FrameMargins   -> 10
+
+       ImageSize    -> {280, 55},  (* Dimensioni del pulsante principale *)
+       Appearance   -> "Frameless",  (* Rimuove il bordo standard del pulsante *)
+       Method       -> "Queued"  (* Esegue il codice del pulsante in coda: evita blocchi nell'interfaccia *)
+      ] // Deploy,  (* Protegge anche il pulsante dalla modifica diretta da parte dell’utente *)
+
+      Background     -> LightYellow,  (* Colore di sfondo della cornice che contiene il pulsante *)
+      FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso *)
+      RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto estetico migliore *)
+      FrameMargins   -> 10  (* Margine interno della cornice *)
      ],
-     Spacer[20],
-     Dynamic[If[content === None, "", content]]
+
+     Spacer[20],  (* Spazio verticale tra il pulsante e il contenuto interattivo *)
+
+     Dynamic[If[content === None, "", content]]  (* Mostra l’interfaccia generata solo dopo la conferma del seed *)
     }]
   ]
 
@@ -824,11 +862,11 @@ esUIButton[] :=
 Tronca4[x_] := N[Floor[x*10^4]/10.^4]
 
 (* UI dell’esercizio, prende direttamente il seed intero *)
-esUI[seed_Integer] := Row[{
-  es[seed],
-  Spacer[90],
-  SenCosCalcUI[]
-}]
+esUI[seed_Integer] := Grid[{
+  {es[seed], Spacer[50], SenCosCalcUI[]}
+},
+Alignment -> {Top, Top}
+]
 
 
 (* Interfaccia utente orizzontale, senza grafico *)
@@ -841,7 +879,8 @@ SenCosCalcUI[] :=
      Grid[{
        {
         Style["Angolo in gradi", 16],
-        InputField[Dynamic[input], String,
+        InputField[
+          Dynamic[input],  Number,
          FieldSize -> 8,
          FrameMargins -> 5,
          Background -> LightGray,
@@ -850,22 +889,22 @@ SenCosCalcUI[] :=
        },
        {
         Button[
-         Style["Calcola", 14, White],
-         Module[{val = Quiet@Check[ToExpression[input], $Failed]},
-          If[NumericQ[val],
-           theta = val;
-           errMsg = "";
-           sinVal = ToString[NumberForm[N[Sin[theta Degree]], {5, 4}]];
-           cosVal = ToString[NumberForm[N[Cos[theta Degree]], {5, 4}]];
-           calculated = True;,
-           errMsg = "Inserisci un numero valido!";
-           sinVal = cosVal = "";
-           calculated = False;
-          ];
-         ],
-         Background -> Darker[Blue, 0.2],
-         ImageSize -> {100, 30},
-         Appearance -> "Frameless"
+          Style["Calcola", Bold, 12, Black],
+          Module[{val = Quiet@Check[ToExpression[input], $Failed]},
+            If[NumericQ[val],
+              theta = val;
+              errMsg = "";
+              sinVal = ToString[NumberForm[N[Sin[theta Degree]], {5, 4}]];
+              cosVal = ToString[NumberForm[N[Cos[theta Degree]], {5, 4}]];
+              calculated = True;,
+              errMsg = "Inserisci un numero valido!";
+              sinVal = cosVal = "";
+              calculated = False;
+            ];
+          ],
+          Appearance -> {"DialogBox"},
+          ImageSize -> {130, 25},
+          BaseStyle -> {FontFamily -> "Helvetica"}
         ]
        }
       }, Spacings -> {2, 3}],
@@ -1072,7 +1111,8 @@ es[seed_: Automatic] := Module[
                 (* Pulsante: passa all'esercizio successivo *)
                 Button[
                   Style["Successivo >", Bold, 12, Gray],
-                  If[index < 5,
+                  If[
+                    index < 5,
                     index++;
                     userMatrix = ConstantArray[0, {2, 2}];
                     resultText = "";
@@ -1081,9 +1121,7 @@ es[seed_: Automatic] := Module[
                   Appearance -> {"DialogBox"},
                   ImageSize -> {110, 25},
                   BaseStyle -> {FontFamily -> "Helvetica"}
-                ]
-
-                
+                ],
               }
             }, Spacings -> {2, 2}]
           }],
@@ -1125,12 +1163,12 @@ es[seed_: Automatic] := Module[
         (* Input della matrice utente: 4 campi numerici *)
         Grid[{
           {
-            InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 4],
-            InputField[Dynamic[userMatrix[[1, 2]]], Number, FieldSize -> 4]
+            InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 6],
+            InputField[Dynamic[userMatrix[[1, 2]]], Number, FieldSize -> 6]
           },
           {
-            InputField[Dynamic[userMatrix[[2, 1]]], Number, FieldSize -> 4],
-            InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 4]
+            InputField[Dynamic[userMatrix[[2, 1]]], Number, FieldSize -> 6],
+            InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 6]
           }
         }, Spacings -> {1, 1}],
 
@@ -1142,7 +1180,7 @@ es[seed_: Automatic] := Module[
 
             (* Pulsante "Verifica" che controlla se la matrice inserita è corretta *)
             Button[
-              Style["Verifica", Bold, 12, Gray],
+              Style["Verifica", Bold, 12, Black],
               Module[
                 {
                   isCorrect,
@@ -1167,6 +1205,7 @@ es[seed_: Automatic] := Module[
             Dynamic[
               If[resultText =!= "",
                 Column[{
+                  Spacer[10],
                   Style[
                     resultText,
                     Bold, 14,
