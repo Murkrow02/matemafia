@@ -666,13 +666,9 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
       }]
     ]
   }]
-];           
+];
 
-(* -------------------------------------------------------------- *)
-(* aUIButton : semplice launcher che richiama aUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; aUIButton[].     *)
-(* -------------------------------------------------------------- *)
+
 
 aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'interfaccia iniziale con bottone *)
  Deploy @  (* Impedisce all’utente di modificare l’interfaccia generata, rendendola solo visualizzabile *)
@@ -698,11 +694,6 @@ aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'inter
    }]
  ];
 
- (* -------------------------------------------------------------- *)
-(* bUIButton : semplice launcher che richiama bUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; bUIButton[].     *)
-(* -------------------------------------------------------------- *)
 
 bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l’interfaccia con pulsante per avviare bUI[] *)
  Deploy @  (* Impedisce modifiche da parte dell’utente all’interfaccia grafica generata *)
@@ -728,11 +719,6 @@ bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l’int
    }]
  ];
 
-(* -------------------------------------------------------------- *)
-(* cUIButton : semplice launcher che richiama aUI[]               *)
-(* Inserito nel contesto `Private`, quindi il notebook non vede   *)
-(* l’implementazione: basta Needs["Pacchetto`"]; cUIButton[].     *)
-(* -------------------------------------------------------------- *)
 
 cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con pulsante per attivare cUI[] *)
  Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata rendendola statica *)
@@ -757,103 +743,100 @@ cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con 
      Dynamic[ If[content === None, "", content] ]  (* Visualizza cUI[] solo dopo il click; altrimenti non mostra nulla *)
    }]
  ];
-esUIButton[] :=  (* Definisce la funzione esUIButton senza argomenti: genera l'interfaccia con pulsante e gestione del seed *)
- Deploy@  (* Rende l'interfaccia non modificabile dall’utente: blocca l’interattività sull’aspetto strutturale *)
+ 
 
-  DynamicModule[{content = None},  (* Definisce un modulo dinamico con variabile locale 'content' inizialmente vuota *)
-   Column[{  (* Organizza verticalmente gli elementi dell’interfaccia: pulsante + contenuto *)
 
-     Framed[  (* Inserisce il pulsante all'interno di una cornice decorativa *)
+esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia con pulsante e gestione seed *)
+ Deploy@  (* Rende l'interfaccia non modificabile interattivamente dall'utente *)
 
-      Button[  (* Crea il pulsante principale per avviare l'esercizio interattivo *)
-      
-       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  
-       (* Testo del pulsante con font size 16, grassetto, colore blu scuro *)
+  DynamicModule[{content = None},  (* Modulo dinamico con variabile locale 'content' inizialmente nulla *)
+   Column[{  (* Disposizione verticale degli elementi: pulsante + contenuto *)
 
-       Module[{seed},  (* Quando il pulsante viene cliccato, esegue questo blocco Module *)
-       
-        seed = DialogInput[  (* Apre un dialogo modale per l’inserimento del seed *)
-            DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Modulo dinamico interno con variabile s inizializzata a un intero casuale *)
-            
-            Panel[  (* Contenitore grafico del contenuto del dialogo *)
-              Column[{  (* Organizza il contenuto del dialogo verticalmente *)
+     Framed[  (* Inserisce una cornice attorno al pulsante *)
+      Button[  (* Crea un pulsante che avvia l'interfaccia esercizio *)
 
-                Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  
-                (* Titolo del pannello con stile visivo *)
+       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  (* Stile del testo del pulsante: grande, grassetto, blu scuro *)
 
-                Style[  (* Testo descrittivo dell'utilità del seed *)
+       Module[{seed},  (* Blocco eseguito al click: inizializza la variabile locale 'seed' *)
+
+        seed = DialogInput[  (* Apre un dialogo modale per inserire il seed *)
+            DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Inizializza il campo con un numero casuale tra 1 e 9999 *)
+
+            Panel[  (* Crea un pannello grafico contenente gli elementi del dialogo *)
+              Column[{  (* Disposizione verticale dei componenti del pannello *)
+
+                Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  (* Titolo in grigio scuro e grassetto *)
+
+                Style[  (* Testo descrittivo sull’uso del seed *)
                 "Inserisci un numero intero che fungerà da 'seed': questo valore determinerà la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
-                12, GrayLevel[0.3], LineSpacing -> 1.5  (* Imposta dimensione, colore e interlinea del testo *)
+                12, GrayLevel[0.3], LineSpacing -> 1.5],  (* Stile del testo: piccolo, grigio chiaro, con interlinea *)
+
+                Item[  (* Campo di input centrato *)
+                InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico legato dinamicamente alla variabile s *)
+                Alignment -> Center  (* Centra il campo nella riga *)
                 ],
 
-                Item[  (* Campo di input per inserire il seed *)
-                InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico collegato dinamicamente a s *)
-                Alignment -> Center  (* Centra il campo di input all’interno del dialogo *)
-                ],
+                Spacer[15],  (* Spazio verticale tra input e pulsanti *)
 
-                Spacer[15],  (* Spazio verticale *)
+                Row[{  (* Riga con i pulsanti Annulla e Invio *)
 
-                Row[{  (* Riga con i due pulsanti 'Annulla' e 'Invio' *)
-                
-                  Button["Annulla",  (* Pulsante per chiudere il dialogo senza fare nulla *)
-                  DialogReturn[None],  (* Restituisce None e chiude il dialogo *)
+                  Button["Annulla",  (* Pulsante per annullare l'inserimento del seed *)
+                  DialogReturn[None],  (* Chiude il dialogo restituendo None *)
                   ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
-                  Appearance -> {"Cancel", "DialogBox"},  (* Aspetto coerente con finestre di dialogo *)
-                  BaseStyle -> {12}  (* Dimensione del font *)
+                  Appearance -> {"Cancel", "DialogBox"},  (* Aspetto standard da dialogo di sistema *)
+                  BaseStyle -> {12}  (* Font size del testo nel pulsante *)
                   ],
 
-                  Spacer[20],  (* Spazio orizzontale tra i pulsanti *)
+                  Spacer[20],  (* Spazio orizzontale tra i due pulsanti *)
 
-                  Button["Invio",  (* Pulsante per confermare il seed inserito *)
-                  DialogReturn[s],  (* Restituisce il valore del seed e chiude il dialogo *)
-                  ImageSize -> {130, 40},
-                  Appearance -> {"Default", "DialogBox"},
-                  BaseStyle -> {Bold, 12}  (* Grassetto e dimensione font *)
-                  ]
+                  Button["Invio",  (* Pulsante per confermare il valore del seed *)
+                  DialogReturn[s],  (* Chiude il dialogo restituendo il valore attuale di s *)
+                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
+                  Appearance -> {"Default", "DialogBox"},  (* Aspetto del pulsante principale *)
+                  BaseStyle -> {Bold, 12}  (* Stile grassetto e font size del testo *)
+                  ],
 
-                }, Alignment -> Center]  (* Centra la riga dei pulsanti *)
+                }, Alignment -> Center]  (* Centra i pulsanti nella riga *)
               },
-              Spacings -> 2  (* Spaziatura verticale tra gli elementi della Column *)
+              Spacings -> 2  (* Imposta la spaziatura verticale tra gli elementi della Column *)
               ],
-
-              Background -> White,  (* Sfondo bianco per il pannello *)
-              FrameMargins -> 20,  (* Margine interno tra bordo e contenuto *)
-              AppearanceElements -> {"CloseBox"},  (* Aggiunge pulsante di chiusura in alto *)
-              ImageSize -> 400  (* Dimensione fissa del pannello in pixel *)
+              Background -> White,  (* Imposta sfondo bianco del pannello *)
+              FrameMargins -> 20,  (* Margine interno attorno al contenuto del pannello *)
+              AppearanceElements -> {"CloseBox"},  (* Aggiunge il pulsante di chiusura nella finestra di dialogo *)
+              ImageSize -> 400  (* Imposta la dimensione fissa del pannello in pixel *)
             ]
-          ];
+            ]
+          ];  (* Fine del DialogInput: il valore restituito viene assegnato a 'seed' *)
 
-        (* Verifica il valore restituito dal DialogInput *)
-        Which[
+        Which[  (* Controlla il valore ottenuto dal dialogo *)
 
          seed === None,  (* Se l’utente ha cliccato Annulla *)
-          2 + 2 == 4,  (* Operazione fittizia che non produce effetti *)
+          2+2 == 4,  (* Esegue operazione neutra: non cambia nulla *)
 
-         ! IntegerQ[seed],  (* Se il valore restituito non è un intero valido *)
-          MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra messaggio d’errore *)
+         ! IntegerQ[seed],  (* Se il valore ottenuto non è un intero *)
+          MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra un messaggio di errore *)
 
-         True,  (* Altrimenti, tutto ok: si può generare l’interfaccia *)
-          content = esUI[seed]  (* Genera l’interfaccia interattiva esUI[] con il seed passato *)
+         True,  (* In tutti gli altri casi *)
+          content = esUI[seed]  (* Genera l'interfaccia esUI[] con il seed ottenuto *)
         ]
-       ],
+       ],  (* Fine del blocco Module eseguito al click del pulsante *)
 
-       ImageSize    -> {280, 55},  (* Dimensioni del pulsante principale *)
-       Appearance   -> "Frameless",  (* Rimuove il bordo standard del pulsante *)
-       Method       -> "Queued"  (* Esegue il codice del pulsante in coda: evita blocchi nell'interfaccia *)
-      ] // Deploy,  (* Protegge anche il pulsante dalla modifica diretta da parte dell’utente *)
+       ImageSize    -> {280, 55},  (* Imposta larghezza e altezza del pulsante principale *)
+       Appearance   -> "Frameless",  (* Rimuove la cornice standard del pulsante *)
+       Method       -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell’interfaccia *)
+      ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell’utente *)
 
-      Background     -> LightYellow,  (* Colore di sfondo della cornice che contiene il pulsante *)
+      Background     -> LightYellow,  (* Sfondo giallo chiaro della cornice del pulsante *)
       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso *)
-      RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto estetico migliore *)
-      FrameMargins   -> 10  (* Margine interno della cornice *)
+      RoundingRadius -> 10,  (* Angoli arrotondati della cornice *)
+      FrameMargins   -> 10  (* Margine interno tra bordo e contenuto *)
      ],
 
-     Spacer[20],  (* Spazio verticale tra il pulsante e il contenuto interattivo *)
+     Spacer[20],  (* Spazio verticale tra il pulsante e l’interfaccia interattiva *)
 
-     Dynamic[If[content === None, "", content]]  (* Mostra l’interfaccia generata solo dopo la conferma del seed *)
+     Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell’interfaccia esUI[] *)
     }]
   ]
-
 
 
 (* ============================== SEZIONE ESERCIZIO ============================== *)
