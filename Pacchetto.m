@@ -17,32 +17,34 @@ BeginPackage["Pacchetto`"]
 
 aUI::usage = 
   "aUI[] crea un'interfaccia grafica interattiva che consente di esplorare il funzionamento delle immagini digitali in scala di grigi e a colori. \
-  L'interfaccia è suddivisa in due sezioni: nella prima l'utente può modificare \
+  L'interfaccia e' suddivisa in due sezioni: nella prima l'utente puo' modificare \
   una matrice binaria 5x5 cliccando sulle celle, osservando in tempo reale la \
   rappresentazione numerica e la visualizzazione grafica corrispondente; nella \
-  seconda, è possibile controllare i valori RGB tramite tre slider e applicare \
+  seconda, e' possibile controllare i valori RGB tramite tre slider e applicare \
   il colore selezionato a una matrice 5x5, con visualizzazione sia numerica \
   sia cromatica.";
 
 
-aUIButton::usage =
-  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo» al clic carica l'interfaccia aUI[].";
+aUIButton::usage = 
+  "aUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo». \
+  Al clic, viene caricata dinamicamente l'interfaccia grafica aUI[], che mostra un'esperienza interattiva legata a una trasformazione o concetto specifico. \
+  La funzione e' utile per introdurre ordinatamente l'attivita', permettendo all'utente di decidere quando iniziare.";
+
 
 
 bUI::usage = 
   "bUI[] crea un'interfaccia grafica interattiva che permette di esplorare tre trasformazioni geometriche fondamentali applicate a un'immagine digitale: rotazione, riflessione e ridimensionamento. \
   Ogni sezione fornisce controlli intuitivi e una rappresentazione visuale della trasformazione applicata, accompagnata dalla relativa matrice. \
-  L'interfaccia è progettata per supportare la comprensione visiva e numerica delle trasformazioni lineari nel piano.";
-
+  L'interfaccia e' progettata per supportare la comprensione visiva e numerica delle trasformazioni lineari nel piano.";
 
 rotazione::usage = 
   "rotazione[] apre un'interfaccia interattiva che permette di ruotare un'immagine bidimensionale. \
-  L'utente può selezionare l'angolo di rotazione tramite uno slider oppure scegliere tra valori predefiniti. \
+  L'utente puo' selezionare l'angolo di rotazione tramite uno slider oppure scegliere tra valori predefiniti. \
   Viene mostrata l'immagine ruotata, la matrice di rotazione associata e un grafico della funzione seno con indicazione del punto corrente.";
 
 riflessione::usage = 
   "riflessione[] apre un'interfaccia interattiva che consente di riflettere un'immagine rispetto all'asse X o all'asse Y. \
-  L'utente può scegliere l'asse tramite un menu a tendina e visualizzare il risultato della trasformazione insieme alla relativa matrice di riflessione.";
+  L'utente puo' scegliere l'asse tramite un menu a tendina e visualizzare il risultato della trasformazione insieme alla relativa matrice di riflessione.";
 
 scala::usage = 
   "scala[] apre un'interfaccia interattiva che consente di ridimensionare un'immagine secondo fattori di scala orizzontale e verticale. \
@@ -50,34 +52,44 @@ scala::usage =
   L'interfaccia visualizza l'immagine scalata, la matrice di trasformazione, il determinante (area relativa) e la trasformazione geometrica applicata a un quadrato unitario.";
 
 
+bUIButton::usage = 
+  "bUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo». \
+    Al clic, viene caricata dinamicamente l'interfaccia grafica bUI[], che consente di esplorare le trasformazioni geometriche su un'immagine. \
+    Questa funzione e' utile per presentare l'attivita' in modo ordinato, lasciando all'utente la scelta di iniziare l'esercizio.";
 
 
-
-bUIButton::usage =
-  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo» al clic carica l'interfaccia bUI[].";
-
-
-
-
-
-cUI::usage = "cUI represents the user interface component of the application. It is used to manage and display the graphical interface elements.";
+cUI::usage = 
+  "cUI[] crea un'interfaccia grafica interattiva per esplorare il concetto di sfocatura (box blur) in un'immagine digitale. \
+  L'utente puo' selezionare un punto dell'immagine e modificare la dimensione del kernel di convoluzione per osservare gli effetti della sfocatura. \
+  L'interfaccia mostra l'immagine originale, quella sfocata, la matrice del kernel utilizzato e il vicinato dei pixel coinvolti nel calcolo, \
+  rendendo visivamente comprensibile il processo di filtraggio spaziale.";
 
 
-
-cUIButton::usage =
-  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
-al clic carica l'interfaccia cUI[].";
+cUIButton::usage = 
+  "cUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo»; \
+  al clic, carica dinamicamente l'interfaccia grafica cUI[], che consente di esplorare l'effetto di una sfocatura (box blur) su un'immagine. \
+  La funzione e' pensata per attivare l'esercizio solo su richiesta dell'utente, mantenendo l'interfaccia iniziale pulita e ordinata.";
 
 
 es::usage = 
-  "es[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
+  "es[seed] seleziona un'immagine casuale e applica 5 trasformazioni geometriche casuali, \
+  visualizzandole insieme all'immagine originale in un'interfaccia interattiva. \
+  L'utente puo' inserire manualmente la matrice associata a ciascuna trasformazione e ricevere un feedback immediato. \
+  Il parametro opzionale seed (intero o Automatic) consente di rendere riproducibile l'esercizio.";
 
-SenCosCalcUI::usage = "SenCosCalcUI[] avvia un'interfaccia per calcolare seno e coseno di un angolo specifico in gradi."
-esUI::usage = "esUI[] mostra un'immagine di esempio e permette di scorrere tra 5 trasformazioni lineari casuali con pulsanti. Può essere chiamata anche come es[seed_Integer] per ripetere una generazione specifica.";
+SenCosCalcUI::usage = 
+  "SenCosCalcUI[] visualizza un'interfaccia interattiva per il calcolo del seno e del coseno di un angolo espresso in gradi. \
+  L'utente puo' modificare l'angolo tramite slider o input diretto, osservando i valori aggiornati in tempo reale.";
 
-esUIButton::usage =
-  "aUIButton[] visualizza un pulsante «Avvia esempio interattivo»; \
-al clic carica l'interfaccia cUI[].";
+esUI::usage = 
+  "esUI[] mostra un'interfaccia interattiva con un'immagine di esempio e 5 trasformazioni lineari casuali. \
+  L'utente puo' navigare tra le trasformazioni, inserire matrici personalizzate e confrontare i risultati. \
+  L'interfaccia puo' essere generata anche con es[seed_Integer] per riprodurre una specifica sequenza.";
+
+esUIButton::usage = 
+  "esUIButton[] visualizza un pulsante etichettato «Avvia esempio interattivo»; \
+  al clic, carica dinamicamente l'interfaccia grafica esUI[], mantenendo inizialmente l'ambiente pulito e ordinato.";
+
 
 Begin["`Private`"]
 
@@ -96,7 +108,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
 
   Column[{                                    (* Column impila verticalmente gli elementi dati come lista *)
 
-    Column[{                                  (* Prima sezione dell’interfaccia: interazione con matrice binaria *)
+    Column[{                                  (* Prima sezione dell'interfaccia: interazione con matrice binaria *)
       Style["Esempio interattivo 1: Matrici RGB", Bold, 14],  (* Style applica uno stile al testo: grassetto, dimensione 14 *)
       Spacer[5],                              (* Spacer aggiunge uno spazio verticale di 5 punti *)
 
@@ -108,7 +120,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
       }],
       Spacer[5],
 
-      Row[{                                   (* Row allinea orizzontalmente più elementi *)
+      Row[{                                   (* Row allinea orizzontalmente piu' elementi *)
 
         Grid[                                 (* Grid costruisce una griglia di elementi *)
           Table[                              (* Table genera una matrice di pulsanti 5x5 *)
@@ -119,7 +131,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
                 Appearance -> None,           (* Nessuna apparenza grafica predefinita per il pulsante *)
                 BaseStyle -> {FontSize -> 14, FontWeight -> Bold},  (* Stile del testo interno *)
                 Background -> Dynamic[        (* Sfondo del pulsante dipende dinamicamente dal valore della cella *)
-                  If[mat[[i, j]] == 0, Gray, LightGray] (* Se il valore è 0, il pulsante è grigio scuro, altrimenti grigio chiaro *)
+                  If[mat[[i, j]] == 0, Gray, LightGray] (* Se il valore e' 0, il pulsante e' grigio scuro, altrimenti grigio chiaro *)
                 ],
                 ImageSize -> {40, 40}         (* Dimensione in pixel del pulsante *)
               ]
@@ -148,7 +160,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
 
     Spacer[30],                               (* Spazio visivo tra le due sezioni  *)
 
-    Column[{                                  (* Seconda sezione dell’interfaccia: matrice RGB *)
+    Column[{                                  (* Seconda sezione dell'interfaccia: matrice RGB *)
       Style["Esempio interattivo 2: Colori RGB", Bold, 14], (* Titolo della sezione *)
       Spacer[5],
 
@@ -171,7 +183,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
                     Style[#, FontFamily -> "Courier", FontSize -> 10, FontWeight -> Medium] & /@ val,  
                                               (* Applica la funzione Style a ciascun elemento della lista val: ogni numero RGB viene 
                                               stilizzato con font monospace ("Courier"), dimensione 10 e peso medio.
-                                              L’operatore & crea una funzione anonima, mentre /@ è una forma compatta di Map
+                                              L'operatore & crea una funzione anonima, mentre /@ e' una forma compatta di Map
                                               che applica quella funzione a ogni elemento di val *)
                     Alignment -> Center,      (* Allinea al centro *)
                     Spacings -> 0.5           (* Spaziatura tra i valori RGB *)
@@ -256,7 +268,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
 
 (* Funzione per la rotazione dell'immagine *)
 
-rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate al suo interno. In questo caso è vuoto perché tutte le variabili sono gestite dentro Manipulate *)
+rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate al suo interno. In questo caso e' vuoto perche' tutte le variabili sono gestite dentro Manipulate *)
 
   Manipulate[              (* Manipulate genera un'interfaccia interattiva legata alla variabile 'angolo', con controlli (slider, bottoni) e aggiornamenti dinamici *)
 
@@ -268,26 +280,26 @@ rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate
       rotata = ImageRotate[img, angolo Degree, Background -> White];  
       (* Ruota l'immagine secondo l'angolo specificato in gradi. 'Degree' converte in radianti. Lo sfondo bianco riempie le aree vuote risultanti *)
 
-      matrice = Round[   (* Arrotonda la matrice ai 4 decimali per una visualizzazione più pulita *)
+      matrice = Round[   (* Arrotonda la matrice ai 4 decimali per una visualizzazione piu' pulita *)
         N[{              (* N forza la valutazione numerica dei valori trigonometrici *)
           {Cos[angolo Degree], -Sin[angolo Degree]},
           {Sin[angolo Degree],  Cos[angolo Degree]}
         }],
         0.0001
-      ];                    (* La matrice è quella standard per rotazioni antiorarie nel piano *)
+      ];                    (* La matrice e' quella standard per rotazioni antiorarie nel piano *)
 
       grafico = Plot[       (* Crea un grafico della funzione seno da 0 a 360 gradi *)
         Sin[x Degree],      (* x Degree converte x (espresso in gradi) in radianti *)
-        {x, 0, 360},        (* Range dell’ascissa: 0–360 gradi *)
+        {x, 0, 360},        (* Range dell'ascissa: 0–360 gradi *)
         PlotStyle -> Red,   (* Colore rosso per la curva *)
         Epilog -> {Red, PointSize[Large], Point[{angolo, Sin[angolo Degree]}]},  
-        (* Aggiunge un punto rosso grande nel punto corrispondente all’angolo attuale sulla curva *)
+        (* Aggiunge un punto rosso grande nel punto corrispondente all'angolo attuale sulla curva *)
         AxesLabel -> {"Angolo (gradi)", "sin(angolo)"},  (* Etichette sugli assi *)
         PlotRange -> {{0, 360}, {-1.1, 1.1}},  (* Limiti del grafico *)
         ImageSize -> 300  (* Dimensione in pixel del grafico *)
       ];
 
-      Grid[{              (* Grid costruisce una griglia; qui è una riga con due colonne *)
+      Grid[{              (* Grid costruisce una griglia; qui e' una riga con due colonne *)
         {
           rotata,         (* Colonna sinistra: mostra l'immagine ruotata *)
 
@@ -333,7 +345,7 @@ rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate
         Button["270 gradi", angolo = 270, Tooltip -> "Rotazione sinistra"],
         Button["360 gradi", angolo = 360, Tooltip -> "Giro completo"]
       }, Spacer[5]],  (* Spaziatura tra i bottoni *)
-      Background -> Lighter[Yellow, 0.8]  (* Sfondo giallo chiaro per visibilità *)
+      Background -> Lighter[Yellow, 0.8]  (* Sfondo giallo chiaro per visibilita' *)
     ]
   ]
 ]
@@ -341,7 +353,7 @@ rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate
 (* Funzione per la riflessione dell'immagine *)
 riflessione[] := Module[{},  (* Module serve a isolare le variabili locali e strutturare l'interfaccia in modo indipendente *)
 
-  Manipulate[  (* Manipulate genera automaticamente un’interfaccia utente interattiva basata sul valore della variabile 'asse' *)
+  Manipulate[  (* Manipulate genera automaticamente un'interfaccia utente interattiva basata sul valore della variabile 'asse' *)
 
     Module[{img, riflessa, matrice},  (* Definizione delle variabili locali: immagine originale, versione riflessa e matrice della trasformazione *)
 
@@ -350,10 +362,10 @@ riflessione[] := Module[{},  (* Module serve a isolare le variabili locali e str
 
       {riflessa, matrice} = If[asse == "X",  (* Costrutto If valuta la condizione specificata e restituisce uno dei due blocchi a seconda del valore di 'asse' *)
 
-        (* Se asse è "X", si esegue una riflessione verticale (rispetto all'asse X, quindi sopra/sotto) *)
+        (* Se asse e' "X", si esegue una riflessione verticale (rispetto all'asse X, quindi sopra/sotto) *)
         {ImageReflect[img, Top], {{1, 0}, {0, -1}}},
 
-        (* Altrimenti, riflessione orizzontale (rispetto all'asse Y, cioè sinistra/destra) *)
+        (* Altrimenti, riflessione orizzontale (rispetto all'asse Y, cioe' sinistra/destra) *)
         {ImageReflect[img, Left], {{-1, 0}, {0, 1}}}
       ];  
       (* Viene restituita una coppia: l'immagine riflessa e la matrice di trasformazione associata *)
@@ -370,7 +382,7 @@ riflessione[] := Module[{},  (* Module serve a isolare le variabili locali e str
                 "(X = Ribalta verticalmente)",
                 "(Y = Ribalta orizzontalmente)"
               }],
-              Background -> Lighter[Gray, 0.9]  (* Sfondo grigio chiaro per migliorare la leggibilità *)
+              Background -> Lighter[Gray, 0.9]  (* Sfondo grigio chiaro per migliorare la leggibilita' *)
             ],
             Spacer[10],  (* Inserisce uno spazio verticale tra il pannello e gli elementi successivi *)
 
@@ -404,7 +416,7 @@ scala[] := Module[{},  (* Module crea un contenitore con ambito locale. Anche se
 
       scalata = ImageResize[img, Scaled[{sx, sy}]];  
       (* Ridimensiona l'immagine in base ai due fattori di scala sx e sy. 
-         La funzione Scaled prende un vettore con proporzioni rispetto all’originale *)
+         La funzione Scaled prende un vettore con proporzioni rispetto all'originale *)
 
       matrice = {{sx, 0}, {0, sy}};  
       (* Matrice di scala che descrive una trasformazione diagonale. sx agisce su X, sy su Y *)
@@ -514,7 +526,7 @@ ClearAll[cUI]
 (* Pulisce ogni definizione precedente della funzione cUI, utile per evitare conflitti o risultati obsoleti *)
 
 cUI[] :=  (* Definisce la funzione cUI senza parametri *)
- Deploy @  (* Deploy impedisce modifiche accidentali all’interfaccia grafica da parte dell’utente *)
+ Deploy @  (* Deploy impedisce modifiche accidentali all'interfaccia grafica da parte dell'utente *)
  Module[
 
   {
@@ -523,7 +535,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
     neighborhoodDisplaySize = 250  (* Dimensione per la visualizzazione del vicinato dei pixel *)
   },
 
-  (* Layout principale dell’interfaccia, strutturato verticalmente ----------- *)
+  (* Layout principale dell'interfaccia, strutturato verticalmente ----------- *)
   Column[{
 
     (* ======= 1. Intestazione dell'esercizio ================================ *)
@@ -545,7 +557,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
     (* ======= 2. Area Interattiva: Slider + Immagini + Output =============== *)
     DynamicModule[{  (* DynamicModule crea uno scope locale e mantiene stato tra aggiornamenti *)
       kernelSize = 3,  (* Valore iniziale per la dimensione del kernel *)
-      locatorPosition = {50, 50},  (* Posizione iniziale del puntatore rosso nell’immagine *)
+      locatorPosition = {50, 50},  (* Posizione iniziale del puntatore rosso nell'immagine *)
       img = ExampleData[{"TestImage", "House"}]  (* Carica un'immagine di esempio integrata in Mathematica *)
     },
 
@@ -559,7 +571,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
 
         (* === 2b. Parte dinamica: convoluzione e interfaccia grafica ======== *)
         DynamicModule[{ imageDimensions = ImageDimensions[img] },
-        (* Cattura le dimensioni dell’immagine una sola volta all’avvio *)
+        (* Cattura le dimensioni dell'immagine una sola volta all'avvio *)
 
           Dynamic[  (* Blocca che si aggiorna automaticamente se kernelSize o locatorPosition cambiano *)
             Module[{
@@ -578,7 +590,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
 
               locX = Round[locatorPosition[[1]]];  (* Converte la coordinata X cliccata in indice *)
               locY = Round[imageDimensions[[2]] - locatorPosition[[2]] + 1];  
-              (* Converte Y, invertendo l’asse (grafico -> matrice) *)
+              (* Converte Y, invertendo l'asse (grafico -> matrice) *)
 
               imageData = ImageData[img];  (* Estrae la matrice RGB dei pixel *)
               padding = Floor[kSize / 2];  (* Raggio del kernel, serve per determinare il vicinato *)
@@ -587,7 +599,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
               (* Applica la convoluzione e ridimensiona il risultato *)
 
               originalImgWithRect = Rasterize[  (* Visualizza il rettangolo sul pixel scelto *)
-                Show[ (* Mostra l’immagine originale con il rettangolo rosso *)
+                Show[ (* Mostra l'immagine originale con il rettangolo rosso *)
                   img, 
                   Graphics[{ (* Grafica per il rettangolo rosso attorno al pixel scelto *)
                     Red, Thickness[0.01], (* Colore e spessore del bordo *)
@@ -623,7 +635,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
                   Column[{  (* Colonna: immagine originale *)
                     Style["Immagine originale", Bold],
                     LocatorPane[
-                      Dynamic[locatorPosition],  (* Permette di cliccare sull’immagine *)
+                      Dynamic[locatorPosition],  (* Permette di cliccare sull'immagine *)
                       Image[originalImgWithRect, ImageSize -> imageDisplaySize],
                       LocatorShape -> Graphics[{Circle[{0, 0}, 5]}]  (* Indicatore rosso *)
                     ]
@@ -654,8 +666,8 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
                 Row[{
                   Style["Neighborhood: ", Bold], (* Intestazione per la matrice del vicinato *)
                   Image[ 
-                    ImageResize[Image[neighborhood], neighborhoodDisplaySize],  (* Crea un’immagine dal vicinato e la ridimensiona alla dimensione desiderata *)
-                    ImageSize -> neighborhoodDisplaySize  (* Imposta la dimensione finale dell’immagine del vicinato nella GUI *)
+                    ImageResize[Image[neighborhood], neighborhoodDisplaySize],  (* Crea un'immagine dal vicinato e la ridimensiona alla dimensione desiderata *)
+                    ImageSize -> neighborhoodDisplaySize  (* Imposta la dimensione finale dell'immagine del vicinato nella GUI *)
 
                   ]
                 }]
@@ -671,7 +683,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
 
 
 aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'interfaccia iniziale con bottone *)
- Deploy @  (* Impedisce all’utente di modificare l’interfaccia generata, rendendola solo visualizzabile *)
+ Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata, rendendola solo visualizzabile *)
  DynamicModule[{content = None},  (* Inizializza la variabile locale 'content', vuota fino al primo click *)
    Column[{  (* Organizza verticalmente il pulsante e il contenuto caricato *)
    
@@ -690,26 +702,26 @@ aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'inter
      
      Spacer[20],  (* Spazio verticale tra il pulsante e il contenuto caricato *)
      
-     Dynamic[ If[content === None, "", content] ]  (* Mostra aUI[] solo dopo il click: se 'content' è vuoto, non mostra nulla *)
+     Dynamic[ If[content === None, "", content] ]  (* Mostra aUI[] solo dopo il click: se 'content' e' vuoto, non mostra nulla *)
    }]
  ];
 
 
-bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l’interfaccia con pulsante per avviare bUI[] *)
- Deploy @  (* Impedisce modifiche da parte dell’utente all’interfaccia grafica generata *)
- DynamicModule[{content = None},  (* Crea una variabile locale 'content' che inizialmente è vuota *)
+bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l'interfaccia con pulsante per avviare bUI[] *)
+ Deploy @  (* Impedisce modifiche da parte dell'utente all'interfaccia grafica generata *)
+ DynamicModule[{content = None},  (* Crea una variabile locale 'content' che inizialmente e' vuota *)
    Column[{  (* Dispone verticalmente pulsante e contenuto *)
 
      Framed[  (* Crea una cornice attorno al pulsante per evidenziarlo graficamente *)
-       Deploy @ Button[  (* Genera un pulsante che all’attivazione esegue bUI[] e lo assegna a 'content' *)
+       Deploy @ Button[  (* Genera un pulsante che all'attivazione esegue bUI[] e lo assegna a 'content' *)
          Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Stile grafico del testo del pulsante *)
-         content = bUI[],  (* Azione eseguita al click: genera e memorizza l’interfaccia bUI[] *)
+         content = bUI[],  (* Azione eseguita al click: genera e memorizza l'interfaccia bUI[] *)
          ImageSize   -> {280, 55},  (* Imposta le dimensioni del pulsante *)
          Appearance  -> "Frameless"  (* Elimina la cornice standard del pulsante per un aspetto personalizzato *)
        ],
        Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
        FrameStyle     -> Directive[Thick, Gray],  (* Stile della cornice: grigia e spessa *)
-       RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto più moderno *)
+       RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto piu' moderno *)
        FrameMargins   -> 10  (* Spazio interno tra bordo e contenuto della cornice *)
      ],
 
@@ -722,7 +734,7 @@ bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l’int
 
 cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con pulsante per attivare cUI[] *)
  Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata rendendola statica *)
- DynamicModule[{content = None},  (* Inizializza la variabile locale 'content' che conterrà cUI[] dopo il click *)
+ DynamicModule[{content = None},  (* Inizializza la variabile locale 'content' che conterra' cUI[] dopo il click *)
    Column[{  (* Dispone verticalmente il pulsante e il contenuto caricato *)
 
      Framed[  (* Incornicia il pulsante con stile grafico definito *)
@@ -734,7 +746,7 @@ cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con 
        ],
        Background     -> LightYellow,  (* Imposta lo sfondo giallo chiaro alla cornice del pulsante *)
        FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso per evidenziare il pulsante *)
-       RoundingRadius -> 10,  (* Arrotonda gli angoli della cornice per un aspetto più morbido *)
+       RoundingRadius -> 10,  (* Arrotonda gli angoli della cornice per un aspetto piu' morbido *)
        FrameMargins   -> 10  (* Aggiunge margine interno tra bordo e pulsante *)
      ],
 
@@ -767,8 +779,8 @@ esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia co
 
                 Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  (* Titolo in grigio scuro e grassetto *)
 
-                Style[  (* Testo descrittivo sull’uso del seed *)
-                "Inserisci un numero intero che fungerà da 'seed': questo valore determinerà la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
+                Style[  (* Testo descrittivo sull'uso del seed *)
+                "Inserisci un numero intero che fungera' da 'seed': questo valore determinera' la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
                 12, GrayLevel[0.3], LineSpacing -> 1.5],  (* Stile del testo: piccolo, grigio chiaro, con interlinea *)
 
                 Item[  (* Campo di input centrato *)
@@ -810,10 +822,10 @@ esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia co
 
         Which[  (* Controlla il valore ottenuto dal dialogo *)
 
-         seed === None,  (* Se l’utente ha cliccato Annulla *)
+         seed === None,  (* Se l'utente ha cliccato Annulla *)
           2+2 == 4,  (* Esegue operazione neutra: non cambia nulla *)
 
-         ! IntegerQ[seed],  (* Se il valore ottenuto non è un intero *)
+         ! IntegerQ[seed],  (* Se il valore ottenuto non e' un intero *)
           MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra un messaggio di errore *)
 
          True,  (* In tutti gli altri casi *)
@@ -823,8 +835,8 @@ esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia co
 
        ImageSize    -> {280, 55},  (* Imposta larghezza e altezza del pulsante principale *)
        Appearance   -> "Frameless",  (* Rimuove la cornice standard del pulsante *)
-       Method       -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell’interfaccia *)
-      ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell’utente *)
+       Method       -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell'interfaccia *)
+      ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell'utente *)
 
       Background     -> LightYellow,  (* Sfondo giallo chiaro della cornice del pulsante *)
       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso *)
@@ -832,394 +844,492 @@ esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia co
       FrameMargins   -> 10  (* Margine interno tra bordo e contenuto *)
      ],
 
-     Spacer[20],  (* Spazio verticale tra il pulsante e l’interfaccia interattiva *)
+     Spacer[20],  (* Spazio verticale tra il pulsante e l'interfaccia interattiva *)
 
-     Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell’interfaccia esUI[] *)
+     Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell'interfaccia esUI[] *)
     }]
   ]
+
+
+
 
 
 (* ============================== SEZIONE ESERCIZIO ============================== *)
 
-(* Troncamento a 4 decimali *)
-Tronca4[x_] := N[Floor[x*10^4]/10.^4]
 
-(* UI dell’esercizio, prende direttamente il seed intero *)
-esUI[seed_Integer] := Grid[{
-  {es[seed], Spacer[50], SenCosCalcUI[]}
-},
-Alignment -> {Top, Top}
+(* Troncamento a 4 decimali *)
+Tronca4[x_] := N[Floor[x*10^4]/10.^4]  (* Definisce una funzione che tronca x a 4 cifre decimali senza arrotondare: moltiplica per 10^4, tronca con Floor, poi divide per 10.^4 e forza la conversione a numero reale con N *)
+
+
+
+(* UI dell'esercizio, prende direttamente il seed intero *)
+esUI[seed_Integer] :=  (* Definisce una funzione che genera l'interfaccia grafica dell'esercizio a partire da un seed intero *)
+
+ Grid[{  (* Crea una griglia a una riga e tre colonne *)
+ 
+   {es[seed], Spacer[50], SenCosCalcUI[]}  (* Prima cella: interfaccia dell'esercizio generata con il seed; seconda cella: spazio vuoto; terza cella: calcolatrice seno/coseno interattiva *)
+
+ }, 
+
+ Alignment -> {Top, Top}  (* Allinea verticalmente al top gli elementi nella riga della griglia *)
 ]
 
 
 (* Interfaccia utente orizzontale, senza grafico *)
-SenCosCalcUI[] :=
- DynamicModule[{theta = 0, input = "0", errMsg = "", sinVal = "", cosVal = "", calculated = False},
-  Panel[
-   Column[{
-     Style["Calcolatore Seno/Coseno", 24, FontFamily -> "Arial", Bold],
-     Spacer[20],
-     Grid[{
-       {
-        Style["Angolo in gradi", 16],
-        InputField[
-          Dynamic[input],  Number,
-         FieldSize -> 8,
-         FrameMargins -> 5,
-         Background -> LightGray,
-         ContinuousAction -> False,
-         ImageSize -> 100]
+SenCosCalcUI[] :=  (* Definisce la funzione SenCosCalcUI che crea un'interfaccia interattiva per calcolare seno e coseno *)
+ DynamicModule[{theta = 0, input = "0", errMsg = "", sinVal = "", cosVal = "", calculated = False},  
+ (* DynamicModule crea un contenitore con variabili locali che mantengono il loro stato tra aggiornamenti dinamici.
+    Qui si definiscono:
+    - theta: l'angolo in gradi (numerico),
+    - input: il valore inserito (testo),
+    - errMsg: messaggio di errore da visualizzare se l'input e' invalido,
+    - sinVal e cosVal: stringhe che conterranno i valori calcolati,
+    - calculated: flag booleano che indica se i valori sono stati calcolati. *)
+
+  Panel[  (* Crea un pannello decorativo con bordo, utile per incorniciare visivamente l'interfaccia *)
+
+   Column[{  (* Column organizza verticalmente gli elementi dell'interfaccia *)
+
+     Style["Calcolatore Seno/Coseno", 24, FontFamily -> "Arial", Bold],  
+     (* Titolo dell'interfaccia: testo grande, grassetto, font Arial *)
+
+     Spacer[20],  (* Aggiunge spazio verticale tra il titolo e la parte operativa *)
+
+     Grid[{  (* Grid organizza elementi in una struttura a righe e colonne *)
+
+       {  (* Prima riga della griglia: etichetta e campo input *)
+        Style["Angolo in gradi", 16],  (* Etichetta con font medio-grande *)
+
+        InputField[  (* Campo per l'inserimento del valore dell'angolo *)
+          Dynamic[input],  Number,  (* Collega il campo alla variabile 'input'; l'input sara' interpretato come numero *)
+          FieldSize -> 8,  (* Larghezza logica del campo (in numero di caratteri) *)
+          FrameMargins -> 5,  (* Margine interno del campo *)
+          Background -> LightGray,  (* Sfondo grigio chiaro per evidenziare l'area *)
+          ContinuousAction -> False,  (* L'input non aggiorna dinamicamente mentre si digita *)
+          ImageSize -> 100  (* Dimensione orizzontale del campo in pixel *)
+        ]
        },
-       {
-        Button[
-          Style["Calcola", Bold, 12, Black],
-          Module[{val = Quiet@Check[ToExpression[input], $Failed]},
-            If[NumericQ[val],
-              theta = val;
-              errMsg = "";
-              sinVal = ToString[NumberForm[N[Sin[theta Degree]], {5, 4}]];
-              cosVal = ToString[NumberForm[N[Cos[theta Degree]], {5, 4}]];
-              calculated = True;,
-              errMsg = "Inserisci un numero valido!";
-              sinVal = cosVal = "";
-              calculated = False;
+
+       {  (* Seconda riga della griglia: il pulsante di calcolo *)
+        Button[  (* Crea un pulsante che esegue una funzione al click *)
+
+          Style["Calcola", Bold, 12, Black],  (* Testo del pulsante con grassetto, colore nero, dimensione 12 *)
+
+          Module[{val = Quiet@Check[ToExpression[input], $Failed]},  (* Converte 'input' in un'espressione valutabile (es. numero), silenziando errori.
+            - Check intercetta eventuali errori e restituisce $Failed in caso di errore,
+            - Quiet impedisce la stampa di messaggi di errore visivi. *)
+
+            If[NumericQ[val],  (* Verifica se il risultato e' numerico *)
+
+              theta = val;  (* Assegna l'angolo in gradi *)
+              errMsg = "";  (* Pulisce eventuali messaggi di errore *)
+
+              sinVal = ToString[NumberForm[N[Sin[theta Degree]], {5, 4}]];  
+              (* Calcola il seno (con Degree converte da gradi a radianti), tronca a 4 decimali, poi converte in stringa *)
+
+              cosVal = ToString[NumberForm[N[Cos[theta Degree]], {5, 4}]];  
+              (* Idem per il coseno *)
+
+              calculated = True;,  (* Imposta la variabile di stato 'calculated' a vero *)
+
+              errMsg = "Inserisci un numero valido!";  (* Messaggio di errore mostrato se l'input e' invalido *)
+              sinVal = cosVal = "";  (* Svuota i risultati se c'e' stato un errore *)
+              calculated = False;  (* Segnala che il calcolo non e' stato eseguito *)
             ];
           ],
-          Appearance -> {"DialogBox"},
-          ImageSize -> {130, 25},
-          BaseStyle -> {FontFamily -> "Helvetica"}
+
+          Appearance -> {"DialogBox"},  (* Applica uno stile simile ai pulsanti dei dialoghi di sistema *)
+          ImageSize -> {130, 25},  (* Imposta dimensioni fisse del pulsante *)
+          BaseStyle -> {FontFamily -> "Helvetica"}  (* Usa il font Helvetica per il testo del pulsante *)
         ]
        }
-      }, Spacings -> {2, 3}],
-     Spacer[20],
-     Dynamic[
-      Which[
-       errMsg =!= "", Style[errMsg, 14, Bold, FontColor -> Red],
-       !calculated, "",
-       True,
-       Grid[{
-         {Style["Seno:", 16], Style[sinVal, 16, FontColor -> Darker[Green]]},
-         {Style["Coseno:", 16], Style[cosVal, 16, FontColor -> Darker[Orange]]}
-       }, Spacings -> {2, 2}, Alignment -> Left]
+
+      }, Spacings -> {2, 3}],  (* Imposta la spaziatura tra righe e colonne della griglia *)
+
+     Spacer[20],  (* Spazio verticale tra il pulsante e l'output *)
+
+     Dynamic[  (* Dynamic aggiorna automaticamente il contenuto interno in risposta a modifiche delle variabili usate *)
+
+      Which[  (* Costrutto condizionale multiplo: valuta le condizioni in ordine *)
+
+       errMsg =!= "",  (* Se c'e' un messaggio di errore *)
+        Style[errMsg, 14, Bold, FontColor -> Red],  (* Lo mostra in rosso, grassetto, dimensione 14 *)
+
+       !calculated, "",  (* Se non e' stato calcolato nulla, non mostra nulla *)
+
+       True,  (* Altrimenti mostra i risultati calcolati *)
+        Grid[{  (* Mostra seno e coseno in una tabella a due righe *)
+          {Style["Seno:", 16], Style[sinVal, 16, FontColor -> Darker[Green]]},  
+          {Style["Coseno:", 16], Style[cosVal, 16, FontColor -> Darker[Orange]]}
+        }, Spacings -> {2, 2}, Alignment -> Left]  (* Imposta la spaziatura e l'allineamento dei risultati *)
       ]
      ]
-    }, Spacings -> 2],
-   FrameMargins -> 20,
-   RoundingRadius -> 10,
-   FrameStyle -> Directive[GrayLevel[0.8], Thick]
+    }, Spacings -> 2],  (* Spaziatura verticale tra gli elementi della Column *)
+
+   FrameMargins -> 20,  (* Margini interni del pannello *)
+   RoundingRadius -> 10,  (* Arrotondamento degli angoli del bordo *)
+   FrameStyle -> Directive[GrayLevel[0.8], Thick]  (* Stile del bordo: grigio chiaro e spesso *)
   ]
  ]
 
-(* Funzione aggiornata per creare una trasformazione casuale più ricca *)
-randomTransform[] := Module[{transformTypeChoice, subChoice},
-  transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];
-  Switch[transformTypeChoice,
-    
-    "Rotazione",
-    subChoice = RandomChoice[{
-      {"Rotazione 0 gradi",    IdentityMatrix[2]},
-      {"Rotazione 45 gradi",   {{0.7071, -0.7071}, {0.7071, 0.7071}}},
-      {"Rotazione 90 gradi",   {{0, -1}, {1, 0}}},
-      {"Rotazione 135 gradi",  {{-0.7071, -0.7071}, {0.7071, -0.7071}}},
-      {"Rotazione 180 gradi",  {{-1, 0}, {0, -1}}},
-      {"Rotazione 225 gradi",  {{-0.7071, 0.7071}, {-0.7071, -0.7071}}},
-      {"Rotazione 270 gradi",  {{0, 1}, {-1, 0}}},
-      {"Rotazione 315 gradi",  {{0.7071, 0.7071}, {-0.7071, 0.7071}}}
+
+(* Funzione aggiornata per creare una trasformazione casuale piu' ricca *)
+
+randomTransform[] := Module[{transformTypeChoice, subChoice},  (* Definisce una funzione che restituisce una trasformazione lineare casuale.
+                                                                  Usa Module per avere variabili locali: 
+                                                                  - transformTypeChoice seleziona il tipo di trasformazione (rotazione, scala, riflessione)
+                                                                  - subChoice conterra' la trasformazione selezionata e la sua matrice *)
+
+  transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];  
+  (* Sceglie casualmente una delle tre categorie di trasformazioni geometriche *)
+
+  Switch[transformTypeChoice,  (* Esegue un blocco diverso in base alla trasformazione scelta *)
+
+    "Rotazione",  (* Caso: tipo di trasformazione = rotazione *)
+
+    subChoice = RandomChoice[{  (* Sceglie casualmente una tra otto rotazioni con la rispettiva matrice 2x2 *)
+
+      {"Rotazione 0 gradi",    IdentityMatrix[2]},  (* Nessuna rotazione: matrice identita' *)
+      {"Rotazione 45 gradi",   {{0.7071, -0.7071}, {0.7071, 0.7071}}},  (* Rotazione antioraria di 45° *)
+      {"Rotazione 90 gradi",   {{0, -1}, {1, 0}}},  (* Rotazione di 90° antioraria *)
+      {"Rotazione 135 gradi",  {{-0.7071, -0.7071}, {0.7071, -0.7071}}},  (* Rotazione di 135° *)
+      {"Rotazione 180 gradi",  {{-1, 0}, {0, -1}}},  (* Rotazione di 180° (simmetria centrale) *)
+      {"Rotazione 225 gradi",  {{-0.7071, 0.7071}, {-0.7071, -0.7071}}},  (* Rotazione di 225° *)
+      {"Rotazione 270 gradi",  {{0, 1}, {-1, 0}}},  (* Rotazione di 270° *)
+      {"Rotazione 315 gradi",  {{0.7071, 0.7071}, {-0.7071, 0.7071}}}  (* Rotazione di 315° *)
     }],
-    
-    "Scalatura",
-    Module[{sx, sy},
-      sx = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];
-      sy = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];
-      subChoice = {
-        "Scalatura (" <> ToString[sx] <> ", " <> ToString[sy] <> ")",
-        DiagonalMatrix[{sx, sy}]
+
+    "Scalatura",  (* Caso: tipo di trasformazione = scalatura *)
+
+    Module[{sx, sy},  (* Crea un sottoblocco locale con due fattori di scala: sx (asse X), sy (asse Y) *)
+
+      sx = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];  (* Sceglie casualmente un fattore di scala per X (escludendo 0) *)
+      sy = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];  (* Sceglie casualmente un fattore di scala per Y *)
+
+      subChoice = {  (* Costruisce la coppia descrizione + matrice diagonale *)
+        "Scalatura (" <> ToString[sx] <> ", " <> ToString[sy] <> ")",  (* Descrizione testuale della trasformazione *)
+        DiagonalMatrix[{sx, sy}]  (* Matrice diagonale con i fattori di scala sx e sy *)
       };
     ],
-    
-    "Riflessione",
-    subChoice = RandomChoice[{
-      {"Riflessione X",      {{1, 0}, {0, -1}}},
-      {"Riflessione Y",      {{-1, 0}, {0, 1}}},
-      {"Riflessione Y=X",    {{0, 1}, {1, 0}}},
-      {"Riflessione Y=-X",   {{0, -1}, {-1, 0}}},
-      {"Riflessione Y=2X",   (1/5) {{-3, 4}, {4, 3}}},
-      {"Riflessione Y=-1/2X",(1/5) {{-1, 4}, {4, 1}}}
+
+    "Riflessione",  (* Caso: tipo di trasformazione = riflessione *)
+
+    subChoice = RandomChoice[{  (* Sceglie casualmente una tra le riflessioni predefinite *)
+
+      {"Riflessione X",      {{1, 0}, {0, -1}}},  (* Riflette rispetto all'asse X *)
+      {"Riflessione Y",      {{-1, 0}, {0, 1}}},  (* Riflette rispetto all'asse Y *)
+      {"Riflessione Y=X",    {{0, 1}, {1, 0}}},  (* Riflette rispetto alla bisettrice Y = X *)
+      {"Riflessione Y=-X",   {{0, -1}, {-1, 0}}},  (* Riflette rispetto alla bisettrice Y = -X *)
+      {"Riflessione Y=2X",   (1/5) {{-3, 4}, {4, 3}}},  (* Riflette rispetto alla retta Y = 2X, matrice normalizzata *)
+      {"Riflessione Y=-1/2X",(1/5) {{-1, 4}, {4, 1}}}  (* Riflette rispetto alla retta Y = -1/2X, matrice normalizzata *)
     }]
-    
   ];
-  subChoice
+
+  subChoice  (* Restituisce il risultato: una lista con descrizione e matrice della trasformazione scelta *)
 ];
+
 
 (* Definizione della funzione principale "es" che accetta un parametro opzionale "seed" *)
 es[seed_: Automatic] := Module[
+
   {
-    img,            (* immagine originale selezionata casualmente *)
-    dims,           (* dimensioni dell'immagine *)
-    center,         (* centro geometrico dell'immagine *)
-    transformations,(* lista di 5 trasformazioni casuali *)
-    transformedImgs,(* immagini ottenute dalle trasformazioni *)
-    seedUsed        (* seed effettivamente usato per la generazione casuale *)
+    (* Variabili locali usate nel modulo -------------------------------------- *)
+    img,              (* Immagine originale scelta casualmente dalla libreria integrata *)
+    dims,             (* Dimensioni dell'immagine: {larghezza, altezza} *)
+    center,           (* Punto centrale dell'immagine in coordinate 2D *)
+    transformations,  (* Lista di 5 trasformazioni geometriche casuali, ciascuna con descrizione e matrice 2x2 *)
+    transformedImgs,  (* Lista di immagini trasformate tramite le 5 trasformazioni generate *)
+    seedUsed          (* Seed effettivamente usato per inizializzare il generatore casuale *)
   },
 
-  (* Determina quale seed usare:
-     - se l'utente fornisce un intero, lo usa direttamente
-     - altrimenti, genera un intero casuale tra 0 e 10^6 *)
+  (* === 1. Scelta del seed ================================================== *)
+  (* Se l'utente fornisce un intero, lo usa direttamente come seed.
+     Altrimenti genera un intero casuale compreso tra 0 e 10^6 *)
   seedUsed = If[IntegerQ[seed], seed, RandomInteger[10^6]];
-  SeedRandom[seedUsed]; (* Imposta il generatore casuale per riproducibilità *)
 
-  (* Seleziona un'immagine di test casuale tra quelle elencate *)
+  SeedRandom[seedUsed];  (* Imposta il generatore casuale per garantire la riproducibilita' dei risultati *)
+
+  (* === 2. Caricamento dell'immagine di esempio ============================= *)
   img = ExampleData[{
     "TestImage", 
-    RandomChoice[{
+    RandomChoice[{  (* Selezione casuale da una lista di immagini predefinite *)
       "House", "Mandrill", "Boat", "Peppers", "Girl", 
       "Aerial", "Airplane", "House2", "Moon", "Tank", 
       "Tank2", "Tank3"
     }]
   }];
 
-  (* Ottiene larghezza e altezza dell'immagine in pixel *)
-  dims = ImageDimensions[img];
+  (* === 3. Calcolo delle dimensioni e del centro ============================ *)
+  dims = ImageDimensions[img];  (* Ottiene la dimensione dell'immagine in pixel: {larghezza, altezza} *)
 
-  (* Calcola le coordinate del centro dell'immagine:
-     - costruisce due punti: {1,1} (angolo in alto a sinistra) e {w, h}
-     - prende la media tra le due coordinate (centro del rettangolo) *)
-  center = Mean /@ Transpose[{{1, 1}, dims}];
+  center = Mean /@ Transpose[{{1, 1}, dims}];  
+  (* Calcola il centro dell'immagine:
+     - considera il rettangolo delimitato tra l'angolo in alto a sinistra {1,1}
+       e quello in basso a destra {larghezza, altezza}
+     - prende la media tra le coordinate X e tra le coordinate Y per ottenere il punto centrale *)
 
-  (* Crea una lista di 5 trasformazioni casuali 
-     - ogni trasformazione è una coppia: descrizione testuale e matrice 2x2 *)
-  transformations = Table[randomTransform[], {5}];
+  (* === 4. Generazione di 5 trasformazioni casuali ========================== *)
+  transformations = Table[randomTransform[], {5}];  
+  (* Genera 5 trasformazioni geometriche casuali, ciascuna come coppia:
+     {descrizione testuale, matrice 2x2} *)
 
-  (* Applica ciascuna trasformazione all'immagine:
-     - per ogni trasformazione, costruisce una funzione p ↦ centro + M . (p - centro)
-     - applica la trasformazione all'immagine usando ImageTransformation *)
+  (* === 5. Applicazione delle trasformazioni all'immagine =================== *)
   transformedImgs = Table[
     Module[
       {
-        matrix = transformations[[i, 2]], (* estrae la matrice i-esima *)
-        transfFun                        (* funzione geometrica associata *)
+        matrix = transformations[[i, 2]],  (* Estrae la matrice 2x2 della i-esima trasformazione *)
+        transfFun                          (* Funzione che applica la trasformazione ai punti dell'immagine *)
       },
       transfFun = Function[
-        p, center + matrix . (p - center) (* trasforma ogni punto rispetto al centro *)
+        p, center + matrix . (p - center)  
+        (* Funzione affine: trasforma ogni punto p dell'immagine ruotandolo/scalandolo/...
+           rispetto al centro geometrico *)
       ];
+
       ImageTransformation[
-        img, transfFun, 
-        DataRange -> Full,               (* specifica che i punti coprono tutta l'immagine *)
-        Resampling -> "Linear"           (* interpolazione lineare per migliore qualità *)
+        img, transfFun,                   (* Applica la trasformazione all'immagine *)
+        DataRange -> Full,                (* Specifica che i punti p appartengono all'intera immagine *)
+        Resampling -> "Linear"            (* Usa interpolazione lineare per migliorare la qualita' *)
       ]
     ],
-    {i, 5} (* ripete per ciascuna delle 5 trasformazioni *)
+    {i, 5}  (* Ripete il processo per ciascuna delle 5 trasformazioni *)
   ];
+(* Crea l'interfaccia utente interattiva tramite DynamicModule  *)
+DynamicModule[
 
-  (* Crea l'interfaccia utente interattiva tramite DynamicModule *)
-  DynamicModule[
-    {
-      index = 1,                         (* numero dell'esercizio corrente: 1–5 *)
-      userMatrix = ConstantArray[0, {2, 2}], (* matrice inserita dall'utente *)
-      resultText = "",                  (* testo con risultato "Corretto!" o "Sbagliato!" *)
-      userImage = img                   (* immagine trasformata dall'utente *)
-    },
+  {
+    (* Variabili locali usate nel modulo dinamico --------------------------- *)
+    index = 1,  (* Indice dell'esercizio corrente, compreso tra 1 e 5 *)
+    userMatrix = ConstantArray[0, {2, 2}],  (* Matrice 2x2 inserita dall'utente per tentare la trasformazione *)
+    resultText = "",  (* Messaggio di feedback all'utente: “Corretto!” o “Sbagliato!” *)
+    userImage = img  (* Copia dell'immagine originale da trasformare manualmente *)
+  },
 
-    (* Crea un pannello principale con tutti gli elementi grafici *)
-    Panel[
-      Column[{
+  (* Crea il pannello principale con tutti gli elementi dell'interfaccia ---- *)
+  Panel[
+    Column[{
 
-        (* Area superiore: titolo e controlli *)
-        Framed[
-          Column[{
+      (* === Area superiore: intestazione e controlli ====================== *)
+      Framed[
+        Column[{
 
-            (* Titolo dinamico: mostra il numero dell'esercizio e il seed usato *)
-            Dynamic[
-              Column[{
-                Style[
-                  "Esercizio " <> ToString[index] <> "/5", 
-                  Bold, 16, Darker[Green]
+          (* Titolo dinamico: mostra numero esercizio e seed usato -------- *)
+          Dynamic[
+            Column[{
+              Style[
+                "Esercizio " <> ToString[index] <> "/5",  (* Intestazione con indice esercizio *)
+                Bold, 16, Darker[Green]  (* Stile evidenziato: grassetto, dimensione 16, colore verde scuro *)
+              ],
+              Spacer[5],  (* Spazio verticale tra titolo ed etichetta seed *)
+              Style[
+                "Seed: " <> ToString[seedUsed],  (* Visualizza il seed usato per le trasformazioni *)
+                Italic, 12, Darker[Gray]  (* Stile in corsivo, dimensione 12, colore grigio scuro *)
+              ]
+            }]
+          ],
+
+          Spacer[5],  (* Spazio tra il titolo e i pulsanti *)
+
+          (* === Pulsanti di navigazione e suggerimento =================== *)
+          Grid[{
+            {
+
+              (* Pulsante: esercizio precedente ---------------------------- *)
+              Button[
+                Style["< Precedente", Bold, 12, Gray],  (* Etichetta con stile *)
+                If[index > 1,  (* Solo se non si e' al primo esercizio *)
+                  index--;  (* Decrementa indice *)
+                  userMatrix = ConstantArray[0, {2, 2}];  (* Resetta matrice utente *)
+                  resultText = "";  (* Pulisce messaggio di feedback *)
+                  userImage = img  (* Ripristina immagine originale *)
                 ],
-                Spacer[5],
-                Style[
-                  "Seed: " <> ToString[seedUsed], 
-                  Italic, 12, Darker[Gray]
-                ]
-              }]
-            ],
+                Appearance -> {"DialogBox"},  (* Aspetto visivo del bottone *)
+                ImageSize -> {110, 25},  (* Dimensioni in pixel del bottone *)
+                BaseStyle -> {FontFamily -> "Helvetica"}  (* Font coerente con lo stile generale *)
+              ],
 
-            Spacer[5],
-
-            (* Sezione con tre pulsanti: Precedente, Successivo, Suggerimento *)
-            Grid[{
-              {
-                (* Pulsante: passa all'esercizio precedente *)
-                Button[
-                  Style["< Precedente", Bold, 12, Gray],
-                  If[index > 1,
-                    index--;
-                    userMatrix = ConstantArray[0, {2, 2}];
-                    resultText = "";
-                    userImage = img
+              (* Pulsante: mostra matrice corretta come suggerimento ------- *)
+              Button[
+                Style["Suggerimento", Bold, 12, Black],  (* Etichetta pulsante *)
+                CreateDialog[  (* Apre una finestra di dialogo con la matrice *)
+                  Panel[
+                    Column[{
+                      Style["Matrice della trasformazione corrente", Bold, 14, Darker@Gray],
+                      Spacer[10],
+                      Framed[
+                        Style[MatrixForm[transformations[[index, 2]]], 14, Black],  
+                        (* Mostra la matrice come suggerimento, formattata in MatrixForm *)
+                        FrameStyle -> LightGray,  (* Bordo grigio chiaro *)
+                        Background -> GrayLevel[0.97],  (* Sfondo quasi bianco *)
+                        RoundingRadius -> 5,  (* Angoli stondati *)
+                        FrameMargins -> 10  (* Margini interni *)
+                      ],
+                      Spacer[15],
+                      DefaultButton[]  (* Pulsante “OK” per chiudere la finestra *)
+                    }, Spacings -> 1.5],  (* Spaziatura verticale maggiore *)
+                    BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
                   ],
-                  Appearance -> {"DialogBox"},
-                  ImageSize -> {110, 25},
-                  BaseStyle -> {FontFamily -> "Helvetica"}
+                  WindowTitle -> "Suggerimento",  (* Titolo della finestra *)
+                  WindowSize -> {300, 300},  (* Dimensione della finestra di dialogo *)
+                  Background -> White  (* Sfondo completamente bianco *)
                 ],
+                Appearance -> {"DialogBox"},
+                ImageSize -> {130, 25},
+                BaseStyle -> {FontFamily -> "Helvetica"}
+              ],
 
-                (* Pulsante: mostra la matrice corretta dell'esercizio corrente *)
-                Button[
-                  Style["Suggerimento", Bold, 12, Black],
-                  CreateDialog[
-                    Panel[
-                      Column[{
-                        Style["Matrice della trasformazione corrente", Bold, 14, Darker@Gray],
-                        Spacer[10],
-                        Framed[
-                          Style[MatrixForm[transformations[[index, 2]]], 14, Black],
-                          FrameStyle -> LightGray,
-                          Background -> GrayLevel[0.97],
-                          RoundingRadius -> 5,
-                          FrameMargins -> 10
-                        ],
-                        Spacer[15],
-                        DefaultButton[]
-                      }, Spacings -> 1.5],
-                      BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
-                    ],
-                    WindowTitle -> "Suggerimento",
-                    WindowSize -> {300, 300},
-                    Background -> White
-                  ],
-                  Appearance -> {"DialogBox"},
-                  ImageSize -> {130, 25},
-                  BaseStyle -> {FontFamily -> "Helvetica"}
+              
+              Button[
+                Style["Successivo >", Bold, 12, Gray],
+                If[
+                  index < 5,  (* Solo se non si e' all'ultimo esercizio *)
+                  index++;  (* Incrementa indice *)
+                  userMatrix = ConstantArray[0, {2, 2}];  (* Resetta matrice utente *)
+                  resultText = "";  (* Pulisce feedback *)
+                  userImage = img  (* Ripristina immagine originale *)
                 ],
+                Appearance -> {"DialogBox"},
+                ImageSize -> {110, 25},
+                BaseStyle -> {FontFamily -> "Helvetica"}
+              ]
+            }
+          }, Spacings -> {2, 2}]  (* Spaziatura tra i tre pulsanti *)
+        }],
+        FrameStyle -> Directive[Gray, Thin],  (* Bordo sottile grigio *)
+        RoundingRadius -> 5  (* Angoli arrotondati del riquadro *)
+      ],
 
-                (* Pulsante: passa all'esercizio successivo *)
-                Button[
-                  Style["Successivo >", Bold, 12, Gray],
-                  If[
-                    index < 5,
-                    index++;
-                    userMatrix = ConstantArray[0, {2, 2}];
-                    resultText = "";
-                    userImage = img
-                  ],
-                  Appearance -> {"DialogBox"},
-                  ImageSize -> {110, 25},
-                  BaseStyle -> {FontFamily -> "Helvetica"}
-                ],
-              }
-            }, Spacings -> {2, 2}]
-          }],
-          FrameStyle -> Directive[Gray, Thin],
-          RoundingRadius -> 5
-        ],
+               Spacer[10],  (* Spazio verticale tra il riquadro dei pulsanti e la descrizione della trasformazione *)
 
-        Spacer[10],
-
-        (* Descrizione della trasformazione corrente *)
+        (* === Descrizione testuale della trasformazione corrente ========== *)
         Style[
-          Dynamic["Trasformazione: " <> transformations[[index, 1]]],
-          Bold, 14, Blue
+          Dynamic["Trasformazione: " <> transformations[[index, 1]]],  
+          (* Mostra in tempo reale la descrizione testuale della trasformazione corrente *)
+          Bold, 14, Blue  (* Stile in grassetto, dimensione 14, colore blu *)
         ],
 
-        (* Visualizzazione: confronto immagine originale e trasformata *)
+        (* === Confronto visivo: immagine originale vs trasformata ========= *)
         Grid[{
           {
+            (* Colonna sinistra: immagine originale *)
             Labeled[
-              Framed[img, FrameStyle -> LightGray],
-              Style["Originale", Bold],
-              Top
+              Framed[img, FrameStyle -> LightGray],  (* Riquadro grigio chiaro attorno all'immagine originale *)
+              Style["Originale", Bold],  (* Etichetta sopra l'immagine *)
+              Top  (* Posizione dell'etichetta: in alto *)
             ],
-            Spacer[20],
+
+            Spacer[20],  (* Spazio orizzontale tra le due immagini *)
+
+            (* Colonna destra: immagine trasformata corretta *)
             Labeled[
               Framed[
-                Dynamic[transformedImgs[[index]]],
-                FrameStyle -> LightGray
+                Dynamic[transformedImgs[[index]]],  (* Immagine trasformata visualizzata dinamicamente *)
+                FrameStyle -> LightGray  (* Bordo grigio chiaro *)
               ],
-              Style["Trasformata", Bold],
+              Style["Trasformata", Bold],  (* Etichetta sopra l'immagine trasformata *)
               Top
             ]
           }
         }],
 
-        Spacer[5],
-        Style["Inserisci la tua matrice 2x2:", Bold, 12],
+        Spacer[5],  (* Spazio verticale prima dell'input *)
 
-        (* Input della matrice utente: 4 campi numerici *)
+        (* === Intestazione per l'inserimento della matrice utente ========= *)
+        Style["Inserisci la tua matrice 2x2:", Bold, 12],  
+        (* Invita l'utente a inserire la matrice associata alla trasformazione *)
+
+        (* === Campi di input per la matrice utente (4 celle) ============== *)
         Grid[{
           {
-            InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 6],
-            InputField[Dynamic[userMatrix[[1, 2]]], Number, FieldSize -> 6]
+            InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 6],  
+            (* Campo per la cella in alto a sinistra *)
+            InputField[Dynamic[userMatrix[[1, 2]]], Number, FieldSize -> 6]  
+            (* Campo per la cella in alto a destra *)
           },
           {
-            InputField[Dynamic[userMatrix[[2, 1]]], Number, FieldSize -> 6],
-            InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 6]
+            InputField[Dynamic[userMatrix[[2, 1]]], Number, FieldSize -> 6],  
+            (* Campo per la cella in basso a sinistra *)
+            InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 6]  
+            (* Campo per la cella in basso a destra *)
           }
-        }, Spacings -> {1, 1}],
+        }, Spacings -> {1, 1}]  (* Imposta la spaziatura tra i campi della matrice *)
 
-        Spacer[5],
+                Spacer[5],  (* Spazio verticale prima della sezione di verifica *)
 
-        (* Verifica e output *)
-        DynamicModule[{},
+        (* === Verifica e output =========================================== *)
+        DynamicModule[{},  (* Modulo dinamico per contenere il pulsante e il feedback *)
           Column[{
 
-            (* Pulsante "Verifica" che controlla se la matrice inserita è corretta *)
+            (* === Pulsante "Verifica" che controlla se la matrice inserita e' corretta === *)
             Button[
-              Style["Verifica", Bold, 12, Black],
+              Style["Verifica", Bold, 12, Black],  (* Etichetta del pulsante con stile coerente *)
               Module[
                 {
-                  isCorrect,
-                  matrixFun
+                  isCorrect,   (* Variabile booleana per esito correttezza *)
+                  matrixFun    (* Funzione trasformazione costruita dalla matrice utente *)
                 },
-                isCorrect = userMatrix === transformations[[index, 2]];
-                resultText = If[isCorrect, "Corretto!", "Sbagliato!"];
-                matrixFun = Function[p, center + userMatrix . (p - center)];
+                isCorrect = userMatrix === transformations[[index, 2]];  
+                (* Confronta la matrice dell'utente con quella corretta dell'esercizio corrente *)
+
+                resultText = If[isCorrect, "Corretto!", "Sbagliato!"];  
+                (* Aggiorna il messaggio di feedback in base al risultato *)
+
+                matrixFun = Function[p, center + userMatrix . (p - center)];  
+                (* Definisce la trasformazione affine corrispondente alla matrice inserita *)
+
                 userImage = ImageTransformation[
-                  img, matrixFun, DataRange -> Full, Resampling -> "Linear"
-                ];
+                  img, matrixFun, 
+                  DataRange -> Full, 
+                  Resampling -> "Linear"
+                ];  
+                (* Applica la trasformazione all'immagine originale, centrata rispetto al centro *)
               ],
-              Appearance -> {"DialogBox"},
-              ImageSize -> {400, 35},
-              BaseStyle -> {FontFamily -> "Helvetica"}
-            ]
+              Appearance -> {"DialogBox"},  (* Aspetto grafico coerente con gli altri pulsanti *)
+              ImageSize -> {400, 35},       (* Dimensioni del pulsante in pixel *)
+              BaseStyle -> {FontFamily -> "Helvetica"}  (* Font coerente con l'interfaccia *)
+            ],
 
+            Spacer[10],  (* Spazio tra pulsante e risultato dinamico *)
 
-            Spacer[10],
-
-            (* Mostra dinamicamente il risultato e la trasformazione utente *)
+            (* === Mostra dinamicamente il risultato e la trasformazione utente === *)
             Dynamic[
-              If[resultText =!= "",
+              If[resultText =!= "",  (* Se e' stato calcolato un risultato, lo mostra *)
                 Column[{
                   Spacer[10],
                   Style[
-                    resultText,
+                    resultText,  (* Testo "Corretto!" o "Sbagliato!" *)
                     Bold, 14,
-                    If[resultText === "Corretto!", Darker[Green], Red]
+                    If[resultText === "Corretto!", Darker[Green], Red]  
+                    (* Colore verde scuro se corretto, rosso se errato *)
                   ],
                   Grid[{
                     {
                       Labeled[
-                        Framed[img, FrameStyle -> LightGray],
+                        Framed[img, FrameStyle -> LightGray],  (* Immagine originale *)
                         Style["Originale", Bold],
                         Top
                       ],
-                      Spacer[20],
+                      Spacer[20],  (* Spazio tra le due immagini *)
+
                       Labeled[
-                        Framed[userImage, FrameStyle -> LightGray],
+                        Framed[userImage, FrameStyle -> LightGray],  (* Immagine trasformata dall'utente *)
                         Style["Tua trasformazione", Bold],
                         Top
                       ]
                     }
                   }]
-                }, Spacings -> 1.5],
-                "" (* se nessun risultato, mostra stringa vuota *)
+                }, Spacings -> 1.5],  (* Spaziatura verticale tra messaggio e immagini *)
+                ""  (* Se nessun risultato, non mostra nulla *)
               ],
-                TrackedSymbols :> {resultText, userImage}
-              ]
+              TrackedSymbols :> {resultText, userImage}  
+              (* Aggiorna dinamicamente solo se cambiano questi simboli *)
+            ]
           }]
         ]
       },
-      Spacings -> 1.5
+      Spacings -> 1.5  (* Spaziatura uniforme tra le sezioni principali *)
       ],
-      BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
+      BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}  (* Stile grafico generale del pannello *)
     ]
   ]
 ];
