@@ -18,19 +18,16 @@ BeginPackage["Pacchetto`"]
 aUI::usage = 
   "aUI[] crea un'interfaccia grafica interattiva che consente di esplorare il funzionamento delle immagini digitali in scala di grigi e a colori. \
   L'interfaccia e' suddivisa in due sezioni: nella prima l'utente puo' modificare \
-  una matrice binaria 5x5 cliccando sulle celle, osservando in tempo reale la \
+  una matrice 5x5 cliccando sulle celle, osservando in tempo reale la \
   rappresentazione numerica e la visualizzazione grafica corrispondente; nella \
   seconda, e' possibile controllare i valori RGB tramite tre slider e applicare \
   il colore selezionato a una matrice 5x5, con visualizzazione sia numerica \
   sia cromatica.";
 
-
 aUIButton::usage = 
   "aUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo». \
-  Al clic, viene caricata dinamicamente l'interfaccia grafica aUI[], che mostra un'esperienza interattiva legata a una trasformazione o concetto specifico. \
+  Al clic, viene caricata dinamicamente l'interfaccia grafica aUI[], che mostra un'esperienza interattiva legata a una trasformazione. \
   La funzione e' utile per introdurre ordinatamente l'attivita', permettendo all'utente di decidere quando iniziare.";
-
-
 
 bUI::usage = 
   "bUI[] crea un'interfaccia grafica interattiva che permette di esplorare tre trasformazioni geometriche fondamentali applicate a un'immagine digitale: rotazione, riflessione e ridimensionamento. \
@@ -51,12 +48,10 @@ scala::usage =
   I valori possono essere modificati tramite slider o selezionati da preset rapidi. \
   L'interfaccia visualizza l'immagine scalata, la matrice di trasformazione, il determinante (area relativa) e la trasformazione geometrica applicata a un quadrato unitario.";
 
-
 bUIButton::usage = 
   "bUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo». \
-    Al clic, viene caricata dinamicamente l'interfaccia grafica bUI[], che consente di esplorare le trasformazioni geometriche su un'immagine. \
-    Questa funzione e' utile per presentare l'attivita' in modo ordinato, lasciando all'utente la scelta di iniziare l'esercizio.";
-
+  Al clic, viene caricata dinamicamente l'interfaccia grafica bUI[], che consente di esplorare le trasformazioni geometriche su un'immagine. \
+  Questa funzione e' utile per presentare l'attivita' in modo ordinato, lasciando all'utente la scelta di iniziare l'esercizio.";
 
 cUI::usage = 
   "cUI[] crea un'interfaccia grafica interattiva per esplorare il concetto di sfocatura (box blur) in un'immagine digitale. \
@@ -64,35 +59,31 @@ cUI::usage =
   L'interfaccia mostra l'immagine originale, quella sfocata, la matrice del kernel utilizzato e il vicinato dei pixel coinvolti nel calcolo, \
   rendendo visivamente comprensibile il processo di filtraggio spaziale.";
 
-
 cUIButton::usage = 
   "cUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo»; \
   al clic, carica dinamicamente l'interfaccia grafica cUI[], che consente di esplorare l'effetto di una sfocatura (box blur) su un'immagine. \
   La funzione e' pensata per attivare l'esercizio solo su richiesta dell'utente, mantenendo l'interfaccia iniziale pulita e ordinata.";
 
-
 es::usage = 
   "es[seed] seleziona un'immagine casuale e applica 5 trasformazioni geometriche casuali, \
   visualizzandole insieme all'immagine originale in un'interfaccia interattiva. \
   L'utente puo' inserire manualmente la matrice associata a ciascuna trasformazione e ricevere un feedback immediato. \
-  Il parametro opzionale seed (intero o Automatic) consente di rendere riproducibile l'esercizio.";
+  Il parametro opzionale seed consente di rendere riproducibile l'esercizio.";
 
 SenCosCalcUI::usage = 
-  "SenCosCalcUI[] visualizza un'interfaccia interattiva per il calcolo del seno e del coseno di un angolo espresso in gradi. \
-  L'utente puo' modificare l'angolo tramite slider o input diretto, osservando i valori aggiornati in tempo reale.";
+  "SenCosCalcUI[] visualizza un'interfaccia interattiva per il calcolo del seno e del coseno di un angolo espresso in gradi.";
 
 esUI::usage = 
   "esUI[] mostra un'interfaccia interattiva con un'immagine di esempio e 5 trasformazioni lineari casuali. \
   L'utente puo' navigare tra le trasformazioni, inserire matrici personalizzate e confrontare i risultati. \
-  L'interfaccia puo' essere generata anche con es[seed_Integer] per riprodurre una specifica sequenza.";
+  L'interfaccia puo' essere generata anche con es[seed_Integer] per riprodurre una specifica sequenza. \ 
+  Viene mostrata anche una interfaccia grafica utile al calcolo di Seno e Coseno.";
 
 esUIButton::usage = 
   "esUIButton[] visualizza un pulsante etichettato «Avvia esempio interattivo»; \
   al clic, carica dinamicamente l'interfaccia grafica esUI[], mantenendo inizialmente l'ambiente pulito e ordinato.";
 
-
 Begin["`Private`"]
-
 
 (* ============================== SEZIONE A ============================== *)
 
@@ -200,10 +191,10 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
 
         Spacer[20], 
 
-        Dynamic[                             (* Aggiorna dinamicamente l'immagine RGB *)
-          ArrayPlot[                         (* ArrayPlot visualizza la matrice RGB come immagine *)
+        Dynamic[                              (* Aggiorna dinamicamente l'immagine RGB *)
+          ArrayPlot[                          (* ArrayPlot visualizza la matrice RGB come immagine *)
           Map[RGBColor @@ (#/255) &, rgbMat, {2}],  (* Applica a ogni cella della matrice una normalizzazione dei valori RGB da [0–255] a [0–1] e li converte in oggetti RGBColor per la visualizzazione corretta dei colori *)
-            Mesh -> All, MeshStyle -> Black, (* Aggiunge griglia nera *)
+            Mesh -> All, MeshStyle -> Black,  (* Aggiunge griglia nera *)
             Frame -> True, FrameTicks -> None,      (* Nessun tick sugli assi *)
             AspectRatio -> 1, ImageSize -> 200      (* Mantiene il rapporto di aspetto 1:1 e dimensione dell'immagine 200x200 pixel *)
           ]
@@ -238,7 +229,7 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
             Dynamic[Style[g, Darker[Green], Bold]]
           }],
 
-          Row[{                                   (* Slider per il canale Blu *)
+          Row[{                                    (* Slider per il canale Blu *)
             Style["B", Bold, Blue],
             Slider[
               Dynamic[b, (b = Round[#]) &],
@@ -252,10 +243,10 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
 
           Spacer[10],
 
-          Button[                                (* Pulsante per aggiornare l'intera matrice RGB con il colore scelto *)
+          Button[                                 (* Pulsante per aggiornare l'intera matrice RGB con il colore scelto *)
             "Applica RGB a tutta la matrice",
             rgbMat = ConstantArray[{Round[r], Round[g], Round[b]}, {5, 5}],  (* Crea una matrice 5x5 in cui ogni cella contiene la tripla RGB corrente arrotondata, replicata in tutte le posizioni *)
-            ImageSize -> 200                     (* Dimensione del pulsante *)
+            ImageSize -> 200                      (* Dimensione del pulsante *)
           ]
         }]
       }]
@@ -263,11 +254,9 @@ aUI[] := DynamicModule[                       (* DynamicModule crea un'interfacc
   }]
 ]
 
-
 (* ============================== SEZIONE B ============================== *)
 
 (* Funzione per la rotazione dell'immagine *)
-
 rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate al suo interno. In questo caso e' vuoto perche' tutte le variabili sono gestite dentro Manipulate *)
 
   Manipulate[              (* Manipulate genera un'interfaccia interattiva legata alla variabile 'angolo', con controlli (slider, bottoni) e aggiornamenti dinamici *)
@@ -504,7 +493,6 @@ scala[] := Module[{},  (* Module crea un contenitore con ambito locale. Anche se
   ]
 ]
 
-
 (* Interfaccia utente combinata per tutte le trasformazioni *)
 bUI[] := Column[{  (* Column organizza verticalmente gli elementi elencati: titolo + 3 interfacce *)
 
@@ -518,7 +506,6 @@ bUI[] := Column[{  (* Column organizza verticalmente gli elementi elencati: tito
   scala[]                          (* Richiama la funzione che genera l'interfaccia per la scala dell'immagine *)
 
 }]
-
 
 (* ============================== SEZIONE C ============================== *)
 
@@ -680,187 +667,10 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
   }]
 ];
 
-
-
-aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'interfaccia iniziale con bottone *)
- Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata, rendendola solo visualizzabile *)
- DynamicModule[{content = None},  (* Inizializza la variabile locale 'content', vuota fino al primo click *)
-   Column[{  (* Organizza verticalmente il pulsante e il contenuto caricato *)
-   
-     Framed[  (* Inserisce il pulsante in una cornice decorativa *)
-       Deploy @ Button[  (* Crea un pulsante che al click assegna aUI[] alla variabile content *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Testo del pulsante con stile visivo *)
-         content = aUI[],  (* Azione eseguita al click: carica e assegna l'interfaccia interattiva aUI[] *)
-         ImageSize   -> {280, 55},  (* Dimensione del pulsante: larghezza 280px, altezza 55px *)
-         Appearance  -> "Frameless"  (* Rimuove il bordo standard del pulsante per un look personalizzato *)
-       ],
-       Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
-       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso attorno al pulsante *)
-       RoundingRadius -> 10,  (* Angoli arrotondati per la cornice *)
-       FrameMargins   -> 10  (* Margine interno tra cornice e contenuto *)
-     ],
-     
-     Spacer[20],  (* Spazio verticale tra il pulsante e il contenuto caricato *)
-     
-     Dynamic[ If[content === None, "", content] ]  (* Mostra aUI[] solo dopo il click: se 'content' e' vuoto, non mostra nulla *)
-   }]
- ];
-
-
-bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l'interfaccia con pulsante per avviare bUI[] *)
- Deploy @  (* Impedisce modifiche da parte dell'utente all'interfaccia grafica generata *)
- DynamicModule[{content = None},  (* Crea una variabile locale 'content' che inizialmente e' vuota *)
-   Column[{  (* Dispone verticalmente pulsante e contenuto *)
-
-     Framed[  (* Crea una cornice attorno al pulsante per evidenziarlo graficamente *)
-       Deploy @ Button[  (* Genera un pulsante che all'attivazione esegue bUI[] e lo assegna a 'content' *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Stile grafico del testo del pulsante *)
-         content = bUI[],  (* Azione eseguita al click: genera e memorizza l'interfaccia bUI[] *)
-         ImageSize   -> {280, 55},  (* Imposta le dimensioni del pulsante *)
-         Appearance  -> "Frameless"  (* Elimina la cornice standard del pulsante per un aspetto personalizzato *)
-       ],
-       Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
-       FrameStyle     -> Directive[Thick, Gray],  (* Stile della cornice: grigia e spessa *)
-       RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto piu' moderno *)
-       FrameMargins   -> 10  (* Spazio interno tra bordo e contenuto della cornice *)
-     ],
-
-     Spacer[20],  (* Aggiunge spazio verticale tra pulsante e contenuto *)
-
-     Dynamic[ If[content === None, "", content] ]  (* Mostra bUI[] solo dopo il click sul pulsante, altrimenti resta vuoto *)
-   }]
- ];
-
-
-cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con pulsante per attivare cUI[] *)
- Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata rendendola statica *)
- DynamicModule[{content = None},  (* Inizializza la variabile locale 'content' che conterra' cUI[] dopo il click *)
-   Column[{  (* Dispone verticalmente il pulsante e il contenuto caricato *)
-
-     Framed[  (* Incornicia il pulsante con stile grafico definito *)
-       Deploy @ Button[  (* Crea un pulsante che al click assegna cUI[] alla variabile 'content' *)
-         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Testo del pulsante con dimensione, colore e grassetto *)
-         content = cUI[],  (* Azione al click: assegna a 'content' l'interfaccia interattiva generata da cUI[] *)
-         ImageSize   -> {280, 55},  (* Imposta larghezza e altezza del pulsante *)
-         Appearance  -> "Frameless"  (* Rimuove i bordi standard del pulsante per uno stile personalizzato *)
-       ],
-       Background     -> LightYellow,  (* Imposta lo sfondo giallo chiaro alla cornice del pulsante *)
-       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso per evidenziare il pulsante *)
-       RoundingRadius -> 10,  (* Arrotonda gli angoli della cornice per un aspetto piu' morbido *)
-       FrameMargins   -> 10  (* Aggiunge margine interno tra bordo e pulsante *)
-     ],
-
-     Spacer[20],  (* Inserisce uno spazio verticale tra il pulsante e il contenuto *)
-
-     Dynamic[ If[content === None, "", content] ]  (* Visualizza cUI[] solo dopo il click; altrimenti non mostra nulla *)
-   }]
- ];
- 
-
-
-esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia con pulsante e gestione seed *)
- Deploy@  (* Rende l'interfaccia non modificabile interattivamente dall'utente *)
-
-  DynamicModule[{content = None},  (* Modulo dinamico con variabile locale 'content' inizialmente nulla *)
-   Column[{  (* Disposizione verticale degli elementi: pulsante + contenuto *)
-
-     Framed[  (* Inserisce una cornice attorno al pulsante *)
-      Button[  (* Crea un pulsante che avvia l'interfaccia esercizio *)
-
-       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  (* Stile del testo del pulsante: grande, grassetto, blu scuro *)
-
-       Module[{seed},  (* Blocco eseguito al click: inizializza la variabile locale 'seed' *)
-
-        seed = DialogInput[  (* Apre un dialogo modale per inserire il seed *)
-            DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Inizializza il campo con un numero casuale tra 1 e 9999 *)
-
-            Panel[  (* Crea un pannello grafico contenente gli elementi del dialogo *)
-              Column[{  (* Disposizione verticale dei componenti del pannello *)
-
-                Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  (* Titolo in grigio scuro e grassetto *)
-
-                Style[  (* Testo descrittivo sull'uso del seed *)
-                "Inserisci un numero intero che fungera' da 'seed': questo valore determinera' la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
-                12, GrayLevel[0.3], LineSpacing -> 1.5],  (* Stile del testo: piccolo, grigio chiaro, con interlinea *)
-
-                Item[  (* Campo di input centrato *)
-                InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico legato dinamicamente alla variabile s *)
-                Alignment -> Center  (* Centra il campo nella riga *)
-                ],
-
-                Spacer[15],  (* Spazio verticale tra input e pulsanti *)
-
-                Row[{  (* Riga con i pulsanti Annulla e Invio *)
-
-                  Button["Annulla",  (* Pulsante per annullare l'inserimento del seed *)
-                  DialogReturn[None],  (* Chiude il dialogo restituendo None *)
-                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
-                  Appearance -> {"Cancel", "DialogBox"},  (* Aspetto standard da dialogo di sistema *)
-                  BaseStyle -> {12}  (* Font size del testo nel pulsante *)
-                  ],
-
-                  Spacer[20],  (* Spazio orizzontale tra i due pulsanti *)
-
-                  Button["Invio",  (* Pulsante per confermare il valore del seed *)
-                  DialogReturn[s],  (* Chiude il dialogo restituendo il valore attuale di s *)
-                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
-                  Appearance -> {"Default", "DialogBox"},  (* Aspetto del pulsante principale *)
-                  BaseStyle -> {Bold, 12}  (* Stile grassetto e font size del testo *)
-                  ],
-
-                }, Alignment -> Center]  (* Centra i pulsanti nella riga *)
-              },
-              Spacings -> 2  (* Imposta la spaziatura verticale tra gli elementi della Column *)
-              ],
-              Background -> White,  (* Imposta sfondo bianco del pannello *)
-              FrameMargins -> 20,  (* Margine interno attorno al contenuto del pannello *)
-              AppearanceElements -> {"CloseBox"},  (* Aggiunge il pulsante di chiusura nella finestra di dialogo *)
-              ImageSize -> 400  (* Imposta la dimensione fissa del pannello in pixel *)
-            ]
-            ]
-          ];  (* Fine del DialogInput: il valore restituito viene assegnato a 'seed' *)
-
-        Which[  (* Controlla il valore ottenuto dal dialogo *)
-
-         seed === None,  (* Se l'utente ha cliccato Annulla *)
-          2+2 == 4,  (* Esegue operazione neutra: non cambia nulla *)
-
-         ! IntegerQ[seed],  (* Se il valore ottenuto non e' un intero *)
-          MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra un messaggio di errore *)
-
-         True,  (* In tutti gli altri casi *)
-          content = esUI[seed]  (* Genera l'interfaccia esUI[] con il seed ottenuto *)
-        ]
-       ],  (* Fine del blocco Module eseguito al click del pulsante *)
-
-       ImageSize    -> {280, 55},  (* Imposta larghezza e altezza del pulsante principale *)
-       Appearance   -> "Frameless",  (* Rimuove la cornice standard del pulsante *)
-       Method       -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell'interfaccia *)
-      ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell'utente *)
-
-      Background     -> LightYellow,  (* Sfondo giallo chiaro della cornice del pulsante *)
-      FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso *)
-      RoundingRadius -> 10,  (* Angoli arrotondati della cornice *)
-      FrameMargins   -> 10  (* Margine interno tra bordo e contenuto *)
-     ],
-
-     Spacer[20],  (* Spazio verticale tra il pulsante e l'interfaccia interattiva *)
-
-     Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell'interfaccia esUI[] *)
-    }]
-  ]
-
-
-
-
-
 (* ============================== SEZIONE ESERCIZIO ============================== *)
-
 
 (* Troncamento a 4 decimali *)
 Tronca4[x_] := N[Floor[x*10^4]/10.^4]  (* Definisce una funzione che tronca x a 4 cifre decimali senza arrotondare: moltiplica per 10^4, tronca con Floor, poi divide per 10.^4 e forza la conversione a numero reale con N *)
-
-
 
 (* UI dell'esercizio, prende direttamente il seed intero *)
 esUI[seed_Integer] :=  (* Definisce una funzione che genera l'interfaccia grafica dell'esercizio a partire da un seed intero *)
@@ -873,7 +683,6 @@ esUI[seed_Integer] :=  (* Definisce una funzione che genera l'interfaccia grafic
 
  Alignment -> {Top, Top}  (* Allinea verticalmente al top gli elementi nella riga della griglia *)
 ]
-
 
 (* Interfaccia utente orizzontale, senza grafico *)
 SenCosCalcUI[] :=  (* Definisce la funzione SenCosCalcUI che crea un'interfaccia interattiva per calcolare seno e coseno *)
@@ -972,9 +781,7 @@ SenCosCalcUI[] :=  (* Definisce la funzione SenCosCalcUI che crea un'interfaccia
   ]
  ]
 
-
 (* Funzione aggiornata per creare una trasformazione casuale piu' ricca *)
-
 randomTransform[] := Module[{transformTypeChoice, subChoice},  (* Definisce una funzione che restituisce una trasformazione lineare casuale.
                                                                   Usa Module per avere variabili locali: 
                                                                   - transformTypeChoice seleziona il tipo di trasformazione (rotazione, scala, riflessione)
@@ -1027,7 +834,6 @@ randomTransform[] := Module[{transformTypeChoice, subChoice},  (* Definisce una 
 
   subChoice  (* Restituisce il risultato: una lista con descrizione e matrice della trasformazione scelta *)
 ];
-
 
 (* Definizione della funzione principale "es" che accetta un parametro opzionale "seed" *)
 es[seed_: Automatic] := Module[
@@ -1334,8 +1140,171 @@ DynamicModule[
   ]
 ];
 
+(* ============================== SEZIONE BOTTONI ============================== *)
 
+aUIButton[] :=  (* Definisce la funzione UIButton senza parametri: crea un'interfaccia iniziale con bottone *)
+ Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata, rendendola solo visualizzabile *)
+ DynamicModule[{content = None},  (* Inizializza la variabile locale 'content', vuota fino al primo click *)
+   Column[{  (* Organizza verticalmente il pulsante e il contenuto caricato *)
+   
+     Framed[  (* Inserisce il pulsante in una cornice decorativa *)
+       Deploy @ Button[  (* Crea un pulsante che al click assegna aUI[] alla variabile content *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Testo del pulsante con stile visivo *)
+         content = aUI[],  (* Azione eseguita al click: carica e assegna l'interfaccia interattiva aUI[] *)
+         ImageSize   -> {280, 55},  (* Dimensione del pulsante: larghezza 280px, altezza 55px *)
+         Appearance  -> "Frameless"  (* Rimuove il bordo standard del pulsante per un look personalizzato *)
+       ],
+       Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
+       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso attorno al pulsante *)
+       RoundingRadius -> 10,  (* Angoli arrotondati per la cornice *)
+       FrameMargins   -> 10  (* Margine interno tra cornice e contenuto *)
+     ],
+     
+     Spacer[20],  (* Spazio verticale tra il pulsante e il contenuto caricato *)
+     
+     Dynamic[ If[content === None, "", content] ]  (* Mostra aUI[] solo dopo il click: se 'content' e' vuoto, non mostra nulla *)
+   }]
+ ];
 
+bUIButton[] :=  (* Definisce la funzione bUIButton senza argomenti: crea l'interfaccia con pulsante per avviare bUI[] *)
+ Deploy @  (* Impedisce modifiche da parte dell'utente all'interfaccia grafica generata *)
+ DynamicModule[{content = None},  (* Crea una variabile locale 'content' che inizialmente e' vuota *)
+   Column[{  (* Dispone verticalmente pulsante e contenuto *)
+
+     Framed[  (* Crea una cornice attorno al pulsante per evidenziarlo graficamente *)
+       Deploy @ Button[  (* Genera un pulsante che all'attivazione esegue bUI[] e lo assegna a 'content' *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Stile grafico del testo del pulsante *)
+         content = bUI[],  (* Azione eseguita al click: genera e memorizza l'interfaccia bUI[] *)
+         ImageSize   -> {280, 55},  (* Imposta le dimensioni del pulsante *)
+         Appearance  -> "Frameless"  (* Elimina la cornice standard del pulsante per un aspetto personalizzato *)
+       ],
+       Background     -> LightYellow,  (* Colore di sfondo della cornice del pulsante *)
+       FrameStyle     -> Directive[Thick, Gray],  (* Stile della cornice: grigia e spessa *)
+       RoundingRadius -> 10,  (* Angoli arrotondati per un aspetto piu' moderno *)
+       FrameMargins   -> 10  (* Spazio interno tra bordo e contenuto della cornice *)
+     ],
+
+     Spacer[20],  (* Aggiunge spazio verticale tra pulsante e contenuto *)
+
+     Dynamic[ If[content === None, "", content] ]  (* Mostra bUI[] solo dopo il click sul pulsante, altrimenti resta vuoto *)
+   }]
+ ];
+
+cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con pulsante per attivare cUI[] *)
+ Deploy @  (* Impedisce all'utente di modificare l'interfaccia generata rendendola statica *)
+ DynamicModule[{content = None},  (* Inizializza la variabile locale 'content' che conterra' cUI[] dopo il click *)
+   Column[{  (* Dispone verticalmente il pulsante e il contenuto caricato *)
+
+     Framed[  (* Incornicia il pulsante con stile grafico definito *)
+       Deploy @ Button[  (* Crea un pulsante che al click assegna cUI[] alla variabile 'content' *)
+         Style["Avvia esempio interattivo", 16, Bold, Darker @ Blue],  (* Testo del pulsante con dimensione, colore e grassetto *)
+         content = cUI[],  (* Azione al click: assegna a 'content' l'interfaccia interattiva generata da cUI[] *)
+         ImageSize   -> {280, 55},  (* Imposta larghezza e altezza del pulsante *)
+         Appearance  -> "Frameless"  (* Rimuove i bordi standard del pulsante per uno stile personalizzato *)
+       ],
+       Background     -> LightYellow,  (* Imposta lo sfondo giallo chiaro alla cornice del pulsante *)
+       FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso per evidenziare il pulsante *)
+       RoundingRadius -> 10,  (* Arrotonda gli angoli della cornice per un aspetto piu' morbido *)
+       FrameMargins   -> 10  (* Aggiunge margine interno tra bordo e pulsante *)
+     ],
+
+     Spacer[20],  (* Inserisce uno spazio verticale tra il pulsante e il contenuto *)
+
+     Dynamic[ If[content === None, "", content] ]  (* Visualizza cUI[] solo dopo il click; altrimenti non mostra nulla *)
+   }]
+ ];
+ 
+esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia con pulsante e gestione seed *)
+ Deploy@  (* Rende l'interfaccia non modificabile interattivamente dall'utente *)
+
+  DynamicModule[{content = None},  (* Modulo dinamico con variabile locale 'content' inizialmente nulla *)
+   Column[{  (* Disposizione verticale degli elementi: pulsante + contenuto *)
+
+     Framed[  (* Inserisce una cornice attorno al pulsante *)
+      Button[  (* Crea un pulsante che avvia l'interfaccia esercizio *)
+
+       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  (* Stile del testo del pulsante: grande, grassetto, blu scuro *)
+
+       Module[{seed},  (* Blocco eseguito al click: inizializza la variabile locale 'seed' *)
+
+        seed = DialogInput[  (* Apre un dialogo modale per inserire il seed *)
+            DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Inizializza il campo con un numero casuale tra 1 e 9999 *)
+
+            Panel[  (* Crea un pannello grafico contenente gli elementi del dialogo *)
+              Column[{  (* Disposizione verticale dei componenti del pannello *)
+
+                Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  (* Titolo in grigio scuro e grassetto *)
+
+                Style[  (* Testo descrittivo sull'uso del seed *)
+                "Inserisci un numero intero che fungera' da 'seed': questo valore determinera' la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
+                12, GrayLevel[0.3], LineSpacing -> 1.5],  (* Stile del testo: piccolo, grigio chiaro, con interlinea *)
+
+                Item[  (* Campo di input centrato *)
+                InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico legato dinamicamente alla variabile s *)
+                Alignment -> Center  (* Centra il campo nella riga *)
+                ],
+
+                Spacer[15],  (* Spazio verticale tra input e pulsanti *)
+
+                Row[{  (* Riga con i pulsanti Annulla e Invio *)
+
+                  Button["Annulla",  (* Pulsante per annullare l'inserimento del seed *)
+                  DialogReturn[None],  (* Chiude il dialogo restituendo None *)
+                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
+                  Appearance -> {"Cancel", "DialogBox"},  (* Aspetto standard da dialogo di sistema *)
+                  BaseStyle -> {12}  (* Font size del testo nel pulsante *)
+                  ],
+
+                  Spacer[20],  (* Spazio orizzontale tra i due pulsanti *)
+
+                  Button["Invio",  (* Pulsante per confermare il valore del seed *)
+                  DialogReturn[s],  (* Chiude il dialogo restituendo il valore attuale di s *)
+                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
+                  Appearance -> {"Default", "DialogBox"},  (* Aspetto del pulsante principale *)
+                  BaseStyle -> {Bold, 12}  (* Stile grassetto e font size del testo *)
+                  ],
+
+                }, Alignment -> Center]  (* Centra i pulsanti nella riga *)
+              },
+              Spacings -> 2  (* Imposta la spaziatura verticale tra gli elementi della Column *)
+              ],
+              Background -> White,  (* Imposta sfondo bianco del pannello *)
+              FrameMargins -> 20,  (* Margine interno attorno al contenuto del pannello *)
+              AppearanceElements -> {"CloseBox"},  (* Aggiunge il pulsante di chiusura nella finestra di dialogo *)
+              ImageSize -> 400  (* Imposta la dimensione fissa del pannello in pixel *)
+            ]
+            ]
+          ];  (* Fine del DialogInput: il valore restituito viene assegnato a 'seed' *)
+
+        Which[  (* Controlla il valore ottenuto dal dialogo *)
+
+         seed === None,  (* Se l'utente ha cliccato Annulla *)
+          2+2 == 4,  (* Esegue operazione neutra: non cambia nulla *)
+
+         ! IntegerQ[seed],  (* Se il valore ottenuto non e' un intero *)
+          MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra un messaggio di errore *)
+
+         True,  (* In tutti gli altri casi *)
+          content = esUI[seed]  (* Genera l'interfaccia esUI[] con il seed ottenuto *)
+        ]
+       ],  (* Fine del blocco Module eseguito al click del pulsante *)
+
+       ImageSize    -> {280, 55},  (* Imposta larghezza e altezza del pulsante principale *)
+       Appearance   -> "Frameless",  (* Rimuove la cornice standard del pulsante *)
+       Method       -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell'interfaccia *)
+      ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell'utente *)
+
+      Background     -> LightYellow,  (* Sfondo giallo chiaro della cornice del pulsante *)
+      FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso *)
+      RoundingRadius -> 10,  (* Angoli arrotondati della cornice *)
+      FrameMargins   -> 10  (* Margine interno tra bordo e contenuto *)
+     ],
+
+     Spacer[20],  (* Spazio verticale tra il pulsante e l'interfaccia interattiva *)
+
+     Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell'interfaccia esUI[] *)
+    }]
+  ]
 
 End[]
 EndPackage[]
