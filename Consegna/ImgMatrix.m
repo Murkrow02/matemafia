@@ -1,17 +1,17 @@
-(* :Title: Matemafia: introduzione a ... )
-( :Context: context da fare )
+(* :Title: Matemafia: introduzione all’elaborazione delle immagini digitali tramite trasformazioni matriciali )
+( :Context: MatemafiaTutorial` )
 ( :Author: Davide De Rosa, Marco Coppola, Valerio Pio De Nicola, Marco Miozza )
-( :Summary:  )
+( :Summary: Questo notebook interattivo guida lo studente alla scoperta della struttura matematica delle immagini digitali. )
 ( :Copyright: Matemafia2025 )
 ( :Package Version: 1 )
 ( :Mathematica Version: 14.2 )
 ( :History: last modified 08/05/2025 )
-( :Keywords: matrix, rgb, img, trans, scale, rotation )
+( :Keywords: immagini digitali, matrici, trasformazioni lineari, RGB, convoluzione, filtro, rotazione, scala, riflessione, kernel )
 ( :Sources: biblio/sitog )
-( :Limitations: this is for educational purposes only. )
-( :Discussion: da fare )
-( :Requirements: da fare )
-( :Warning: package Context is not defined *)
+( :Limitations: Questo materiale è pensato per scopi educativi e introduttivi. Alcune semplificazioni teoriche sono presenti per facilitare la comprensione. )
+( :Discussion: Questo notebook è stato sviluppato come progetto didattico per il corso di Matematica Computazionale. )
+( :Requirements: Mathematica 14.2 )
+( :Warning: Il pacchetto non è definito. Assicurarsi di caricare o creare il contesto corretto prima di eseguire il notebook. *)
 
 BeginPackage["ImgMatrix`"]
 
@@ -297,8 +297,8 @@ rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate
               Column[{  (* Column impila verticalmente le righe di testo *)
                 Style["ISTRUZIONI:", Bold, 20, Darker[Blue]],  (* Titolo delle istruzioni con stile *)
                 Style["1. Scegli l'asse di riflessione", 15],
-                Style["2. X = Specchio verticale (sinistra/destra)", 15],
-                Style["3. Y = Specchio orizzontale (sopra/sotto)", 15],
+                Style["2. X: Specchio verticale (sinistra/destra)", 15],
+                Style["3. Y: Specchio orizzontale (sopra/sotto)", 15],
                 Style["4. La matrice mostra la trasformazione", 15]
               }, Alignment -> Left],  (* Allinea a sinistra il testo nella colonna *)
               Background -> Lighter[Gray, 0.9]  (* Sfondo grigio chiaro per il pannello *)
@@ -313,8 +313,8 @@ rotazione[] := Module[{},  (* Module serve a localizzare le variabili dichiarate
     {{angolo, 0,  (* Controllo associato alla variabile 'angolo', inizializzato a 0 gradi *)
       Column[{  (* Etichette descrittive dello slider *)
         "ANGOLO DI ROTAZIONE", 
-        "(0 gradi = originale, 90 gradi = ruota a destra)", 
-        "(180 gradi = sottosopra, 360 gradi = giro completo)"
+        "(0 gradi: originale, 90 gradi: ruota a destra)", 
+        "(180 gradi: sottosopra, 360 gradi: giro completo)"
       }]},
      0, 360, 1,  (* Range da 0 a 360, passo 1 grado *)
      Appearance -> "Labeled"  (* Mostra il valore numerico accanto allo slider *)
@@ -359,17 +359,18 @@ riflessione[] := Module[{},  (* Module serve a isolare le variabili locali e str
       ];  
       (* Viene restituita una coppia: l'immagine riflessa e la matrice di trasformazione associata *)
 
-      Grid[{  (* Grid organizza il layout come una griglia. Qui si usa una riga con due colonne *)
+      Grid[{  (* Grid organizza il layout come una griglia. Qui si usa una riga con tre colonne *)
         {
-          riflessa,  (* Prima colonna: visualizza l'immagine dopo la riflessione *)
+          Column[{Style["Originale", Bold], img}],  (* Etichetta e immagine originale *)
+          Column[{Style["Riflessa", Bold], riflessa}],  (* Etichetta e immagine riflessa *)
 
-          Column[{  (* Seconda colonna: elementi descrittivi e analitici *)
+          Column[{  (* Terza colonna: elementi descrittivi e analitici *)
             Panel[  (* Panel crea un contenitore incorniciato con sfondo personalizzato *)
               Column[{  (* Column impila verticalmente gli elementi testuali *)
                 Style["RIFLESSIONE", Bold, 20, Darker[Blue]],  (* Titolo con stile formattato *)
                 Style["Seleziona l'asse di simmetria:", 15],  (* Istruzioni  per l'utente *)
-                "(X = Ribalta verticalmente)",
-                "(Y = Ribalta orizzontalmente)"
+                "(X: Ribalta verticalmente)",
+                "(Y: Ribalta orizzontalmente)"
               }],
               Background -> Lighter[Gray, 0.9]  (* Sfondo grigio chiaro per migliorare la leggibilita' *)
             ],
@@ -385,12 +386,13 @@ riflessione[] := Module[{},  (* Module serve a isolare le variabili locali e str
     {{asse, "X",  (* Controllo interattivo: variabile inizializzata a \"X\" *)
       Column[{  (* Testo descrittivo accanto al menu *)
         "SELEZIONA ASSE:", 
-        "(X = Ribalta sinistra/destra)", 
-        "(Y = Ribalta sopra/sotto)"
+        "(X: Ribalta sinistra/destra)", 
+        "(Y: Ribalta sopra/sotto)"
       }]
     }, {"X", "Y"}}  (* Valori possibili per la variabile 'asse': \"X\" o \"Y\" *)
   ]
 ]
+
 
 (* Funzione per il ridimensionamento dell'immagine *)
 scala[] := Module[{},  (* Module crea un contenitore con ambito locale. Anche se qui non si inizializzano variabili, serve a contenere la Manipulate *)
@@ -435,9 +437,9 @@ scala[] := Module[{},  (* Module crea un contenitore con ambito locale. Anche se
           Panel[Column[{  (* Panel evidenzia le istruzioni, racchiuse in una Column *)
             Style["ISTRUZIONI:", Bold, 20, Darker[Blue]], (* Titolo con stile *)
             Style["1. Regola i fattori di scala X e Y", 15], 
-            Style["2. 1 = dimensione originale", 15],
-            Style["3. <1 = rimpicciolisci", 15],
-            Style["4. >1 = ingrandisci", 15],
+            Style["2. 1: dimensione originale", 15],
+            Style["3. <1: rimpicciolisci", 15],
+            Style["4. >1: ingrandisci", 15],
             Style["5. La matrice mostra la trasformazione", 15]
           }], Background -> Lighter[Gray, 0.9]],
 
