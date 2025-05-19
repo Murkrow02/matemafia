@@ -518,11 +518,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
  Deploy @  (* Deploy impedisce modifiche accidentali all'interfaccia grafica da parte dell'utente *)
  Module[
 
-  {
-    (* Variabili locali usate nel modulo -------------------------------------- *)
-    imageDisplaySize  = 300,   (* Dimensione in pixel per la visualizzazione dell'immagine principale *)
-    neighborhoodDisplaySize = 250  (* Dimensione per la visualizzazione del vicinato dei pixel *)
-  },
+  {},
 
   (* Layout principale dell'interfaccia, strutturato verticalmente ----------- *)
   Column[{
@@ -584,7 +580,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
               imageData = ImageData[img];  (* Estrae la matrice RGB dei pixel *)
               padding = Floor[kSize / 2];  (* Raggio del kernel, serve per determinare il vicinato *)
 
-              blurredImg = ImageResize[ImageConvolve[img, kernel], imageDisplaySize];  
+              blurredImg = ImageResize[ImageConvolve[img, kernel], 300];  
               (* Applica la convoluzione e ridimensiona il risultato *)
 
               originalImgWithRect = Rasterize[  (* Visualizza il rettangolo sul pixel scelto *)
@@ -600,7 +596,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
                     ]
                   }]
                 ],
-                RasterSize -> imageDisplaySize  (* Specifica le dimensioni finali *)
+                RasterSize -> 300  (* Specifica le dimensioni finali *)
               ];
 
               (* Estrazione del vicinato attorno al pixel scelto ------------ *)
@@ -624,9 +620,9 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
                   Column[{  (* Colonna: immagine originale *)
                     Style["Immagine originale", Bold],
                     LocatorPane[
-                      Dynamic[locatorPosition],  (* Permette di cliccare sull'immagine *)
-                      Image[originalImgWithRect, ImageSize -> imageDisplaySize],
-                      LocatorShape -> Graphics[{Circle[{0, 0}, 5]}]  (* Indicatore rosso *)
+                      Dynamic[locatorPosition],
+                      Image[originalImgWithRect, ImageSize -> 300],
+                      Appearance -> Graphics[{Red, Circle[{0, 0}, 1]}]
                     ]
                   }],
 
@@ -634,7 +630,7 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
 
                   Column[{  (* Colonna: immagine sfocata *)
                     Style["Immagine sfocata", Bold],  (* Intestazione in grassetto per la sezione che mostra l'immagine convoluta *)
-                    Image[blurredImg, ImageSize -> imageDisplaySize]  (* Mostra l'immagine sfocata ottenuta tramite convoluzione con kernel *)
+                    Image[blurredImg, ImageSize -> 300]  (* Mostra l'immagine sfocata ottenuta tramite convoluzione con kernel *)
                   }],
 
                   Spacer[20],  (* Spazio tra le colonne *)
@@ -655,8 +651,8 @@ cUI[] :=  (* Definisce la funzione cUI senza parametri *)
                 Row[{
                   Style["Neighborhood: ", Bold], (* Intestazione per la matrice del vicinato *)
                   Image[ 
-                    ImageResize[Image[neighborhood], neighborhoodDisplaySize],  (* Crea un'immagine dal vicinato e la ridimensiona alla dimensione desiderata *)
-                    ImageSize -> neighborhoodDisplaySize  (* Imposta la dimensione finale dell'immagine del vicinato nella GUI *)
+                    ImageResize[Image[neighborhood], 250],  (* Crea un'immagine dal vicinato e la ridimensiona alla dimensione desiderata *)
+                    ImageSize -> 250  (* Imposta la dimensione finale dell'immagine del vicinato nella GUI *)
 
                   ]
                 }]
@@ -777,9 +773,7 @@ SenCosCalcUI[] :=  (* Definisce la funzione SenCosCalcUI che crea un'interfaccia
      ]
     }, Spacings -> 2],  (* Spaziatura verticale tra gli elementi della Column *)
 
-   FrameMargins -> 20,  (* Margini interni del pannello *)
-   RoundingRadius -> 10,  (* Arrotondamento degli angoli del bordo *)
-   FrameStyle -> Directive[GrayLevel[0.8], Thick]  (* Stile del bordo: grigio chiaro e spesso *)
+   FrameMargins -> 20  (* Margini interni del pannello *)
   ]
  ]
 
@@ -1272,7 +1266,6 @@ esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia co
               ],
               Background -> White,  (* Imposta sfondo bianco del pannello *)
               FrameMargins -> 20,  (* Margine interno attorno al contenuto del pannello *)
-              AppearanceElements -> {"CloseBox"},  (* Aggiunge il pulsante di chiusura nella finestra di dialogo *)
               ImageSize -> 400  (* Imposta la dimensione fissa del pannello in pixel *)
             ]
             ]
