@@ -1210,73 +1210,96 @@ cUIButton[] :=  (* Definisce la funzione cUIButton che genera l'interfaccia con 
    }]
  ];
  
+esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia con pulsante e gestione seed *)
+ Deploy@  (* Rende l'interfaccia non modificabile interattivamente dall'utente *)
 
-esUIButton[] :=  (* Definisce la funzione esUIButton che genera l'interfaccia con pulsante e gestione seed *)  
- Deploy@  (* Rende l'interfaccia non modificabile interattivamente dall'utente *)  
- DynamicModule[{content = None, seed = None},  (* Modulo dinamico con variabili locali 'content' e 'seed' *)  
-  Column[{  (* Disposizione verticale degli elementi: pulsante + contenuto *)  
-   Framed[  (* Inserisce una cornice attorno al pulsante *)  
-    Button[  (* Crea un pulsante che avvia l'interfaccia esercizio *)  
-     Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  (* Stile del testo del pulsante: grande, grassetto, blu scuro *)  
-     seed = DialogInput[  (* Apre un dialogo modale per inserire il seed *)  
-       DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Inizializza il campo con un numero casuale tra 1 e 9999 *)  
-        Panel[  (* Crea un pannello grafico contenente gli elementi del dialogo *)  
-         Column[{  (* Disposizione verticale dei componenti del pannello *)  
-           Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  (* Titolo in grigio scuro e grassetto *)  
-           Style[  (* Testo descrittivo sull'uso del seed *)  
-            "Inserisci un numero intero che fungera' da 'seed': questo valore determinera' la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",  
-            12, GrayLevel[0.3], LineSpacing -> 1.5],  (* Stile del testo: piccolo, grigio chiaro, con interlinea *)  
-           Item[  (* Campo di input centrato *)  
-            InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico legato dinamicamente alla variabile s *)  
-            Alignment -> Center  (* Centra il campo nella riga *)  
-            ],  
-           Spacer[15],  (* Spazio verticale tra input e pulsanti *)  
-           Row[{  (* Riga con i pulsanti Annulla e Invio *)  
-             Button["Annulla",  (* Pulsante per annullare l'inserimento del seed *)  
-              DialogReturn[None],  (* Chiude il dialogo restituendo None *)  
-              ImageSize -> {130, 40},  (* Dimensioni del pulsante *)  
-              Appearance -> {"Cancel", "DialogBox"},  (* Aspetto standard da dialogo di sistema *)  
-              BaseStyle -> {12}  (* Font size del testo nel pulsante *)  
-              ],  
-             Spacer[20],  (* Spazio orizzontale tra i due pulsanti *)  
-             Button["Invio",  (* Pulsante per confermare il valore del seed *)  
-              DialogReturn[s],  (* Chiude il dialogo restituendo il valore attuale di s *)  
-              ImageSize -> {130, 40},  (* Dimensioni del pulsante *)  
-              Appearance -> {"Default", "DialogBox"},  (* Aspetto del pulsante principale *)  
-              BaseStyle -> {Bold, 12}  (* Stile grassetto e font size del testo *)  
-              ]  
-             }, Alignment -> Center]  (* Centra i pulsanti nella riga *)  
-           },  
-          Spacings -> 2  (* Imposta la spaziatura verticale tra gli elementi della Column *)  
-          ],  
-         Background -> White,  (* Imposta sfondo bianco del pannello *)  
-         FrameMargins -> 20,  (* Margine interno attorno al contenuto del pannello *)  
-         ImageSize -> 400  (* Imposta la dimensione fissa del pannello in pixel *)  
-         ]  
-        ]  
-       ];  (* Fine del DialogInput: il valore restituito viene assegnato a 'seed' *)  
-     Which[  (* Controlla il valore ottenuto dal dialogo *)  
-      seed === None,  (* Se l'utente ha cliccato Annulla *)  
-      2 + 2 == 4,  (* Esegue operazione neutra: non cambia nulla *)  
-      ! IntegerQ[seed],  (* Se il valore ottenuto non e' un intero *)  
-      MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra un messaggio di errore *)  
-      True,  (* In tutti gli altri casi *)  
-      content = esUI[seed]  (* Genera l'interfaccia esUI[] con il seed ottenuto *)  
-      ],  
-     ImageSize -> {280, 55},  (* Imposta larghezza e altezza del pulsante principale *)  
-     Appearance -> "Frameless",  (* Rimuove la cornice standard del pulsante *)  
-     Method -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell'interfaccia *)  
-     ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell'utente *)  
-    Background -> LightYellow,  (* Sfondo giallo chiaro della cornice del pulsante *)  
-    FrameStyle -> Directive[Thick, Gray],  (* Bordo grigio spesso *)  
-    RoundingRadius -> 10,  (* Angoli arrotondati della cornice *)  
-    FrameMargins -> 10  (* Margine interno tra bordo e contenuto *)  
-    ],  
-   Spacer[20],  (* Spazio verticale tra il pulsante e l'interfaccia interattiva *)  
-   Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell'interfaccia esUI[] *)  
-   }]  
+  DynamicModule[{content = None},  (* Modulo dinamico con variabile locale 'content' inizialmente nulla *)
+   Column[{  (* Disposizione verticale degli elementi: pulsante + contenuto *)
+
+     Framed[  (* Inserisce una cornice attorno al pulsante *)
+      Button[  (* Crea un pulsante che avvia l'interfaccia esercizio *)
+
+       Style["Avvia esercizio interattivo", 16, Bold, Darker@Blue],  (* Stile del testo del pulsante: grande, grassetto, blu scuro *)
+
+       Module[{seed},  (* Blocco eseguito al click: inizializza la variabile locale 'seed' *)
+
+        seed = DialogInput[  (* Apre un dialogo modale per inserire il seed *)
+            DynamicModule[{s = RandomInteger[{1, 9999}]},  (* Inizializza il campo con un numero casuale tra 1 e 9999 *)
+
+            Panel[  (* Crea un pannello grafico contenente gli elementi del dialogo *)
+              Column[{  (* Disposizione verticale dei componenti del pannello *)
+
+                Style["Personalizzazione esercizio con Seed", 18, Bold, Darker@Gray],  (* Titolo in grigio scuro e grassetto *)
+
+                Style[  (* Testo descrittivo sull'uso del seed *)
+                "Inserisci un numero intero che fungera' da 'seed': questo valore determinera' la generazione casuale dell'esercizio, rendendolo ripetibile e controllabile.",
+                12, GrayLevel[0.3], LineSpacing -> 1.5],  (* Stile del testo: piccolo, grigio chiaro, con interlinea *)
+
+                Item[  (* Campo di input centrato *)
+                InputField[Dynamic[s], Number, FieldSize -> 12],  (* Input numerico legato dinamicamente alla variabile s *)
+                Alignment -> Center  (* Centra il campo nella riga *)
+                ],
+
+                Spacer[15],  (* Spazio verticale tra input e pulsanti *)
+
+                Row[{  (* Riga con i pulsanti Annulla e Invio *)
+
+                  Button["Annulla",  (* Pulsante per annullare l'inserimento del seed *)
+                  DialogReturn[None],  (* Chiude il dialogo restituendo None *)
+                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
+                  Appearance -> {"Cancel", "DialogBox"},  (* Aspetto standard da dialogo di sistema *)
+                  BaseStyle -> {12}  (* Font size del testo nel pulsante *)
+                  ],
+
+                  Spacer[20],  (* Spazio orizzontale tra i due pulsanti *)
+
+                  Button["Invio",  (* Pulsante per confermare il valore del seed *)
+                  DialogReturn[s],  (* Chiude il dialogo restituendo il valore attuale di s *)
+                  ImageSize -> {130, 40},  (* Dimensioni del pulsante *)
+                  Appearance -> {"Default", "DialogBox"},  (* Aspetto del pulsante principale *)
+                  BaseStyle -> {Bold, 12}  (* Stile grassetto e font size del testo *)
+                  ],
+
+                }, Alignment -> Center]  (* Centra i pulsanti nella riga *)
+              },
+              Spacings -> 2  (* Imposta la spaziatura verticale tra gli elementi della Column *)
+              ],
+              Background -> White,  (* Imposta sfondo bianco del pannello *)
+              FrameMargins -> 20,  (* Margine interno attorno al contenuto del pannello *)
+              ImageSize -> 400  (* Imposta la dimensione fissa del pannello in pixel *)
+            ]
+            ]
+          ];  (* Fine del DialogInput: il valore restituito viene assegnato a 'seed' *)
+
+        Which[  (* Controlla il valore ottenuto dal dialogo *)
+
+         seed === None,  (* Se l'utente ha cliccato Annulla *)
+          2+2 == 4,  (* Esegue operazione neutra: non cambia nulla *)
+
+         ! IntegerQ[seed],  (* Se il valore ottenuto non e' un intero *)
+          MessageDialog["Seed non valido. Inserisci un intero."],  (* Mostra un messaggio di errore *)
+
+         True,  (* In tutti gli altri casi *)
+          content = esUI[seed]  (* Genera l'interfaccia esUI[] con il seed ottenuto *)
+        ]
+       ],  (* Fine del blocco Module eseguito al click del pulsante *)
+
+       ImageSize    -> {280, 55},  (* Imposta larghezza e altezza del pulsante principale *)
+       Appearance   -> "Frameless",  (* Rimuove la cornice standard del pulsante *)
+       Method       -> "Queued"  (* Specifica che l'azione deve essere eseguita in coda: evita blocchi dell'interfaccia *)
+      ] // Deploy,  (* Protegge anche il pulsante da modifiche dirette dell'utente *)
+
+      Background     -> LightYellow,  (* Sfondo giallo chiaro della cornice del pulsante *)
+      FrameStyle     -> Directive[Thick, Gray],  (* Bordo grigio spesso *)
+      RoundingRadius -> 10,  (* Angoli arrotondati della cornice *)
+      FrameMargins   -> 10  (* Margine interno tra bordo e contenuto *)
+     ],
+
+     Spacer[20],  (* Spazio verticale tra il pulsante e l'interfaccia interattiva *)
+
+     Dynamic[If[content === None, "", content]]  (* Mostra il contenuto solo dopo la generazione dell'interfaccia esUI[] *)
+    }]
   ]
-
 
 End[]
 EndPackage[]
