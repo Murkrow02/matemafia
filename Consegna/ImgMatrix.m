@@ -455,7 +455,7 @@ bUI[] := Column[{  (* Column organizza verticalmente gli elementi elencati: tito
 ClearAll[cUI]  
 (* Pulisce ogni definizione precedente della funzione cUI, utile per evitare conflitti o risultati obsoleti *)
 
-sezioneDinamicaCUI[] := DynamicModule[{ imageDimensions = ImageDimensions[img] }, (* Cattura le dimensioni dell'immagine una sola volta all'avvio *)
+sezioneDinamicaCUI[] := DynamicModule[{ imageDimensions = ImageDimensions[ExampleData[{"TestImage", "House"}]] }, (* Cattura le dimensioni dell'immagine una sola volta all'avvio *)
 
   Dynamic[  (* Blocca che si aggiorna automaticamente se kernelSize o locatorPosition cambiano *)
     Module[{
