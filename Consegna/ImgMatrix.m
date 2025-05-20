@@ -15,69 +15,20 @@
 
 BeginPackage["ImgMatrix`"]
 
-aUI::usage = 
-  "aUI[] crea un'interfaccia grafica interattiva che consente di esplorare il funzionamento delle immagini digitali in scala di grigi e a colori. \
-  L'interfaccia e' suddivisa in due sezioni: nella prima l'utente puo' modificare \
-  una matrice 5x5 cliccando sulle celle, osservando in tempo reale la \
-  rappresentazione numerica e la visualizzazione grafica corrispondente; nella \
-  seconda, e' possibile controllare i valori RGB tramite tre slider e applicare \
-  il colore selezionato a una matrice 5x5, con visualizzazione sia numerica \
-  sia cromatica.";
-
 aUIButton::usage = 
   "aUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo». \
   Al clic, viene caricata dinamicamente l'interfaccia grafica aUI[], che mostra un'esperienza interattiva legata a una trasformazione. \
   La funzione e' utile per introdurre ordinatamente l'attivita', permettendo all'utente di decidere quando iniziare.";
-
-bUI::usage = 
-  "bUI[] crea un'interfaccia grafica interattiva che permette di esplorare tre trasformazioni geometriche fondamentali applicate a un'immagine digitale: rotazione, riflessione e ridimensionamento. \
-  Ogni sezione fornisce controlli intuitivi e una rappresentazione visuale della trasformazione applicata, accompagnata dalla relativa matrice. \
-  L'interfaccia e' progettata per supportare la comprensione visiva e numerica delle trasformazioni lineari nel piano.";
-
-rotazione::usage = 
-  "rotazione[] apre un'interfaccia interattiva che permette di ruotare un'immagine bidimensionale. \
-  L'utente puo' selezionare l'angolo di rotazione tramite uno slider oppure scegliere tra valori predefiniti. \
-  Viene mostrata l'immagine ruotata, la matrice di rotazione associata e un grafico della funzione seno con indicazione del punto corrente.";
-
-riflessione::usage = 
-  "riflessione[] apre un'interfaccia interattiva che consente di riflettere un'immagine rispetto all'asse X o all'asse Y. \
-  L'utente puo' scegliere l'asse tramite un menu a tendina e visualizzare il risultato della trasformazione insieme alla relativa matrice di riflessione.";
-
-scala::usage = 
-  "scala[] apre un'interfaccia interattiva che consente di ridimensionare un'immagine secondo fattori di scala orizzontale e verticale. \
-  I valori possono essere modificati tramite slider o selezionati da preset rapidi. \
-  L'interfaccia visualizza l'immagine scalata, la matrice di trasformazione, il determinante (area relativa) e la trasformazione geometrica applicata a un quadrato unitario.";
 
 bUIButton::usage = 
   "bUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo». \
   Al clic, viene caricata dinamicamente l'interfaccia grafica bUI[], che consente di esplorare le trasformazioni geometriche su un'immagine. \
   Questa funzione e' utile per presentare l'attivita' in modo ordinato, lasciando all'utente la scelta di iniziare l'esercizio.";
 
-cUI::usage = 
-  "cUI[] crea un'interfaccia grafica interattiva per esplorare il concetto di sfocatura (box blur) in un'immagine digitale. \
-  L'utente puo' selezionare un punto dell'immagine e modificare la dimensione del kernel di convoluzione per osservare gli effetti della sfocatura. \
-  L'interfaccia mostra l'immagine originale, quella sfocata, la matrice del kernel utilizzato e il vicinato dei pixel coinvolti nel calcolo, \
-  rendendo visivamente comprensibile il processo di filtraggio spaziale.";
-
 cUIButton::usage = 
   "cUIButton[] visualizza un'interfaccia con un pulsante etichettato «Avvia esempio interattivo»; \
   al clic, carica dinamicamente l'interfaccia grafica cUI[], che consente di esplorare l'effetto di una sfocatura (box blur) su un'immagine. \
   La funzione e' pensata per attivare l'esercizio solo su richiesta dell'utente, mantenendo l'interfaccia iniziale pulita e ordinata.";
-
-es::usage = 
-  "es[seed] seleziona un'immagine casuale e applica 5 trasformazioni geometriche casuali, \
-  visualizzandole insieme all'immagine originale in un'interfaccia interattiva. \
-  L'utente puo' inserire manualmente la matrice associata a ciascuna trasformazione e ricevere un feedback immediato. \
-  Il parametro opzionale seed consente di rendere riproducibile l'esercizio.";
-
-SenCosCalcUI::usage = 
-  "SenCosCalcUI[] visualizza un'interfaccia interattiva per il calcolo del seno e del coseno di un angolo espresso in gradi.";
-
-esUI::usage = 
-  "esUI[] mostra un'interfaccia interattiva con un'immagine di esempio e 5 trasformazioni lineari casuali. \
-  L'utente puo' navigare tra le trasformazioni, inserire matrici personalizzate e confrontare i risultati. \
-  L'interfaccia puo' essere generata anche con es[seed_Integer] per riprodurre una specifica sequenza. \ 
-  Viene mostrata anche una interfaccia grafica utile al calcolo di Seno e Coseno.";
 
 esUIButton::usage = 
   "esUIButton[] visualizza un pulsante etichettato «Avvia esempio interattivo»; \
