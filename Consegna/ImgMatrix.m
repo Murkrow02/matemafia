@@ -719,7 +719,7 @@ SenCosCalcUI[] :=  (* Definisce la funzione SenCosCalcUI che crea un'interfaccia
  ]
 
 (* Funzione aggiornata per creare una trasformazione casuale piu' ricca *)
-randomTransform[] := Module[{transformTypeChoice, subChoice},  (* Definisce una funzione che restituisce una trasformazione lineare casuale.
+randomTransform2[] := Module[{transformTypeChoice, subChoice},  (* Definisce una funzione che restituisce una trasformazione lineare casuale.
                                                                   Usa Module per avere variabili locali: 
                                                                   - transformTypeChoice seleziona il tipo di trasformazione (rotazione, scala, riflessione)
                                                                   - subChoice conterra' la trasformazione selezionata e la sua matrice *)
@@ -772,310 +772,233 @@ randomTransform[] := Module[{transformTypeChoice, subChoice},  (* Definisce una 
   subChoice  (* Restituisce il risultato: una lista con descrizione e matrice della trasformazione scelta *)
 ];
 
-(* Definizione della funzione principale "es" che accetta un parametro opzionale "seed" *)
-es[seed_: Automatic] := Module[
 
-  {
-    (* Variabili locali usate nel modulo -------------------------------------- *)
-    img,              (* Immagine originale scelta casualmente dalla libreria integrata *)
-    dims,             (* Dimensioni dell'immagine: {larghezza, altezza} *)
-    center,           (* Punto centrale dell'immagine in coordinate 2D *)
-    transformations,  (* Lista di 5 trasformazioni geometriche casuali, ciascuna con descrizione e matrice 2x2 *)
-    transformedImgs,  (* Lista di immagini trasformate tramite le 5 trasformazioni generate *)
-    seedUsed          (* Seed effettivamente usato per inizializzare il generatore casuale *)
-  },
-
-  (* === 1. Scelta del seed ================================================== *)
-  (* Se l'utente fornisce un intero, lo usa direttamente come seed.
-     Altrimenti genera un intero casuale compreso tra 0 e 10^6 *)
-  seedUsed = If[IntegerQ[seed], seed, RandomInteger[10^6]];
-
-  SeedRandom[seedUsed];  (* Imposta il generatore casuale per garantire la riproducibilita' dei risultati *)
-
-  (* === 2. Caricamento dell'immagine di esempio ============================= *)
-  img = ExampleData[{
-    "TestImage", 
-    RandomChoice[{  (* Selezione casuale da una lista di immagini predefinite *)
-      "House", "Mandrill", "Boat", "Peppers", "Girl", 
-      "Aerial", "Airplane", "House2", "Moon", "Tank", 
-      "Tank2", "Tank3"
+randomTransform[] := Module[{transformTypeChoice, subChoice, sx, sy},
+  
+  transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];
+  
+  subChoice = Switch[transformTypeChoice,
+    
+    "Rotazione",
+    RandomChoice[{
+      {"Rotazione 0 gradi", IdentityMatrix[2]},
+      {"Rotazione 45 gradi", {{0.7071, -0.7071}, {0.7071, 0.7071}}},
+      {"Rotazione 90 gradi", {{0, -1}, {1, 0}}},
+      {"Rotazione 135 gradi", {{-0.7071, -0.7071}, {0.7071, -0.7071}}},
+      {"Rotazione 180 gradi", {{-1, 0}, {0, -1}}},
+      {"Rotazione 225 gradi", {{-0.7071, 0.7071}, {-0.7071, -0.7071}}},
+      {"Rotazione 270 gradi", {{0, 1}, {-1, 0}}},
+      {"Rotazione 315 gradi", {{0.7071, 0.7071}, {-0.7071, 0.7071}}}
+    }],
+    
+    "Scalatura",
+    (
+      sx = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];
+      sy = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];
+      {"Scalatura (" <> ToString[sx] <> ", " <> ToString[sy] <> ")", DiagonalMatrix[{sx, sy}]}
+    ),
+    
+    "Riflessione",
+    RandomChoice[{
+      {"Riflessione X", {{1, 0}, {0, -1}}},
+      {"Riflessione Y", {{-1, 0}, {0, 1}}},
+      {"Riflessione Y=X", {{0, 1}, {1, 0}}},
+      {"Riflessione Y=-X", {{0, -1}, {-1, 0}}},
+      {"Riflessione Y=2X", (1/5) {{-3, 4}, {4, 3}}},
+      {"Riflessione Y=-1/2X", (1/5) {{-1, 4}, {4, 1}}}
     }]
-  }];
-
-  (* === 3. Calcolo delle dimensioni e del centro ============================ *)
-  dims = ImageDimensions[img];  (* Ottiene la dimensione dell'immagine in pixel: {larghezza, altezza} *)
-
-  center = Mean /@ Transpose[{{1, 1}, dims}];  
-  (* Calcola il centro dell'immagine:
-     - considera il rettangolo delimitato tra l'angolo in alto a sinistra {1,1}
-       e quello in basso a destra {larghezza, altezza}
-     - prende la media tra le coordinate X e tra le coordinate Y per ottenere il punto centrale *)
-
-  (* === 4. Generazione di 5 trasformazioni casuali ========================== *)
-  transformations = Table[randomTransform[], {5}];  
-  (* Genera 5 trasformazioni geometriche casuali, ciascuna come coppia:
-     {descrizione testuale, matrice 2x2} *)
-
-  (* === 5. Applicazione delle trasformazioni all'immagine =================== *)
-  transformedImgs = Table[
-    Module[
-      {
-        matrix = transformations[[i, 2]],  (* Estrae la matrice 2x2 della i-esima trasformazione *)
-        transfFun                          (* Funzione che applica la trasformazione ai punti dell'immagine *)
-      },
-      transfFun = Function[
-        p, center + matrix . (p - center)  
-        (* Funzione affine: trasforma ogni punto p dell'immagine ruotandolo/scalandolo/...
-           rispetto al centro geometrico *)
-      ];
-
-      ImageTransformation[
-        img, transfFun,                   (* Applica la trasformazione all'immagine *)
-        DataRange -> Full,                (* Specifica che i punti p appartengono all'intera immagine *)
-        Resampling -> "Linear"            (* Usa interpolazione lineare per migliorare la qualita' *)
-      ]
-    ],
-    {i, 5}  (* Ripete il processo per ciascuna delle 5 trasformazioni *)
+    
   ];
-(* Crea l'interfaccia utente interattiva tramite DynamicModule  *)
-DynamicModule[
-
-  {
-    (* Variabili locali usate nel modulo dinamico --------------------------- *)
-    index = 1,  (* Indice dell'esercizio corrente, compreso tra 1 e 5 *)
-    userMatrix = ConstantArray[0, {2, 2}],  (* Matrice 2x2 inserita dall'utente per tentare la trasformazione *)
-    resultText = "",  (* Messaggio di feedback all'utente: “Corretto!” o “Sbagliato!” *)
-    userImage = img  (* Copia dell'immagine originale da trasformare manualmente *)
-  },
-
-  (* Crea il pannello principale con tutti gli elementi dell'interfaccia ---- *)
-  Panel[
-    Column[{
-
-      (* === Area superiore: intestazione e controlli ====================== *)
-      Framed[
-        Column[{
-
-          (* Titolo dinamico: mostra numero esercizio e seed usato -------- *)
-          Dynamic[
-            Column[{
-              Style[
-                "Esercizio " <> ToString[index] <> "/5",  (* Intestazione con indice esercizio *)
-                Bold, 16, Darker[Green]  (* Stile evidenziato: grassetto, dimensione 16, colore verde scuro *)
-              ],
-              Spacer[5],  (* Spazio verticale tra titolo ed etichetta seed *)
-              Style[
-                "Seed: " <> ToString[seedUsed],  (* Visualizza il seed usato per le trasformazioni *)
-                Italic, 12, Darker[Gray]  (* Stile in corsivo, dimensione 12, colore grigio scuro *)
-              ]
-            }]
-          ],
-
-          Spacer[5],  (* Spazio tra il titolo e i pulsanti *)
-
-          (* === Pulsanti di navigazione e suggerimento =================== *)
-          Grid[{
-            {
-
-              (* Pulsante: esercizio precedente ---------------------------- *)
-              Button[
-                Style["< Precedente", Bold, 12, Gray],  (* Etichetta con stile *)
-                If[index > 1,  (* Solo se non si e' al primo esercizio *)
-                  index--;  (* Decrementa indice *)
-                  userMatrix = ConstantArray[0, {2, 2}];  (* Resetta matrice utente *)
-                  resultText = "";  (* Pulisce messaggio di feedback *)
-                  userImage = img  (* Ripristina immagine originale *)
-                ],
-                Appearance -> {"DialogBox"},  (* Aspetto visivo del bottone *)
-                ImageSize -> {110, 25},  (* Dimensioni in pixel del bottone *)
-                BaseStyle -> {FontFamily -> "Helvetica"}  (* Font coerente con lo stile generale *)
-              ],
-
-              (* Pulsante: mostra matrice corretta come suggerimento ------- *)
-              Button[
-                Style["Suggerimento", Bold, 12, Black],  (* Etichetta pulsante *)
-                CreateDialog[  (* Apre una finestra di dialogo con la matrice *)
-                  Panel[
-                    Column[{
-                      Style["Matrice della trasformazione corrente", Bold, 14, Darker@Gray],
-                      Spacer[10],
-                      Framed[
-                        Style[MatrixForm[transformations[[index, 2]]], 14, Black],  
-                        (* Mostra la matrice come suggerimento, formattata in MatrixForm *)
-                        FrameStyle -> LightGray,  (* Bordo grigio chiaro *)
-                        Background -> GrayLevel[0.97],  (* Sfondo quasi bianco *)
-                        RoundingRadius -> 5,  (* Angoli stondati *)
-                        FrameMargins -> 10  (* Margini interni *)
-                      ],
-                      Spacer[15],
-                      DefaultButton[]  (* Pulsante “OK” per chiudere la finestra *)
-                    }, Spacings -> 1.5],  (* Spaziatura verticale maggiore *)
-                    BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
-                  ],
-                  WindowTitle -> "Suggerimento",  (* Titolo della finestra *)
-                  WindowSize -> {300, 300},  (* Dimensione della finestra di dialogo *)
-                  Background -> White  (* Sfondo completamente bianco *)
-                ],
-                Appearance -> {"DialogBox"},
-                ImageSize -> {130, 25},
-                BaseStyle -> {FontFamily -> "Helvetica"}
-              ],
-
-              
-              Button[
-                Style["Successivo >", Bold, 12, Gray],
-                If[
-                  index < 5,  (* Solo se non si e' all'ultimo esercizio *)
-                  index++;  (* Incrementa indice *)
-                  userMatrix = ConstantArray[0, {2, 2}];  (* Resetta matrice utente *)
-                  resultText = "";  (* Pulisce feedback *)
-                  userImage = img  (* Ripristina immagine originale *)
-                ],
-                Appearance -> {"DialogBox"},
-                ImageSize -> {110, 25},
-                BaseStyle -> {FontFamily -> "Helvetica"}
-              ]
-            }
-          }, Spacings -> {2, 2}]  (* Spaziatura tra i tre pulsanti *)
-        }],
-        FrameStyle -> Directive[Gray, Thin],  (* Bordo sottile grigio *)
-        RoundingRadius -> 5  (* Angoli arrotondati del riquadro *)
-      ],
-
-               Spacer[10],  (* Spazio verticale tra il riquadro dei pulsanti e la descrizione della trasformazione *)
-
-        (* === Descrizione testuale della trasformazione corrente ========== *)
-        Style[
-          Dynamic["Trasformazione: " <> transformations[[index, 1]]],  
-          (* Mostra in tempo reale la descrizione testuale della trasformazione corrente *)
-          Bold, 14, Blue  (* Stile in grassetto, dimensione 14, colore blu *)
-        ],
-
-        (* === Confronto visivo: immagine originale vs trasformata ========= *)
-        Grid[{
-          {
-            (* Colonna sinistra: immagine originale *)
-            Labeled[
-              Framed[img, FrameStyle -> LightGray],  (* Riquadro grigio chiaro attorno all'immagine originale *)
-              Style["Originale", Bold],  (* Etichetta sopra l'immagine *)
-              Top  (* Posizione dell'etichetta: in alto *)
-            ],
-
-            Spacer[20],  (* Spazio orizzontale tra le due immagini *)
-
-            (* Colonna destra: immagine trasformata corretta *)
-            Labeled[
-              Framed[
-                Dynamic[transformedImgs[[index]]],  (* Immagine trasformata visualizzata dinamicamente *)
-                FrameStyle -> LightGray  (* Bordo grigio chiaro *)
-              ],
-              Style["Trasformata", Bold],  (* Etichetta sopra l'immagine trasformata *)
-              Top
-            ]
-          }
-        }],
-
-        Spacer[5],  (* Spazio verticale prima dell'input *)
-
-        (* === Intestazione per l'inserimento della matrice utente ========= *)
-        Style["Inserisci la tua matrice 2x2:", Bold, 12],  
-        (* Invita l'utente a inserire la matrice associata alla trasformazione *)
-
-        (* === Campi di input per la matrice utente (4 celle) ============== *)
-        Grid[{
-          {
-            InputField[Dynamic[userMatrix[[1, 1]]], Number, FieldSize -> 6],  
-            (* Campo per la cella in alto a sinistra *)
-            InputField[Dynamic[userMatrix[[1, 2]]], Number, FieldSize -> 6]  
-            (* Campo per la cella in alto a destra *)
-          },
-          {
-            InputField[Dynamic[userMatrix[[2, 1]]], Number, FieldSize -> 6],  
-            (* Campo per la cella in basso a sinistra *)
-            InputField[Dynamic[userMatrix[[2, 2]]], Number, FieldSize -> 6]  
-            (* Campo per la cella in basso a destra *)
-          }
-        }, Spacings -> {1, 1}]  (* Imposta la spaziatura tra i campi della matrice *)
-
-                Spacer[5],  (* Spazio verticale prima della sezione di verifica *)
-
-        (* === Verifica e output =========================================== *)
-        DynamicModule[{},  (* Modulo dinamico per contenere il pulsante e il feedback *)
-          Column[{
-
-            (* === Pulsante "Verifica" che controlla se la matrice inserita e' corretta === *)
-            Button[
-              Style["Verifica", Bold, 12, Black],  (* Etichetta del pulsante con stile coerente *)
-              Module[
-                {
-                  isCorrect,   (* Variabile booleana per esito correttezza *)
-                  matrixFun    (* Funzione trasformazione costruita dalla matrice utente *)
-                },
-                isCorrect = userMatrix === transformations[[index, 2]];  
-                (* Confronta la matrice dell'utente con quella corretta dell'esercizio corrente *)
-
-                resultText = If[isCorrect, "Corretto!", "Sbagliato!"];  
-                (* Aggiorna il messaggio di feedback in base al risultato *)
-
-                matrixFun = Function[p, center + userMatrix . (p - center)];  
-                (* Definisce la trasformazione affine corrispondente alla matrice inserita *)
-
-                userImage = ImageTransformation[
-                  img, matrixFun, 
-                  DataRange -> Full, 
-                  Resampling -> "Linear"
-                ];  
-                (* Applica la trasformazione all'immagine originale, centrata rispetto al centro *)
-              ],
-              Appearance -> {"DialogBox"},  (* Aspetto grafico coerente con gli altri pulsanti *)
-              ImageSize -> {400, 35},       (* Dimensioni del pulsante in pixel *)
-              BaseStyle -> {FontFamily -> "Helvetica"}  (* Font coerente con l'interfaccia *)
-            ],
-
-            Spacer[10],  (* Spazio tra pulsante e risultato dinamico *)
-
-            (* === Mostra dinamicamente il risultato e la trasformazione utente === *)
-            Dynamic[
-              If[resultText =!= "",  (* Se e' stato calcolato un risultato, lo mostra *)
-                Column[{
-                  Spacer[10],
-                  Style[
-                    resultText,  (* Testo "Corretto!" o "Sbagliato!" *)
-                    Bold, 14,
-                    If[resultText === "Corretto!", Darker[Green], Red]  
-                    (* Colore verde scuro se corretto, rosso se errato *)
-                  ],
-                  Grid[{
-                    {
-                      Labeled[
-                        Framed[img, FrameStyle -> LightGray],  (* Immagine originale *)
-                        Style["Originale", Bold],
-                        Top
-                      ],
-                      Spacer[20],  (* Spazio tra le due immagini *)
-
-                      Labeled[
-                        Framed[userImage, FrameStyle -> LightGray],  (* Immagine trasformata dall'utente *)
-                        Style["Tua trasformazione", Bold],
-                        Top
-                      ]
-                    }
-                  }]
-                }, Spacings -> 1.5],  (* Spaziatura verticale tra messaggio e immagini *)
-                ""  (* Se nessun risultato, non mostra nulla *)
-              ],
-              TrackedSymbols :> {resultText, userImage}  
-              (* Aggiorna dinamicamente solo se cambiano questi simboli *)
-            ]
-          }]
-        ]
-      },
-      Spacings -> 1.5  (* Spaziatura uniforme tra le sezioni principali *)
-      ],
-      BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}  (* Stile grafico generale del pannello *)
-    ]
-  ]
+  
+  subChoice  (* returns {label, matrix} *)
 ];
+
+
+
+es[seed_: Automatic] := DynamicModule[{
+   img, dims, center, transformations, transformedImgs, 
+   seedUsed, index = 1, userMatrix, resultText = "", userImage
+   },
+
+  (* === 1. Seed === *)
+  seedUsed = If[IntegerQ[seed], seed, RandomInteger[10^6]];
+  SeedRandom[seedUsed];
+
+  (* === 2. Image === *)
+  img = ExampleData[{"TestImage", 
+     RandomChoice[{
+       "House", "Mandrill", "Boat", "Peppers", "Girl", 
+       "Aerial", "Airplane", "House2", "Moon", "Tank", 
+       "Tank2", "Tank3"}]}];
+  userImage = img;
+
+  (* === 3. Geometry === *)
+  dims = ImageDimensions[img];
+  center = Mean /@ Transpose[{{1, 1}, dims}];
+
+  (* === 4. Transformations === *)
+  transformations = Table[randomTransform[], {5}];
+
+  (* === 5. Transformed images === *)
+  transformedImgs = Table[
+    With[{matrix = transformations[[i, 2]]},
+     ImageTransformation[
+      img,
+      Function[p, center + matrix.(p - center)],
+      DataRange -> Full,
+      Resampling -> "Linear"
+      ]
+     ],
+    {i, 5}
+    ];
+
+  (* Initialize userMatrix *)
+  userMatrix = ConstantArray[0, {2, 2}];
+
+  Panel[
+   Column[{
+     Framed[
+      Column[{
+        Dynamic[
+         Column[{
+           Style["Esercizio " <> ToString[index] <> "/5", Bold, 16, 
+            Darker[Green]],
+           Style["Seed: " <> ToString[seedUsed], Italic, 12, 
+            Darker[Gray]]
+           }]
+         ],
+        Grid[{
+          {
+           Button[
+            Style["< Precedente", Bold, 12, Gray],
+            If[index > 1,
+             index--;
+             userMatrix = ConstantArray[0, {2, 2}];
+             resultText = "";
+             userImage = img;
+             ],
+            Appearance -> {"DialogBox"},
+            ImageSize -> {110, 25}
+            ],
+           Button[
+            Style["Suggerimento", Bold, 12, Black],
+            CreateDialog[
+             Panel[
+              Column[{
+                Style["Matrice della trasformazione corrente", Bold, 
+                 14, Darker@Gray],
+                Spacer[10],
+                Framed[
+                 Style[MatrixForm[transformations[[index, 2]]], 14, 
+                  Black],
+                 FrameStyle -> LightGray,
+                 Background -> GrayLevel[0.97],
+                 RoundingRadius -> 5,
+                 FrameMargins -> 10
+                 ],
+                Spacer[15],
+                DefaultButton[]
+                }]
+              ],
+             WindowTitle -> "Suggerimento",
+             WindowSize -> {300, 300}
+             ],
+            Appearance -> {"DialogBox"},
+            ImageSize -> {130, 25}
+            ],
+           Button[
+            Style["Successivo >", Bold, 12, Gray],
+            If[index < 5,
+             index++;
+             userMatrix = ConstantArray[0, {2, 2}];
+             resultText = "";
+             userImage = img;
+             ],
+            Appearance -> {"DialogBox"},
+            ImageSize -> {110, 25}
+            ]
+           }
+          }]
+        }],
+      FrameStyle -> Directive[Gray, Thin],
+      RoundingRadius -> 5
+      ],
+
+     Spacer[10],
+     Style[Dynamic["Trasformazione: " <> transformations[[index, 1]]], 
+      Bold, 14, Blue],
+
+     Grid[{
+       {
+        Labeled[Framed[img, FrameStyle -> LightGray], 
+         Style["Originale", Bold], Top],
+        Spacer[20],
+        Labeled[
+         Framed[Dynamic[transformedImgs[[index]]], 
+          FrameStyle -> LightGray], Style["Trasformata", Bold], Top]
+        }
+       }],
+
+     Spacer[10],
+     Style["Inserisci la tua matrice 2x2:", Bold, 12],
+     Grid[{
+       {
+        InputField[Dynamic[userMatrix[[1, 1]]], Number, 
+         FieldSize -> 6],
+        InputField[Dynamic[userMatrix[[1, 2]]], Number, 
+         FieldSize -> 6]
+        },
+       {
+        InputField[Dynamic[userMatrix[[2, 1]]], Number, 
+         FieldSize -> 6],
+        InputField[Dynamic[userMatrix[[2, 2]]], Number, 
+         FieldSize -> 6]
+        }
+       }, Spacings -> {1, 1}],
+
+     Spacer[5],
+     Button[
+      Style["Verifica", Bold, 12, Black],
+      Module[{isCorrect, matrixFun},
+       isCorrect = userMatrix === transformations[[index, 2]];
+       resultText = If[isCorrect, "Corretto!", "Sbagliato!"];
+       matrixFun = Function[p, center + userMatrix . (p - center)];
+       userImage = ImageTransformation[
+         img, matrixFun, DataRange -> Full, Resampling -> "Linear"];
+       ],
+      Appearance -> {"DialogBox"},
+      ImageSize -> {400, 35}
+      ],
+
+     Spacer[10],
+     Dynamic[
+      If[resultText =!= "",
+       Column[{
+         Style[resultText, Bold, 14, 
+          If[resultText === "Corretto!", Darker[Green], Red]],
+         Grid[{
+           {
+            Labeled[Framed[img, FrameStyle -> LightGray], 
+             Style["Originale", Bold], Top],
+            Spacer[20],
+            Labeled[Framed[userImage, FrameStyle -> LightGray], 
+             Style["Tua trasformazione", Bold], Top]
+            }
+           }]
+         }, Spacings -> 1.5],
+       ""
+       ],
+      TrackedSymbols :> {resultText, userImage}
+      ]
+     },
+    Spacings -> 1.5,
+    BaseStyle -> {FontFamily -> "Helvetica", FontSize -> 12}
+    ]
+   ]
+  ];
+
+
+
 
 (* ============================== SEZIONE BOTTONI ============================== *)
 
