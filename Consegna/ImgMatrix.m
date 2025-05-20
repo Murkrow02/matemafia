@@ -5,7 +5,7 @@
 ( :Copyright: Matemafia2025 )
 ( :Package Version: 1 )
 ( :Mathematica Version: 14.2 )
-( :History: last modified 08/05/2025 )
+( :History: last modified 20/05/2025 )
 ( :Keywords: immagini digitali, matrici, trasformazioni lineari, RGB, convoluzione, filtro, rotazione, scala, riflessione, kernel )
 ( :Sources: biblio/sitog )
 ( :Limitations: Questo materiale è pensato per scopi educativi e introduttivi. Alcune semplificazioni teoriche sono presenti per facilitare la comprensione. )
@@ -718,68 +718,17 @@ SenCosCalcUI[] :=  (* Definisce la funzione SenCosCalcUI che crea un'interfaccia
   ]
  ]
 
-(* Funzione aggiornata per creare una trasformazione casuale piu' ricca *)
-randomTransform2[] := Module[{transformTypeChoice, subChoice},  (* Definisce una funzione che restituisce una trasformazione lineare casuale.
-                                                                  Usa Module per avere variabili locali: 
-                                                                  - transformTypeChoice seleziona il tipo di trasformazione (rotazione, scala, riflessione)
-                                                                  - subChoice conterra' la trasformazione selezionata e la sua matrice *)
-
-  transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];  
-  (* Sceglie casualmente una delle tre categorie di trasformazioni geometriche *)
-
-  Switch[transformTypeChoice,  (* Esegue un blocco diverso in base alla trasformazione scelta *)
-
-    "Rotazione",  (* Caso: tipo di trasformazione = rotazione *)
-
-    subChoice = RandomChoice[{  (* Sceglie casualmente una tra otto rotazioni con la rispettiva matrice 2x2 *)
-
-      {"Rotazione 0 gradi",    IdentityMatrix[2]},  (* Nessuna rotazione: matrice identita' *)
-      {"Rotazione 45 gradi",   {{0.7071, -0.7071}, {0.7071, 0.7071}}},  (* Rotazione antioraria di 45° *)
-      {"Rotazione 90 gradi",   {{0, -1}, {1, 0}}},  (* Rotazione di 90° antioraria *)
-      {"Rotazione 135 gradi",  {{-0.7071, -0.7071}, {0.7071, -0.7071}}},  (* Rotazione di 135° *)
-      {"Rotazione 180 gradi",  {{-1, 0}, {0, -1}}},  (* Rotazione di 180° (simmetria centrale) *)
-      {"Rotazione 225 gradi",  {{-0.7071, 0.7071}, {-0.7071, -0.7071}}},  (* Rotazione di 225° *)
-      {"Rotazione 270 gradi",  {{0, 1}, {-1, 0}}},  (* Rotazione di 270° *)
-      {"Rotazione 315 gradi",  {{0.7071, 0.7071}, {-0.7071, 0.7071}}}  (* Rotazione di 315° *)
-    }],
-
-    "Scalatura",  (* Caso: tipo di trasformazione = scalatura *)
-
-    Module[{sx, sy},  (* Crea un sottoblocco locale con due fattori di scala: sx (asse X), sy (asse Y) *)
-
-      sx = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];  (* Sceglie casualmente un fattore di scala per X (escludendo 0) *)
-      sy = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];  (* Sceglie casualmente un fattore di scala per Y *)
-
-      subChoice = {  (* Costruisce la coppia descrizione + matrice diagonale *)
-        "Scalatura (" <> ToString[sx] <> ", " <> ToString[sy] <> ")",  (* Descrizione testuale della trasformazione *)
-        DiagonalMatrix[{sx, sy}]  (* Matrice diagonale con i fattori di scala sx e sy *)
-      };
-    ],
-
-    "Riflessione",  (* Caso: tipo di trasformazione = riflessione *)
-
-    subChoice = RandomChoice[{  (* Sceglie casualmente una tra le riflessioni predefinite *)
-
-      {"Riflessione X",      {{1, 0}, {0, -1}}},  (* Riflette rispetto all'asse X *)
-      {"Riflessione Y",      {{-1, 0}, {0, 1}}},  (* Riflette rispetto all'asse Y *)
-      {"Riflessione Y=X",    {{0, 1}, {1, 0}}},  (* Riflette rispetto alla bisettrice Y = X *)
-      {"Riflessione Y=-X",   {{0, -1}, {-1, 0}}},  (* Riflette rispetto alla bisettrice Y = -X *)
-      {"Riflessione Y=2X",   (1/5) {{-3, 4}, {4, 3}}},  (* Riflette rispetto alla retta Y = 2X, matrice normalizzata *)
-      {"Riflessione Y=-1/2X",(1/5) {{-1, 4}, {4, 1}}}  (* Riflette rispetto alla retta Y = -1/2X, matrice normalizzata *)
-    }]
-  ];
-
-  subChoice  (* Restituisce il risultato: una lista con descrizione e matrice della trasformazione scelta *)
-];
-
-
+(* Definisce una funzione randomTransform che restituisce una trasformazione casuale *)
 randomTransform[] := Module[{transformTypeChoice, subChoice, sx, sy},
   
+  (* Sceglie casualmente il tipo di trasformazione: Rotazione, Scalatura, Riflessione *)
   transformTypeChoice = RandomChoice[{"Rotazione", "Scalatura", "Riflessione"}];
   
+  (* In base al tipo scelto, seleziona una trasformazione specifica *)
   subChoice = Switch[transformTypeChoice,
     
     "Rotazione",
+    (* Sceglie casualmente una rotazione tra angoli predefiniti *)
     RandomChoice[{
       {"Rotazione 0 gradi", IdentityMatrix[2]},
       {"Rotazione 45 gradi", {{0.7071, -0.7071}, {0.7071, 0.7071}}},
@@ -793,12 +742,14 @@ randomTransform[] := Module[{transformTypeChoice, subChoice, sx, sy},
     
     "Scalatura",
     (
+      (* Sceglie casualmente i fattori di scala lungo x e y *)
       sx = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];
       sy = RandomChoice[{-4, -3, -2, -1, 1, 2, 3, 4}];
       {"Scalatura (" <> ToString[sx] <> ", " <> ToString[sy] <> ")", DiagonalMatrix[{sx, sy}]}
     ),
     
     "Riflessione",
+    (* Sceglie casualmente una riflessione tra diverse opzioni *)
     RandomChoice[{
       {"Riflessione X", {{1, 0}, {0, -1}}},
       {"Riflessione Y", {{-1, 0}, {0, 1}}},
@@ -810,19 +761,22 @@ randomTransform[] := Module[{transformTypeChoice, subChoice, sx, sy},
     
   ];
   
-  subChoice  (* returns {label, matrix} *)
+  (* Ritorna la trasformazione scelta *)
+  subChoice
 ];
 
-
-
+(* Definizione di una DynamicModule per creare un'interfaccia interattiva *)
 es[seed_: Automatic] := DynamicModule[{
    img, dims, center, transformations, transformedImgs, 
    seedUsed, index = 1, userMatrix, resultText = "", userImage
-   },
+   }, (* dichiarazione delle variabili locali *)
 
   (* === 1. Seed === *)
   seedUsed = If[IntegerQ[seed], seed, RandomInteger[10^6]];
+  (* Se l'argomento seed è un intero, lo usa, altrimenti genera un numero casuale *)
+
   SeedRandom[seedUsed];
+  (* Imposta il seed per la generazione casuale, garantendo riproducibilità *)
 
   (* === 2. Image === *)
   img = ExampleData[{"TestImage", 
@@ -830,14 +784,21 @@ es[seed_: Automatic] := DynamicModule[{
        "House", "Mandrill", "Boat", "Peppers", "Girl", 
        "Aerial", "Airplane", "House2", "Moon", "Tank", 
        "Tank2", "Tank3"}]}];
+  (* Seleziona casualmente un'immagine di esempio dalla lista *)
+
   userImage = img;
+  (* Inizializza userImage con l'immagine originale *)
 
   (* === 3. Geometry === *)
   dims = ImageDimensions[img];
+  (* Ottiene le dimensioni dell'immagine *)
+
   center = Mean /@ Transpose[{{1, 1}, dims}];
+  (* Calcola il centro geometrico dell'immagine *)
 
   (* === 4. Transformations === *)
   transformations = Table[randomTransform[], {5}];
+  (* Genera 5 trasformazioni casuali, ciascuna restituita da randomTransform[] *)
 
   (* === 5. Transformed images === *)
   transformedImgs = Table[
@@ -851,26 +812,32 @@ es[seed_: Automatic] := DynamicModule[{
      ],
     {i, 5}
     ];
+  (* Applica ogni trasformazione all'immagine e ne salva il risultato *)
 
   (* Initialize userMatrix *)
   userMatrix = ConstantArray[0, {2, 2}];
+  (* Inizializza la matrice dell’utente con zeri *)
 
-  Panel[
-   Column[{
-     Framed[
+  Panel[ (* Crea un pannello con tutta l'interfaccia grafica *)
+   Column[{ (* Colonna principale dell'interfaccia *)
+     
+     Framed[ (* Blocco superiore con controlli di navigazione *)
       Column[{
         Dynamic[
          Column[{
            Style["Esercizio " <> ToString[index] <> "/5", Bold, 16, 
             Darker[Green]],
+           (* Mostra il numero corrente dell'esercizio *)
+           
            Style["Seed: " <> ToString[seedUsed], Italic, 12, 
             Darker[Gray]]
+           (* Mostra il seed utilizzato *)
            }]
          ],
-        Grid[{
+        Grid[{ (* Pulsanti: Precedente, Suggerimento, Successivo *)
           {
            Button[
-            Style["< Precedente", Bold, 12, Gray],
+            Style["< Precedente", Bold, 12, Black],
             If[index > 1,
              index--;
              userMatrix = ConstantArray[0, {2, 2}];
@@ -880,8 +847,10 @@ es[seed_: Automatic] := DynamicModule[{
             Appearance -> {"DialogBox"},
             ImageSize -> {110, 25}
             ],
+           (* Torna all'esercizio precedente, resetta lo stato *)
+
            Button[
-            Style["Suggerimento", Bold, 12, Black],
+            Style["Suggerimento", Bold, 12, Red],
             CreateDialog[
              Panel[
               Column[{
@@ -906,8 +875,10 @@ es[seed_: Automatic] := DynamicModule[{
             Appearance -> {"DialogBox"},
             ImageSize -> {130, 25}
             ],
+           (* Mostra un suggerimento con la matrice corretta della trasformazione *)
+
            Button[
-            Style["Successivo >", Bold, 12, Gray],
+            Style["Successivo >", Bold, 12, Black],
             If[index < 5,
              index++;
              userMatrix = ConstantArray[0, {2, 2}];
@@ -917,6 +888,7 @@ es[seed_: Automatic] := DynamicModule[{
             Appearance -> {"DialogBox"},
             ImageSize -> {110, 25}
             ]
+           (* Va all'esercizio successivo, resettando lo stato *)
            }
           }]
         }],
@@ -925,10 +897,12 @@ es[seed_: Automatic] := DynamicModule[{
       ],
 
      Spacer[10],
+     
      Style[Dynamic["Trasformazione: " <> transformations[[index, 1]]], 
       Bold, 14, Blue],
+     (* Mostra il nome della trasformazione corrente *)
 
-     Grid[{
+     Grid[{ (* Mostra immagine originale e trasformata *)
        {
         Labeled[Framed[img, FrameStyle -> LightGray], 
          Style["Originale", Bold], Top],
@@ -940,8 +914,11 @@ es[seed_: Automatic] := DynamicModule[{
        }],
 
      Spacer[10],
+     
      Style["Inserisci la tua matrice 2x2:", Bold, 12],
-     Grid[{
+     (* Istruzione per l’utente *)
+
+     Grid[{ (* Campi input per la matrice 2x2 *)
        {
         InputField[Dynamic[userMatrix[[1, 1]]], Number, 
          FieldSize -> 6],
@@ -957,25 +934,36 @@ es[seed_: Automatic] := DynamicModule[{
        }, Spacings -> {1, 1}],
 
      Spacer[5],
+     
      Button[
       Style["Verifica", Bold, 12, Black],
       Module[{isCorrect, matrixFun},
        isCorrect = userMatrix === transformations[[index, 2]];
+       (* Controlla se la matrice inserita è corretta *)
+
        resultText = If[isCorrect, "Corretto!", "Sbagliato!"];
+       (* Imposta il testo del risultato *)
+
        matrixFun = Function[p, center + userMatrix . (p - center)];
+       (* Funzione che applica la trasformazione dell’utente *)
+
        userImage = ImageTransformation[
          img, matrixFun, DataRange -> Full, Resampling -> "Linear"];
+       (* Applica la trasformazione dell’utente all’immagine *)
        ],
       Appearance -> {"DialogBox"},
       ImageSize -> {400, 35}
       ],
-
+     
      Spacer[10],
+
      Dynamic[
       If[resultText =!= "",
        Column[{
          Style[resultText, Bold, 14, 
           If[resultText === "Corretto!", Darker[Green], Red]],
+         (* Mostra "Corretto!" o "Sbagliato!" in colore appropriato *)
+
          Grid[{
            {
             Labeled[Framed[img, FrameStyle -> LightGray], 
@@ -996,9 +984,6 @@ es[seed_: Automatic] := DynamicModule[{
     ]
    ]
   ];
-
-
-
 
 (* ============================== SEZIONE BOTTONI ============================== *)
 
